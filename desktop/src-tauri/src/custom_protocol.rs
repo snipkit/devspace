@@ -12,7 +12,7 @@ use thiserror::Error;
 use url::Url;
 
 // Should match the one from "tauri.config.json" and "Info.plist"
-const APP_IDENTIFIER: &str = "sh.loft.devspace";
+const APP_IDENTIFIER: &str = "sh.khulnasoft.devspace";
 const APP_URL_SCHEME: &str = "devspace";
 
 pub struct CustomProtocol;

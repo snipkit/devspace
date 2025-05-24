@@ -71,14 +71,13 @@ func TestTLSConfigKey(t *testing.T) {
 	dialer := net.Dialer{}
 	getCert := &GetCertHolder{GetCert: func() (*tls.Certificate, error) { return nil, nil }}
 	uniqueConfigurations := map[string]*Config{
-		"proxy":                      {Proxy: func(request *http.Request) (*url.URL, error) { return nil, nil }},
-		"no tls":                     {},
-		"dialer":                     {DialHolder: &DialHolder{Dial: dialer.DialContext}},
-		"dialer with cache disabled": {DialHolder: &DialHolder{DisableCache: true, Dial: dialer.DialContext}},
-		"dialer2":                    {DialHolder: &DialHolder{Dial: func(ctx context.Context, network, address string) (net.Conn, error) { return nil, nil }}},
-		"insecure":                   {TLS: TLSConfig{Insecure: true}},
-		"cadata 1":                   {TLS: TLSConfig{CAData: []byte{1}}},
-		"cadata 2":                   {TLS: TLSConfig{CAData: []byte{2}}},
+		"proxy":    {Proxy: func(request *http.Request) (*url.URL, error) { return nil, nil }},
+		"no tls":   {},
+		"dialer":   {DialHolder: &DialHolder{Dial: dialer.DialContext}},
+		"dialer2":  {DialHolder: &DialHolder{Dial: func(ctx context.Context, network, address string) (net.Conn, error) { return nil, nil }}},
+		"insecure": {TLS: TLSConfig{Insecure: true}},
+		"cadata 1": {TLS: TLSConfig{CAData: []byte{1}}},
+		"cadata 2": {TLS: TLSConfig{CAData: []byte{2}}},
 		"cert 1, key 1": {
 			TLS: TLSConfig{
 				CertData: []byte{1},
@@ -158,9 +157,9 @@ func TestTLSConfigKey(t *testing.T) {
 				continue
 			}
 
-			shouldCacheA := valueA.Proxy == nil && (valueA.DialHolder == nil || !valueA.DialHolder.DisableCache)
+			shouldCacheA := valueA.Proxy == nil
 			if shouldCacheA != canCacheA {
-				t.Errorf("Unexpected canCache=false for " + nameA)
+				t.Error("Unexpected canCache=false for " + nameA)
 			}
 
 			configIsNotEmpty := !reflect.DeepEqual(*valueA, Config{})

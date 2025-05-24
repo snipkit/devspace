@@ -59,7 +59,7 @@ impl Client {
 
         req.headers_mut().insert(
             header::HOST,
-            header::HeaderValue::from_static("sh.loft.devspace.desktop"),
+            header::HeaderValue::from_static("sh.khulnasoft.devspace.desktop"),
         );
 
         let res = sender.send_request(req).await?;
@@ -80,7 +80,7 @@ impl Client {
 
         let req = hyper::Request::builder()
             .uri(format!("http://localclient.devspace{}", target_path))
-            .header(hyper::header::HOST, "sh.loft.devspace.desktop")
+            .header(hyper::header::HOST, "sh.khulnasoft.devspace.desktop")
             .body(Empty::<Bytes>::new())?;
 
         let res = sender.send_request(req).await?;

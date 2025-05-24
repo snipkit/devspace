@@ -65,7 +65,7 @@
   "productName": "DevSpace",
   "mainBinaryName": "DevSpace Desktop",
   "version": "../package.json",
-  "identifier": "sh.loft.devspace",
+  "identifier": "sh.khulnasoft.devspace",
   "plugins": {
     "updater": {
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY1NDg1NDE4MzA1NDI3QjcKUldTM0oxUXdHRlJJOVhyNUtFc2xkNFZyTmE2R2w0dTRXTFF6OUVMSW03ekphejlPM3U1M2FHUCsK",

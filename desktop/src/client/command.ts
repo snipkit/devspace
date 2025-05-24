@@ -1,20 +1,19 @@
+import { invoke } from "@tauri-apps/api/core"
 import {
-  Child,
-  ChildProcess,
-  EventEmitter,
-  Command as ShellCommand,
+    Child,
+    ChildProcess,
+    EventEmitter,
+    Command as ShellCommand,
 } from "@tauri-apps/plugin-shell"
 import { debug, ErrorTypeCancelled, isError, Result, ResultError, Return, sleep } from "../lib"
 import {
-  DEVSPACE_BINARY,
-  DEVSPACE_FLAG_OPTION,
-  DEVSPACE_UI_ENV_VAR,
-  DEVSPACE_ADDITIONAL_ENV_VARS,
+    DEVSPACE_ADDITIONAL_ENV_VARS,
+    DEVSPACE_BINARY,
+    DEVSPACE_FLAG_OPTION,
+    DEVSPACE_UI_ENV_VAR,
 } from "./constants"
-import { TStreamEvent } from "./types"
 import { TAURI_SERVER_URL } from "./tauriClient"
-import * as log from "@tauri-apps/plugin-log"
-import { invoke } from "@tauri-apps/api/core"
+import { TStreamEvent } from "./types"
 
 export type TStreamEventListenerFn = (event: TStreamEvent) => void
 export type TEventListener<TEventName extends string> = Parameters<
@@ -92,7 +91,7 @@ export class Command implements TCommand<ChildProcess<string>> {
       if (this.isFlatpak === undefined) {
         this.isFlatpak = await this.getEnv("FLATPAK_ID")
         if (this.isFlatpak) {
-          this.extraEnvVars["FLATPAK_ID"] = "sh.loft.devspace"
+          this.extraEnvVars["FLATPAK_ID"] = "sh.khulnasoft.devspace"
           this.extraEnvVars[DEVSPACE_ADDITIONAL_ENV_VARS] = recordToCSV(this.extraEnvVars)
           this.sidecarCommand = ShellCommand.sidecar(DEVSPACE_BINARY, this.args, {
             env: this.extraEnvVars,

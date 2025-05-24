@@ -8,7 +8,7 @@
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
 			<key>CFBundleURLName</key>
-			<string>sh.loft.devspace</string>
+			<string>sh.khulnasoft.devspace</string>
 			<key>LSUIElement</key>
 			<true/>
 			<key>CFBundleURLSchemes</key>

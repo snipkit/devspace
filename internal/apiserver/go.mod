@@ -113,6 +113,6 @@ require (
 )
 
 replace (
-	k8s.io/apiserver => dev.khulnasoft.com/k8s-apiserver v0.33.0-loft.0
-	k8s.io/client-go => github.com/loft-sh/k8s-client-go v0.33.0-loft.0
+	k8s.io/apiserver => ../k8s-apiserver
+	k8s.io/client-go => ../k8s-client-go
 )
