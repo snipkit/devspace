@@ -1,0 +1,90 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        // Existing configuration
+        {
+            "name": "Launch Package",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${workspaceRoot}",
+            "args": ["up", "examples/simple"],
+            "showLog": true,
+            "console": "integratedTerminal"
+        },
+
+        // Debug current file
+        {
+            "name": "Debug Current File",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${file}",
+            "showLog": true,
+            "console": "integratedTerminal"
+        },
+
+        // Debug tests in current file
+        {
+            "name": "Debug Test File",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "args": ["-test.v", "-test.run", "${fileBasenameNoExtension}"],
+            "showLog": true,
+            "console": "integratedTerminal"
+        },
+
+        // Debug specific test function
+        {
+            "name": "Debug Test Function",
+            "type": "go",
+            "request": "launch",
+            "mode": "test",
+            "program": "${fileDirname}",
+            "args": ["-test.v", "-test.run", "^${selectedText}$"],
+            "showLog": true,
+            "console": "integratedTerminal"
+        },
+
+        // Debug with environment variables
+        {
+            "name": "Debug with Env Vars",
+            "type": "go",
+            "request": "launch",
+            "mode": "auto",
+            "program": "${fileDirname}",
+            "env": {
+                "DEBUG": "true",
+                "ENV": "development"
+            },
+            "showLog": true,
+            "console": "integratedTerminal"
+        },
+
+        // Debug with race detector
+        {
+            "name": "Debug with Race Detector",
+            "type": "go",
+            "request": "launch",
+            "mode": "debug",
+            "program": "${fileDirname}",
+            "buildFlags": "-race",
+            "showLog": true,
+            "console": "integratedTerminal"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch Package with Coverage",
+            "configurations": ["Launch Package"],
+            "preLaunchTask": "go test -coverprofile=coverage.out ${fileDirname}"
+        },
+        {
+            "name": "Debug All Tests in Package",
+            "configurations": ["Debug Test File"],
+            "preLaunchTask": "go test -v ${fileDirname}"
+        }
+    ]
+}

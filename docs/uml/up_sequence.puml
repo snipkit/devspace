@@ -1,0 +1,82 @@
+@startuml
+
+!theme cloudscape-design
+skinparam BackgroundColor lightgray
+
+alt using machine provider
+alt machine doesn't exist
+DevSpace -> Provider: devspace machine create
+Provider --> DevSpace: machine id
+end
+DevSpace -> Provider: devspace machine start
+Provider --> DevSpace: machine id
+end
+
+DevSpace -> Repo: git pull
+Repo --> DevSpace: source code
+
+alt image not already available
+DevSpace -> Agent: devspace workspace build
+activate Agent
+Agent --> ContainerRuntime: build
+ContainerRuntime --> Agent: image
+Agent --> DevSpace: 
+deactivate Agent
+end
+
+DevSpace -> Agent: devspace helper ssh-server --stdio
+activate Agent
+DevSpace -> Agent: devspace agent daemon
+DevSpace -> Agent: devspace agent workspace up --workspace-info
+
+Agent -> ContainerRuntime: run
+ContainerRuntime --> Agent: container id
+
+Agent -> ContainerAgent: devspace helper ssh-server --stdio
+activate ContainerAgent
+
+Agent -> ContainerAgent: devspace agent container setup
+Agent -> ContainerAgent: devspace agent container credentials-server
+alt if EXIT_AFTER_TIMEOUT
+Agent -> ContainerAgent: devspace agent container daemon
+end
+
+alt if pro user
+Agent -> ContainerAgent: devspace agent container setup-loft-platform-access
+ContainerAgent -> Platform: Setup pro
+Platform --> ContainerAgent: platform creds
+end
+
+alt if GIT_SSH_SIGNATURE_FORWARDING
+Agent -> DevSpace: devspace agent git-credentials
+DevSpace --> Agent: git creds
+end
+alt if SSH_INJECT_DOCKER_CREDENTIALS
+Agent -> DevSpace: devspace agent docker-credentials
+DevSpace --> Agent: docker creds
+end
+
+Agent -> ContainerAgent: Run life cycle hooks
+
+ContainerAgent --> Agent: 
+deactivate ContainerAgent
+Agent --> DevSpace: 
+deactivate Agent
+
+alt if using browser based IDE (openvscode, jupyter)
+DevSpace -> ContainerAgent: devspace ssh --reuse-ssh-auth-sock
+end
+
+DevSpace -> IDE: Start
+
+alt if using normal IDE (vscode, intilliJ)
+IDE -> ContainerAgent: devspace ssh
+ContainerAgent --> IDE: ssh close
+end
+
+alt if using browser based IDE (openvscode, jupyter)
+ContainerAgent -> DevSpace: ssh close
+end
+
+
+@enduml

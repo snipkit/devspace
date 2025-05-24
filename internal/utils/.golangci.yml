@@ -1,0 +1,84 @@
+run:
+  timeout: 10m
+
+linters:
+  disable-all: true
+  enable:
+    - asasalint
+    - asciicheck
+    - bidichk
+    - decorder
+    - durationcheck
+    - errcheck
+    - errchkjson
+    - errname
+    - errorlint
+    - exhaustive
+    - exportloopref
+    - ginkgolinter
+    - gocheckcompilerdirectives
+    - gocritic
+    - goimports
+    - gosimple
+    - govet
+    - grouper
+    - ineffassign
+    - makezero
+    - misspell
+    - nakedret
+    - nilnil
+    - prealloc
+    - predeclared
+    - promlinter
+    - staticcheck
+    - stylecheck
+    - typecheck
+    - unconvert
+    - unused
+    - usestdlibvars
+    - whitespace
+
+linters-settings:
+  exhaustive:
+    check:
+      - switch
+      - map
+    ignore-enum-types: ""
+
+  # goimports:
+  #   local-prefixes: dev.khulnasoft.com
+
+  govet:
+    enable:
+      - assign
+      - atomic
+      - atomicalign
+      - bools
+      - buildtag
+      - composites
+      - copylocks
+      - deepequalerrors
+      - errorsas
+      # - fieldalignment
+      - findcall
+      - framepointer
+      - httpresponse
+      - ifaceassert
+      - loopclosure
+      - lostcancel
+      - nilfunc
+      - sortslice
+      - stdmethods
+      - stringintconv
+      - structtag
+      - testinggoroutine
+      - tests
+      - unmarshal
+      - unreachable
+      - unusedresult
+
+issues:
+  # Maximum issues count per one linter. Set to 0 to disable. Default is 50.
+  max-issues-per-linter: 0
+  # Maximum count of issues with the same text. Set to 0 to disable. Default is 3.
+  max-same-issues: 0

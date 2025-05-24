@@ -1,0 +1,86 @@
+{
+    "recommendations": [
+        // Core Go Development
+        "golang.go",
+        "golang.go-nightly",
+        "golang.Go",
+        "golang.go-coverage-viewer",
+        "golang.go-symbols",
+        "golang.go-doc",
+        
+        // Testing & Debugging
+        "premparihar.gotest-explorer",
+        "ryanluker.vscode-coverage-gutters",
+        "cschroeder.vscode-test-explorer-status-bar",
+        "ms-vscode.test-adapter-converter",
+        "ms-vscode.test-adapter-remoting-util",
+        "ms-vscode.test-adapter-remoting-runner",
+        
+        // Kubernetes & Cloud
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "ms-azuretools.vscode-docker",
+        "ms-azure-devops.azure-pipelines",
+        "ms-azure-devops.azure-repos",
+        "ms-vscode.azure-account",
+        "hashicorp.terraform",
+        
+        // Frontend Development
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "bradlc.vscode-tailwindcss",
+        "svelte.svelte-vscode",
+        "vue.volar",
+        "vue.vscode-typescript-vue-plugin",
+        
+        // Code Quality & Review
+        "DavidAnson.vscode-markdownlint",
+        "editorconfig.editorconfig",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "SonarSource.sonarlint-vscode",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.vscode-github-actions",
+        
+        // Productivity
+        "aaron-bond.better-comments",
+        "christian-kohler.path-intellisense",
+        "mikestead.dotenv",
+        "wix.vscode-import-cost",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag",
+        "usernamehw.errorlens",
+        "mhutchie.git-graph",
+        
+        // Shell & Terminal
+        "ms-vscode-remote.remote-ssh",
+        "ms-vscode-remote.remote-containers",
+        "ms-vscode-remote.remote-wsl",
+        "ms-vscode.powershell",
+        "timonwong.shellcheck",
+        
+        // YAML & JSON
+        "redhat.vscode-yaml",
+        "redhat.vscode-xml",
+        "tamasfe.even-better-toml",
+        "nhoizey.gremlins",
+        
+        // Documentation
+        "yzhang.markdown-all-in-one",
+        "tchayen.markdown-links",
+        "davidanson.vscode-markdownlint",
+        "bierner.markdown-mermaid",
+        "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+        
+        // Theme & Icons
+        "pkief.material-icon-theme",
+        "dracula-theme.theme-dracula",
+        "GitHub.github-vscode-theme",
+        "file-icons.file-icons"
+    ],
+    "unwantedRecommendations": [
+        "ms-vscode.Go",
+        "lukehoban.Go",
+        "ms-vscode.vscode-typescript-tslint-plugin"
+    ]
+}
