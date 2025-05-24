@@ -19,7 +19,7 @@ type ListAvailableCmd struct {
 }
 
 func getDevspaceProviderList() error {
-	req, err := http.NewRequest("GET", "https://api.github.com/users/khulnasoft-sh/repos", nil)
+	req, err := http.NewRequest("GET", "https://api.github.com/users/khulnasoft-lab/repos", nil)
 	if err != nil {
 		return err
 	}

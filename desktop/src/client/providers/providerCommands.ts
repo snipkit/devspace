@@ -53,8 +53,7 @@ export class ProviderCommands {
 
     const rawProviders = JSON.parse(result.val.stdout) as TProviders
     for (const provider of Object.values(rawProviders)) {
-      provider.isProxyProvider =
-        provider.config?.exec?.proxy !== undefined || provider.config?.exec?.daemon !== undefined
+      provider.isProxyProvider = provider.config?.exec?.proxy !== undefined
     }
 
     return Return.Value(rawProviders)

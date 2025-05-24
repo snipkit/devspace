@@ -48,7 +48,7 @@ func TestToID(t *testing.T) {
 		{
 			name:  "Branch with valid characters",
 			input: "dev.khulnasoft.com@feature1",
-			want:  "github-com-khulnasoft-sh-devspace",
+			want:  "github-com-khulnasoft-lab-devspace",
 		},
 		{
 			name:  "Branch with valid characters and /",

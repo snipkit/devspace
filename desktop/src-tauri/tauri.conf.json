@@ -2,88 +2,129 @@
   "build": {
     "beforeDevCommand": "yarn dev",
     "beforeBuildCommand": "yarn build",
-    "frontendDist": "../dist",
-    "devUrl": "http://localhost:1420"
+    "devPath": "http://localhost:1420",
+    "distDir": "../dist",
+    "withGlobalTauri": false
   },
-  "bundle": {
-    "active": true,
-    "windows": {
-      "certificateThumbprint": null,
-      "digestAlgorithm": "sha256",
-      "timestampUrl": "",
-      "nsis": {
-        "displayLanguageSelector": false,
-        "installMode": "currentUser"
+  "package": {
+    "productName": "DevSpace",
+    "version": "../package.json"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "process": {
+        "exit": true,
+        "relaunch": true
       },
-      "signCommand": ".\\sign.bat %1"
-    },
-    "category": "DeveloperTool",
-    "copyright": "",
-    "externalBin": [
-      "bin/devspace-cli"
-    ],
-    "resources": [],
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ],
-    "shortDescription": "Spin up dev environments in any infra",
-    "longDescription": "Dev-environments-as-code like Terraform but for dev environments. Like Codespaces but open-source, client-only and unopinionated: Works with any IDE and lets you use any cloud, kubernetes or just on localhost docker.",
-    "targets": "all",
-    "macOS": {
-      "entitlements": "./entitlements.plist",
-      "exceptionDomain": "",
-      "frameworks": [],
-      "providerShortName": null,
-      "signingIdentity": null,
-      "dmg": {
-        "background": "dmg-background.png",
-        "windowSize": {
-          "width": 660,
-          "height": 400
-        },
-        "appPosition": {
-          "x": 180,
-          "y": 160
-        },
-        "applicationFolderPosition": {
-          "x": 480,
-          "y": 160
-        }
+      "shell": {
+        "all": true,
+        "open": ".*",
+        "sidecar": true,
+        "scope": [
+          {
+            "name": "bin/devspace-cli",
+            "sidecar": true,
+            "args": true
+          },
+          {
+            "name": "run-path-devspace-wrapper",
+            "cmd": "/app/bin/devspace-cli",
+            "args": true
+          },
+          {
+            "name": "run-path-devspace-cli",
+            "cmd": "devspace",
+            "args": [
+              "version"
+            ]
+          }
+        ]
+      },
+      "os": {
+        "all": true
+      },
+      "window": {
+        "startDragging": true,
+        "setFocus": true,
+        "close": true
+      },
+      "fs": {
+        "scope": [
+          "$HOME/**",
+          "$APPDATA/*",
+          "$APPDATA/actions/*"
+        ],
+        "all": true
+      },
+      "dialog": {
+        "open": true,
+        "save": true
+      },
+      "path": {
+        "all": true
+      },
+      "clipboard": {
+        "writeText": true
+      },
+      "notification": {
+        "all": true
       }
     },
-    "linux": {
+    "bundle": {
+      "active": true,
+      "identifier": "sh.khulnasoft.devspace",
+      "category": "DeveloperTool",
+      "copyright": "",
+      "externalBin": [
+        "bin/devspace-cli"
+      ],
+      "resources": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "shortDescription": "Spin up dev environments in any infra",
+      "longDescription": "Dev-environments-as-code like Terraform but for dev environments. Like Codespaces but open-source, client-only and unopinionated: Works with any IDE and lets you use any cloud, kubernetes or just on localhost docker.",
+      "targets": "all",
+      "macOS": {
+        "entitlements": "./entitlements.plist",
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      },
       "deb": {
         "depends": []
       }
     },
-    "createUpdaterArtifacts": "v1Compatible"
-  },
-  "productName": "DevSpace",
-  "mainBinaryName": "DevSpace Desktop",
-  "version": "../package.json",
-  "identifier": "sh.khulnasoft.devspace",
-  "plugins": {
-    "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY1NDg1NDE4MzA1NDI3QjcKUldTM0oxUXdHRlJJOVhyNUtFc2xkNFZyTmE2R2w0dTRXTFF6OUVMSW03ekphejlPM3U1M2FHUCsK",
-      "windows": {
-        "installMode": "passive"
-      },
-      "endpoints": [
-        "https://update-server.dev.khulnasoft.com/latest",
-        "https://dev.khulnasoft.com/releases/latest/download/latest.json"
-      ]
-    }
-  },
-  "app": {
-    "withGlobalTauri": false,
-    "macOSPrivateApi": true,
     "security": {
       "csp": null
     },
+    "updater": {
+      "active": true,
+      "dialog": false,
+      "endpoints": [
+        "https://github.com/khulnasoft-lab/devspace/releases/latest/download/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEY1NDg1NDE4MzA1NDI3QjcKUldTM0oxUXdHRlJJOVhyNUtFc2xkNFZyTmE2R2w0dTRXTFF6OUVMSW03ekphejlPM3U1M2FHUCsK",
+      "windows": {
+        "installMode": "passive"
+      }
+    },
+    "systemTray": {
+      "iconPath": "icons/icon.png",
+      "iconAsTemplate": true
+    },
+    "macOSPrivateApi": true,
     "windows": [
       {
         "title": "DevSpace",

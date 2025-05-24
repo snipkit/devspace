@@ -16,6 +16,7 @@ import {
   Switch,
   Text,
   Tooltip,
+  useColorModeValue,
 } from "@chakra-ui/react"
 import { UseMutationResult, useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useMemo } from "react"
@@ -29,14 +30,7 @@ import { ProviderPlaceholder, Stack3D, Trash } from "../../icons"
 import { exists } from "../../lib"
 import { QueryKeys } from "../../queryKeys"
 import { Routes } from "../../routes"
-import {
-  TProvider,
-  TProviderID,
-  TProviderSource,
-  TRunnable,
-  TWithProviderID,
-  TWorkspace,
-} from "../../types"
+import { TProvider, TProviderID, TProviderSource, TRunnable, TWithProviderID } from "../../types"
 import { useSetupProviderModal } from "./useSetupProviderModal"
 import { useDeleteProviderModal } from "./useDeleteProviderModal"
 
@@ -50,7 +44,7 @@ type TProviderCardProps = {
 export function ProviderCard({ id, provider, remove }: TProviderCardProps) {
   const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const workspaces = useWorkspaces<TWorkspace>()
+  const workspaces = useWorkspaces()
   const providerWorkspaces = useMemo(
     () => workspaces.filter((workspace) => workspace.provider?.name === id),
     [id, workspaces]
@@ -94,9 +88,11 @@ export function ProviderCard({ id, provider, remove }: TProviderCardProps) {
     id,
     "provider",
     "delete",
+    providerWorkspaces.length > 0,
     () => remove.run({ providerID: id })
   )
 
+  const labelTextColor = useColorModeValue("gray.600", "gray.400")
   const providerIcon = provider.config?.icon
   const isDefaultProvider = provider.default ?? false
   const providerVersion = provider.config?.version
@@ -142,9 +138,9 @@ export function ProviderCard({ id, provider, remove }: TProviderCardProps) {
           {providerVersion && (
             <HStack spacing="0">
               <Text
-                variant="muted"
                 paddingY="1"
                 fontFamily="monospace"
+                color={labelTextColor}
                 fontSize="sm"
                 fontWeight="regular">
                 {providerVersion}
@@ -205,7 +201,7 @@ export function ProviderCard({ id, provider, remove }: TProviderCardProps) {
                 }
               }}
             />
-            <Text fontSize="sm" variant="muted">
+            <Text fontSize="sm" color={labelTextColor}>
               Default
             </Text>
           </HStack>

@@ -11,12 +11,7 @@ export function getOptionValue(option: TOptionWithID) {
   return option.value ?? option.defaultValue
 }
 export function canCreateMachine(providerConfig: TProviderConfig | undefined | null): boolean {
-  const exec = providerConfig?.exec
-  if (exec?.proxy) {
-    return false
-  }
-
-  return exists((exec as Record<string, unknown> | undefined)?.["create"])
+  return exists(providerConfig?.exec?.["create"])
 }
 
 function getOptionFallbackDisplayName(id: TOptionID) {

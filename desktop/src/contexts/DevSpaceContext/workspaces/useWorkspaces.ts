@@ -1,11 +1,11 @@
 import { useCallback, useSyncExternalStore } from "react"
-import { IWorkspaceStore, useWorkspaceStore } from "../workspaceStore"
+import { TWorkspace } from "../../../types"
+import { devSpaceStore } from "../devSpaceStore"
 
-export function useWorkspaces<TW>(): readonly TW[] {
-  const { store } = useWorkspaceStore<IWorkspaceStore<string, TW>>()
+export function useWorkspaces(): readonly TWorkspace[] {
   const workspaces = useSyncExternalStore(
-    useCallback((listener) => store.subscribe(listener), [store]),
-    () => store.getAll()
+    useCallback((listener) => devSpaceStore.subscribe(listener), []),
+    () => devSpaceStore.getAll()
   )
 
   return workspaces

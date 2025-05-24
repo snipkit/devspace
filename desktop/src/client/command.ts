@@ -1,32 +1,12 @@
-import { invoke } from "@tauri-apps/api/core"
-import {
-    Child,
-    ChildProcess,
-    EventEmitter,
-    Command as ShellCommand,
-} from "@tauri-apps/plugin-shell"
-import { debug, ErrorTypeCancelled, isError, Result, ResultError, Return, sleep } from "../lib"
-import {
-    DEVSPACE_ADDITIONAL_ENV_VARS,
-    DEVSPACE_BINARY,
-    DEVSPACE_FLAG_OPTION,
-    DEVSPACE_UI_ENV_VAR,
-} from "./constants"
-import { TAURI_SERVER_URL } from "./tauriClient"
+import { Child, ChildProcess, EventEmitter, Command as ShellCommand } from "@tauri-apps/api/shell"
+import { debug, isError, Result, ResultError, Return } from "../lib"
+import { DEVSPACE_BINARY, DEVSPACE_FLAG_OPTION, DEVSPACE_UI_ENV_VAR } from "./constants"
 import { TStreamEvent } from "./types"
 
 export type TStreamEventListenerFn = (event: TStreamEvent) => void
 export type TEventListener<TEventName extends string> = Parameters<
-  EventEmitter<Record<TEventName, string>>["addListener"]
+  EventEmitter<TEventName>["addListener"]
 >[1]
-type TStreamOptions = Readonly<{
-  ignoreStdoutError?: boolean
-  ignoreStderrError?: boolean
-}>
-const defaultStreamOptions: TStreamOptions = {
-  ignoreStdoutError: false,
-  ignoreStderrError: false,
-}
 
 export type TCommand<T> = {
   run(): Promise<Result<T>>
@@ -34,13 +14,10 @@ export type TCommand<T> = {
   cancel(): Promise<ResultError>
 }
 
-export class Command implements TCommand<ChildProcess<string>> {
-  private sidecarCommand: ShellCommand<string>
+export class Command implements TCommand<ChildProcess> {
+  private sidecarCommand: ShellCommand
   private childProcess?: Child
   private args: string[]
-  private cancelled = false
-  private isFlatpak: boolean | undefined
-  private extraEnvVars: Record<string, string>
 
   public static ADDITIONAL_ENV_VARS: string = ""
   public static HTTP_PROXY: string = ""
@@ -49,7 +26,7 @@ export class Command implements TCommand<ChildProcess<string>> {
 
   constructor(args: string[]) {
     debug("commands", "Creating Devspace command with args: ", args)
-    this.extraEnvVars = Command.ADDITIONAL_ENV_VARS.split(",")
+    const extraEnvVars = Command.ADDITIONAL_ENV_VARS.split(",")
       .map((envVarStr) => envVarStr.split("="))
       .reduce(
         (acc, pair) => {
@@ -65,39 +42,30 @@ export class Command implements TCommand<ChildProcess<string>> {
 
     // set proxy related environment variables
     if (Command.HTTP_PROXY) {
-      this.extraEnvVars["HTTP_PROXY"] = Command.HTTP_PROXY
+      extraEnvVars["HTTP_PROXY"] = Command.HTTP_PROXY
     }
     if (Command.HTTPS_PROXY) {
-      this.extraEnvVars["HTTPS_PROXY"] = Command.HTTPS_PROXY
+      extraEnvVars["HTTPS_PROXY"] = Command.HTTPS_PROXY
     }
     if (Command.NO_PROXY) {
-      this.extraEnvVars["NO_PROXY"] = Command.NO_PROXY
+      extraEnvVars["NO_PROXY"] = Command.NO_PROXY
     }
 
     // allows the CLI to detect if commands have been invoked from the UI
-    this.extraEnvVars[DEVSPACE_UI_ENV_VAR] = "true"
-    this.sidecarCommand = ShellCommand.sidecar(DEVSPACE_BINARY, args, { env: this.extraEnvVars })
+    extraEnvVars[DEVSPACE_UI_ENV_VAR] = "true"
+
+    if (import.meta.env.TAURI_IS_FLATPAK === "true") {
+      this.sidecarCommand = new ShellCommand("run-path-devspace-wrapper", args, {
+        env: { ...extraEnvVars, ["FLATPAK_ID"]: "sh.khulnasoft.devspace" },
+      })
+    } else {
+      this.sidecarCommand = ShellCommand.sidecar(DEVSPACE_BINARY, args, { env: extraEnvVars })
+    }
     this.args = args
   }
 
-  public async getEnv(name: string): Promise<boolean> {
-    return invoke<boolean>("get_env", { name })
-  }
-
-  public async run(): Promise<Result<ChildProcess<string>>> {
+  public async run(): Promise<Result<ChildProcess>> {
     try {
-      // Run once to check with the rust backend if we are running inside the flatpak sandbox
-      // This informs the CLI wrapper to use flatpak-spawn to escape the sandbox and export this.extraEnvVars
-      if (this.isFlatpak === undefined) {
-        this.isFlatpak = await this.getEnv("FLATPAK_ID")
-        if (this.isFlatpak) {
-          this.extraEnvVars["FLATPAK_ID"] = "sh.khulnasoft.devspace"
-          this.extraEnvVars[DEVSPACE_ADDITIONAL_ENV_VARS] = recordToCSV(this.extraEnvVars)
-          this.sidecarCommand = ShellCommand.sidecar(DEVSPACE_BINARY, this.args, {
-            env: this.extraEnvVars,
-          })
-        }
-      }
       const rawResult = await this.sidecarCommand.execute()
       debug("commands", `Result for command with args ${this.args}:`, rawResult)
 
@@ -107,23 +75,9 @@ export class Command implements TCommand<ChildProcess<string>> {
     }
   }
 
-  public async stream(
-    listener: TStreamEventListenerFn,
-    streamOptions?: TStreamOptions
-  ): Promise<ResultError> {
-    let opts = defaultStreamOptions
-    if (streamOptions) {
-      opts = { ...defaultStreamOptions, ...streamOptions }
-    }
-
+  public async stream(listener: TStreamEventListenerFn): Promise<ResultError> {
     try {
       this.childProcess = await this.sidecarCommand.spawn()
-      if (this.cancelled) {
-        await this.childProcess.kill()
-
-        return Return.Failed("Command already cancelled", "", ErrorTypeCancelled)
-      }
-
       await new Promise((res, rej) => {
         const stdoutListener: TEventListener<"data"> = (message) => {
           try {
@@ -139,9 +93,7 @@ export class Command implements TCommand<ChildProcess<string>> {
               listener({ type: "data", data })
             }
           } catch (error) {
-            if (!opts.ignoreStdoutError) {
-              console.error("Failed to parse stdout message ", message, error)
-            }
+            console.error("Failed to parse stdout message ", message, error)
           }
         }
         const stderrListener: TEventListener<"data"> = (message) => {
@@ -149,9 +101,7 @@ export class Command implements TCommand<ChildProcess<string>> {
             const error = JSON.parse(message)
             listener({ type: "error", error })
           } catch (error) {
-            if (!opts.ignoreStderrError) {
-              console.error("Failed to parse stderr message ", message, error)
-            }
+            console.error("Failed to parse stderr message ", message, error)
           }
         }
 
@@ -164,10 +114,10 @@ export class Command implements TCommand<ChildProcess<string>> {
           this.childProcess = undefined
         }
 
-        this.sidecarCommand.on("close", ({ code }) => {
+        this.sidecarCommand.on("close", (arg?: { code: number }) => {
           cleanup()
-          if (code !== 0) {
-            rej(new Error("exit code: " + code))
+          if (arg?.code !== 0) {
+            rej(new Error("exit code: " + arg?.code))
           } else {
             res(Return.Ok())
           }
@@ -182,13 +132,9 @@ export class Command implements TCommand<ChildProcess<string>> {
       return Return.Ok()
     } catch (e) {
       if (isError(e)) {
-        if (this.cancelled) {
-          return Return.Failed(e.message, "", ErrorTypeCancelled)
-        }
-
         return Return.Failed(e.message)
       }
-      console.error(e)
+      console.log(e)
 
       return Return.Failed("streaming failed")
     }
@@ -200,29 +146,7 @@ export class Command implements TCommand<ChildProcess<string>> {
    */
   public async cancel(): Promise<Result<undefined>> {
     try {
-      this.cancelled = true
-      if (!this.childProcess) {
-        // nothing to clean up
-        return Return.Ok()
-      }
-      // Try to send signal first before force killing process
-      await fetch(TAURI_SERVER_URL + "/child-process/signal", {
-        method: "POST",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({
-          processId: this.childProcess.pid,
-          signal: 2, // SIGINT
-        }),
-      })
-
-      await sleep(3_000)
-      // the actual child process could be gone after sending a SIGINT
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (this.childProcess) {
-        await this.childProcess.kill()
-      }
+      await this.childProcess?.kill()
 
       return Return.Ok()
     } catch (e) {
@@ -235,7 +159,7 @@ export class Command implements TCommand<ChildProcess<string>> {
   }
 }
 
-export function isOk(result: ChildProcess<string>): boolean {
+export function isOk(result: ChildProcess): boolean {
   return result.code === 0
 }
 
@@ -243,15 +167,15 @@ export function toFlagArg(flag: string, arg: string) {
   return [flag, arg].join("=")
 }
 
+export function toMultipleFlagArg(input: string) {
+  const equaledInput = input.replace(/([a-zA-Z])\s+([a-zA-Z])/g, "$1=$2")
+
+  return equaledInput.split(" ")
+}
+
 export function serializeRawOptions(
   rawOptions: Record<string, unknown>,
   flag: string = DEVSPACE_FLAG_OPTION
 ): string[] {
   return Object.entries(rawOptions).map(([key, value]) => flag + `=${key}=${value}`)
-}
-
-function recordToCSV(record: Record<string, string>): string {
-  return Object.entries(record)
-    .map(([key, value]) => `${key}=${value}`)
-    .join(",")
 }

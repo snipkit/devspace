@@ -1,3 +1,4 @@
+import { TWorkspaceSourceType } from "@/types"
 import { ChevronDownIcon } from "@chakra-ui/icons"
 import {
   Button,
@@ -24,7 +25,6 @@ import { FiFolder } from "react-icons/fi"
 import { useBorderColor } from "../../../Theme"
 import { client } from "../../../client"
 import { FieldName, TFormValues } from "./types"
-import { TWorkspaceSourceType } from "@/types"
 
 // WARN: Make sure these match the regexes in /pkg/git/git.go
 const GIT_REPOSITORY_PATTERN =
@@ -68,13 +68,13 @@ export function WorkspaceSourceInput({
   sourceType,
   onSourceTypeChanged,
 }: TWorkspaceSourceInputProps) {
-  const inputBackgroundColor = useColorModeValue("white", "background.darkest")
+  const inputBackgroundColor = useColorModeValue("white", "black")
   const borderColor = useBorderColor()
-  const [tabIndex, setTabIndex] = useState(0)
   const typeTabIndex = SOURCE_TYPE_MAP[sourceType]
   const handleSourceTypeChanged = (index: number) => {
     onSourceTypeChanged(SOURCE_TYPE_MAP[index as 0 | 1 | 2] as TWorkspaceSourceType)
   }
+  const [tabIndex, setTabIndex] = useState(0)
   const [advancedGitSettings, setAdvancedGitSettings] =
     useState<Readonly<{ option: TAdvancedGitSetting | null; value: string }>>(
       INITIAL_ADVANCED_SETTINGS
@@ -198,7 +198,7 @@ export function WorkspaceSourceInput({
             {...inputCommonProps}
             borderTopRightRadius={0}
             borderBottomRightRadius={0}
-            placeholder="dev.khulnasoft.com-example-go"
+            placeholder="github.com/khulnasoft-lab/devspace-example-go"
           />
           <Popover isLazy onOpen={handlePopoverOpened}>
             <PopoverTrigger>
@@ -220,7 +220,7 @@ export function WorkspaceSourceInput({
               <PopoverArrow />
               <VStack>
                 <Tabs
-                  variant="muted-popover"
+                  variant="muted"
                   size="sm"
                   index={tabIndex}
                   onChange={handleAdvancedOptionTabChanged}>

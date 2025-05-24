@@ -29,7 +29,6 @@ export type Result<T> = Ok<T> | Err<Failed>
 export type ErrorType = string
 
 export const ErrorTypeUnknown: ErrorType = ""
-export const ErrorTypeCancelled: ErrorType = "cancelled"
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const MapErrorCode = (code: number): ErrorType => {

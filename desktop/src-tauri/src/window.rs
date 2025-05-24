@@ -1,7 +1,7 @@
 use crate::AppHandle;
 use anyhow::{Context, Result};
 use log::error;
-use tauri::{WebviewWindow, WebviewWindowBuilder, Wry, WebviewUrl};
+use tauri::{Window, WindowBuilder, WindowUrl, Wry};
 
 #[derive(Clone, Debug)]
 pub struct WindowHelper {
@@ -13,7 +13,7 @@ impl WindowHelper {
         Self { app_handle }
     }
 
-    pub fn setup(&self, window: &WebviewWindow<Wry>) {
+    pub fn setup(&self, window: &Window<Wry>) {
         // open browser devtools automatically during development
         #[cfg(debug_assertions)]
         {
@@ -44,7 +44,7 @@ impl WindowHelper {
             .run_on_main_thread(move || {
                 // Config should match the config in `src-tauri/tauri.conf.json` for a consistent window appearance
                 let window_builder =
-                    WebviewWindowBuilder::new(&handle, "main".to_string(), WebviewUrl::default())
+                    WindowBuilder::new(&handle, "main".to_string(), WindowUrl::default())
                         .title(app_name)
                         .fullscreen(false)
                         .resizable(true)
@@ -72,10 +72,10 @@ impl WindowHelper {
 
         self.app_handle
             .run_on_main_thread(move || {
-                let window_builder = WebviewWindowBuilder::new(
+                let window_builder = WindowBuilder::new(
                     &handle,
                     "update_ready".to_string(),
-                    WebviewUrl::App("update-window/index.html".into()),
+                    WindowUrl::App("update-window/index.html".into()),
                 )
                 .title("DevSpace Update")
                 .fullscreen(false)

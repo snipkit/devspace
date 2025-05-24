@@ -7,12 +7,4 @@ export const Checkbox = defineMultiStyleConfig({
   defaultProps: {
     colorScheme: "primary",
   },
-  baseStyle: {
-    container: {
-      borderColor: "gray.200",
-      _dark: {
-        borderColor: "gray.700",
-      },
-    },
-  },
 })

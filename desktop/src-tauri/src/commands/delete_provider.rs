@@ -1,5 +1,3 @@
-use tauri::AppHandle;
-
 use super::{
     config::{CommandConfig, DevspaceCommandConfig, DevspaceCommandError},
     constants::{DEVSPACE_BINARY_NAME, DEVSPACE_COMMAND_DELETE, DEVSPACE_COMMAND_PROVIDER},
@@ -25,10 +23,10 @@ impl DevspaceCommandConfig<()> for DeleteProviderCommand {
         }
     }
 
-    fn exec_blocking(self, app_handle: &AppHandle) -> Result<(), DevspaceCommandError> {
-        let cmd = self.new_command(app_handle)?;
+    fn exec(self) -> Result<(), DevspaceCommandError> {
+        let cmd = self.new_command()?;
 
-        tauri::async_runtime::block_on(async move { cmd.status().await })
+        cmd.status()
             .map_err(DevspaceCommandError::Failed)?
             .success()
             .then_some(())

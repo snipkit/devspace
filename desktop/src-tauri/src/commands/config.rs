@@ -1,7 +1,6 @@
 use std::collections::HashMap;
 
-use tauri::AppHandle;
-use tauri_plugin_shell::{process::Command, ShellExt};
+use tauri::api::process::Command;
 use thiserror::Error;
 
 use crate::commands::constants::DEVSPACE_BINARY_NAME;
@@ -32,11 +31,9 @@ pub enum DevspaceCommandError {
     #[error("unable to collect output from command")]
     Output,
     #[error("command failed")]
-    Failed(#[from] tauri_plugin_shell::Error),
+    Failed(#[from] tauri::api::Error),
     #[error("command exited with non-zero code")]
     Exit,
-    #[error("error")]
-    Any(#[from] anyhow::Error)
 }
 impl serde::Serialize for DevspaceCommandError {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
@@ -53,16 +50,14 @@ pub trait DevspaceCommandConfig<T> {
             args: vec![],
         }
     }
-    fn exec_blocking(self, app_handle: &AppHandle) -> Result<T, DevspaceCommandError>;
+    fn exec(self) -> Result<T, DevspaceCommandError>;
 
-    fn new_command(&self, app_handle: &AppHandle) -> Result<Command, DevspaceCommandError> {
+    fn new_command(&self) -> Result<Command, DevspaceCommandError> {
         let config = self.config();
         let env_vars: HashMap<String, String> =
             HashMap::from([(DEVSPACE_UI_ENV_VAR.into(), "true".into())]);
 
-        let cmd = app_handle
-            .shell()
-            .sidecar(config.binary_name())
+        let cmd = Command::new_sidecar(config.binary_name())
             .map_err(|_| DevspaceCommandError::Sidecar)?
             .envs(env_vars)
             .args(config.args());

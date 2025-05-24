@@ -27,7 +27,7 @@ export const WORKSPACE_EXAMPLES = [
   {
     image: GoSvg,
     imageDark: GoSvgDark,
-    source: "https://dev.khulnasoft.com-example-go",
+    source: "https://github.com/khulnasoft-lab/devspace-example-go",
     name: "Try Go",
   },
   {
@@ -58,7 +58,7 @@ export const COMMUNITY_WORKSPACE_EXAMPLES = [
   {
     image: RubySvg,
     imageDark: RubySvg,
-    source: "https://dev.khulnasoft.com-quickstart-ruby",
+    source: "https://github.com/khulnasoft-lab/devspace-quickstart-ruby",
     name: "Try Ruby",
   },
   {

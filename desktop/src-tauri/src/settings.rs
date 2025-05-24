@@ -1,11 +1,8 @@
 #![allow(dead_code)]
 
-use crate::AppHandle;
-use log::error;
+use crate::{util::with_data_store, AppHandle};
 use serde::Serialize;
-use tauri_plugin_store::StoreExt;
 use ts_rs::TS;
-use std::env;
 
 const SETTINGS_FILE_NAME: &str = ".settings.json";
 
@@ -28,6 +25,10 @@ pub struct Settings {
     http_proxy_url: String,
     https_proxy_url: String,
     no_proxy: String,
+
+    // Experimental settings
+    #[serde(rename = "experimental_colorMode")]
+    experimental_color_mode: ColorMode,
     #[serde(rename = "experimental_multiDevcontainer")]
     experimental_multi_devcontainer: bool,
     #[serde(rename = "experimental_fleet")]
@@ -38,18 +39,10 @@ pub struct Settings {
     experimental_vscode_insiders: bool,
     #[serde(rename = "experimental_cursor")]
     experimental_cursor: bool,
-    #[serde(rename = "experimental_codium")]
-    experimental_codium: bool,
-    #[serde(rename = "experimental_zed")]
-    experimental_zed: bool,
     #[serde(rename = "experimental_positron")]
     experimental_positron: bool,
-    #[serde(rename = "experimental_rstudio")]
-    experimental_rstudio: bool,
     #[serde(rename = "experimental_devSpacePro")]
     experimental_devspace_pro: bool,
-    #[serde(rename = "experimental_colorMode")]
-    experimental_color_mode: ColorMode,
 }
 
 #[derive(Debug, Serialize, TS)]
@@ -80,26 +73,16 @@ enum Zoom {
 
 impl Settings {
     pub fn auto_update_enabled(app_handle: &AppHandle) -> bool {
-        // check something in auto updates
-        let store = app_handle.store(SETTINGS_FILE_NAME);
-        if store.is_err() {
-            error!("unable to open store {}", SETTINGS_FILE_NAME);
-            return false;
-        }
+        let mut is_enabled = false;
+        let _ = with_data_store(&app_handle, SETTINGS_FILE_NAME, |store| {
+            is_enabled = store
+                .get("autoUpdate")
+                .and_then(|v| v.as_bool())
+                .unwrap_or(false);
 
-        let mut is_flatpak = false;
-        match env::var("FLATPAK_ID") {
-            Ok(_) => is_flatpak = true,
-            Err(_) => is_flatpak = false,
-        }
-        if is_flatpak {
-            return false
-        }
+            Ok(())
+        });
 
-        store
-            .unwrap()
-            .get("autoUpdate")
-            .and_then(|v| v.as_bool())
-            .unwrap_or(true)
+        return is_enabled;
     }
 }

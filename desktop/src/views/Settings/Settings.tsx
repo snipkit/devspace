@@ -21,6 +21,7 @@ import {
   Text,
   VStack,
   useColorMode,
+  useColorModeValue,
 } from "@chakra-ui/react"
 import { compareVersions } from "compare-versions"
 import { ReactNode, useEffect, useMemo, useState } from "react"
@@ -121,12 +122,6 @@ function GeneralSettings() {
           isChecked={settings.debugFlag}
           onChange={(e) => set("debugFlag", e.target.checked)}
         />
-      </SettingSection>
-
-      <SettingSection title="Logs" description={"Open the logs for DevSpace Desktop"}>
-        <Button variant="outline" onClick={() => client.openDir("AppLog")}>
-          Open Logs
-        </Button>
       </SettingSection>
 
       <SettingSection title="Agent URL" description={agentURLHelpText}>
@@ -279,7 +274,7 @@ function UpdateSettings() {
   const { isChecking, check, isUpdateAvailable, pendingUpdate } = useUpdate()
   const releases = useReleases()
     ?.slice()
-    .sort((a, b) => compareVersions(b.tag_name, a.tag_name))
+    .sort((a, b) => compareVersions(a.tag_name, b.tag_name))
   const downloadLink = useMemo(() => {
     const release = releases?.find((release) => release.tag_name === selectedVersion)
     if (!release) {
@@ -403,7 +398,6 @@ function ExperimentalSettings() {
             JetBrains Fleet
           </FormLabel>
         </HStack>
-
         <HStack width="full" align="center">
           <Switch
             isChecked={settings.experimental_jupyterNotebooks}
@@ -413,7 +407,6 @@ function ExperimentalSettings() {
             Jupyter Notebooks
           </FormLabel>
         </HStack>
-
         <HStack width="full" align="center">
           <Switch
             isChecked={settings.experimental_vscodeInsiders}
@@ -423,7 +416,6 @@ function ExperimentalSettings() {
             VSCode Insiders
           </FormLabel>
         </HStack>
-
         <HStack width="full" align="center">
           <Switch
             isChecked={settings.experimental_cursor}
@@ -433,7 +425,6 @@ function ExperimentalSettings() {
             Cursor
           </FormLabel>
         </HStack>
-
         <HStack width="full" align="center">
           <Switch
             isChecked={settings.experimental_positron}
@@ -441,46 +432,6 @@ function ExperimentalSettings() {
           />
           <FormLabel marginBottom="0" whiteSpace="nowrap" fontSize="sm">
             Positron
-          </FormLabel>
-        </HStack>
-
-        <HStack width="full" align="center">
-          <Switch
-            isChecked={settings.experimental_codium}
-            onChange={(e) => set("experimental_codium", e.target.checked)}
-          />
-          <FormLabel marginBottom="0" whiteSpace="nowrap" fontSize="sm">
-            Codium
-          </FormLabel>
-        </HStack>
-
-        <HStack width="full" align="center">
-          <Switch
-            isChecked={settings.experimental_zed}
-            onChange={(e) => set("experimental_zed", e.target.checked)}
-          />
-          <FormLabel marginBottom="0" whiteSpace="nowrap" fontSize="sm">
-            Zed
-          </FormLabel>
-        </HStack>
-
-        <HStack width="full" align="center">
-          <Switch
-            isChecked={settings.experimental_rstudio}
-            onChange={(e) => set("experimental_rstudio", e.target.checked)}
-          />
-          <FormLabel marginBottom="0" whiteSpace="nowrap" fontSize="sm">
-            RStudio Server
-          </FormLabel>
-        </HStack>
-
-        <HStack width="full" align="center">
-          <Switch
-            isChecked={settings.experimental_windsurf}
-            onChange={(e) => set("experimental_windsurf", e.target.checked)}
-          />
-          <FormLabel marginBottom="0" whiteSpace="nowrap" fontSize="sm">
-            Windsurf
           </FormLabel>
         </HStack>
       </SettingSection>
@@ -521,8 +472,10 @@ function ExperimentalSettings() {
 
 type TSettingDescriptionProps = Readonly<{ children: ReactNode }>
 function SettingDescription({ children }: TSettingDescriptionProps) {
+  const descriptionColor = useColorModeValue("gray.500", "gray.400")
+
   return (
-    <Text color={"gray.600"} _dark={{ color: "gray.300" }} fontSize="sm">
+    <Text color={descriptionColor} fontSize="sm">
       {children}
     </Text>
   )

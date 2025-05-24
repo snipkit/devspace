@@ -1,20 +1,29 @@
-import { Params, Path, createBrowserRouter } from "react-router-dom"
+import { createBrowserRouter, Params, Path } from "react-router-dom"
 import { App, ErrorPage } from "./App"
-import { ProRoot } from "./ProRoot"
 import { TActionID } from "./contexts"
-import { TProInstanceDetail, exists } from "./lib"
+import { exists } from "./lib"
 import { TProviderID, TSupportedIDE, TWorkspaceID } from "./types"
-import { Actions, Pro, Providers, Settings, Workspaces } from "./views"
+import {
+  Action,
+  Actions,
+  CreateWorkspace,
+  ListProviders,
+  ListWorkspaces,
+  Provider,
+  Providers,
+  Settings,
+  Workspaces,
+} from "./views"
 
 export const Routes = {
   ROOT: "/",
   SETTINGS: "/settings",
   WORKSPACES: "/workspaces",
   ACTIONS: "/actions",
-  get ACTION(): string {
+  get ACTION() {
     return `${Routes.ACTIONS}/:action`
   },
-  get WORKSPACE_CREATE(): string {
+  get WORKSPACE_CREATE() {
     return `${Routes.WORKSPACES}/new`
   },
   toWorkspaceCreate(
@@ -37,7 +46,7 @@ export const Routes = {
       search: searchParams.toString(),
     }
   },
-  toAction(actionID: TActionID, onSuccess?: string): string {
+  toAction(actionID: TActionID, onSuccess?: string) {
     if (onSuccess) {
       return `${Routes.ACTIONS}/${actionID}?onSuccess=${encodeURIComponent(onSuccess)}`
     }
@@ -64,66 +73,15 @@ export const Routes = {
     }
   },
   PROVIDERS: "/providers",
-  get PROVIDER(): string {
+  get PROVIDER() {
     return `${Routes.PROVIDERS}/:provider`
   },
-  toProvider(providerID: string): string {
+  toProvider(providerID: string) {
     return `${Routes.PROVIDERS}/${providerID}`
   },
   getProviderId(params: Params<string>): string | undefined {
     // Needs to match `:provider` from detail route exactly!
     return params["provider"]
-  },
-  PRO: "/pro",
-  PRO_INSTANCE: "/pro/:host",
-  PRO_WORKSPACE: "/pro/:host/:workspace",
-  PRO_WORKSPACE_SELECT_PRESET: "/pro/:host/select-preset",
-  PRO_WORKSPACE_CREATE: "/pro/:host/new",
-  PRO_SETTINGS: "/pro/:host/user/settings",
-  PRO_CREDENTIALS: "/pro/:host/user/credentials",
-  PRO_PROFILE: "/pro/:host/user/profile",
-  toProInstance(host: string): string {
-    return `/pro/${host}`
-  },
-  toProWorkspace(host: string, instanceID: string): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/${instanceID}`
-  },
-  toProWorkspaceCreate(host: string, fromPreset?: string): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/new${fromPreset ? `?fromPreset=${fromPreset}` : ""}`
-  },
-  toProSelectPreset(host: string): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/select-preset`
-  },
-  toProWorkspaceDetail(host: string, instanceID: string, detail: TProInstanceDetail): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/${instanceID}?tab=${detail}`
-  },
-  toProSettings(host: string): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/user/settings`
-  },
-  toProCredentials(host: string): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/user/credentials`
-  },
-  toProProfile(host: string): string {
-    const base = this.toProInstance(host)
-
-    return `${base}/user/profile`
-  },
-  getProWorkspaceDetailsParams(
-    searchParams: URLSearchParams
-  ): Partial<Readonly<{ tab: TProInstanceDetail | null }>> {
-    return { tab: searchParams.get("tab") as TProInstanceDetail | null }
   },
 } as const
 
@@ -134,67 +92,36 @@ export const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: Routes.PRO,
-        element: <ProRoot />,
-        children: [
-          {
-            path: Routes.PRO_INSTANCE,
-            element: <Pro.ProInstance />,
-            children: [
-              {
-                index: true,
-                element: <Pro.ListWorkspaces />,
-              },
-              {
-                path: Routes.PRO_WORKSPACE,
-                element: <Pro.Workspace />,
-              },
-              {
-                path: Routes.PRO_WORKSPACE_CREATE,
-                element: <Pro.CreateWorkspace />,
-              },
-              {
-                path: Routes.PRO_WORKSPACE_SELECT_PRESET,
-                element: <Pro.SelectPreset />,
-              },
-              { path: Routes.PRO_SETTINGS, element: <Pro.Settings /> },
-              { path: Routes.PRO_CREDENTIALS, element: <Pro.Credentials /> },
-              { path: Routes.PRO_PROFILE, element: <Pro.Profile /> },
-            ],
-          },
-        ],
-      },
-      {
         path: Routes.WORKSPACES,
-        element: <Workspaces.Workspaces />,
+        element: <Workspaces />,
         children: [
           {
             index: true,
-            element: <Workspaces.ListWorkspaces />,
+            element: <ListWorkspaces />,
           },
           {
             path: Routes.WORKSPACE_CREATE,
-            element: <Workspaces.CreateWorkspace />,
+            element: <CreateWorkspace />,
           },
         ],
       },
       {
         path: Routes.PROVIDERS,
-        element: <Providers.Providers />,
+        element: <Providers />,
         children: [
-          { index: true, element: <Providers.ListProviders /> },
+          { index: true, element: <ListProviders /> },
           {
             path: Routes.PROVIDER,
-            element: <Providers.Provider />,
+            element: <Provider />,
           },
         ],
       },
       {
         path: Routes.ACTIONS,
-        element: <Actions.Actions />,
-        children: [{ path: Routes.ACTION, element: <Actions.Action /> }],
+        element: <Actions />,
+        children: [{ path: Routes.ACTION, element: <Action /> }],
       },
-      { path: Routes.SETTINGS, element: <Settings.Settings /> },
+      { path: Routes.SETTINGS, element: <Settings /> },
     ],
   },
 ])

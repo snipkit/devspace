@@ -23,7 +23,7 @@ import (
 )
 
 const PROVIDER_BINARY = "PRO_PROVIDER"
-const providerRepo = "khulnasoft-sh/devspace"
+const providerRepo = "khulnasoft-lab/devspace"
 
 // LoginCmd holds the login cmd flags
 type LoginCmd struct {

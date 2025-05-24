@@ -1,9 +1,7 @@
-import { TIDE, TLogOutput, TProInstance, TProvider } from "../types"
-import { ChildProcess } from "@tauri-apps/plugin-shell"
+import { TIDE, TLogOutput } from "../types"
+import { ChildProcess } from "@tauri-apps/api/shell"
 import { Err, Failed, Return } from "./result"
 import { TActionObj } from "../contexts"
-import { WORKSPACE_SOURCE_BRANCH_DELIMITER, WORKSPACE_SOURCE_COMMIT_DELIMITER } from "@/constants"
-import { TWorkspace, TIDEs } from "@/types"
 
 export function exists<T extends any | null | undefined>(
   arg: T
@@ -41,7 +39,7 @@ export function safeJSONParse<T>(arg: string): T | null {
   }
 }
 
-export function getErrorFromChildProcess(result: ChildProcess<string>): Err<Failed> {
+export function getErrorFromChildProcess(result: ChildProcess): Err<Failed> {
   const stdout = parseOutput(result.stdout)
   const stderr = parseOutput(result.stderr)
   const sorted = [...stdout, ...stderr].sort((a, b) => {
@@ -119,59 +117,4 @@ export function randomString(length: number): string {
 
 export function remToPx(rem: string): number {
   return parseFloat(rem) * parseFloat(getComputedStyle(document.documentElement).fontSize)
-}
-
-export function getIDEName(ide: TWorkspace["ide"], ides: TIDEs | undefined) {
-  const maybeIDE = ides?.find((i) => i.name === ide?.name)
-
-  return maybeIDE?.displayName ?? ide?.name ?? maybeIDE?.name ?? "Unknown"
-}
-
-export function getWorkspaceSourceName({
-  gitRepository,
-  gitBranch,
-  gitCommit,
-  localFolder,
-  image,
-}: NonNullable<TWorkspace["source"]>): string {
-  if (exists(gitRepository) && exists(gitCommit)) {
-    return `${gitRepository}${WORKSPACE_SOURCE_COMMIT_DELIMITER}${gitCommit}`
-  }
-
-  if (exists(gitRepository) && exists(gitBranch)) {
-    return `${gitRepository}${WORKSPACE_SOURCE_BRANCH_DELIMITER}${gitBranch}`
-  }
-
-  if (exists(gitRepository)) {
-    return gitRepository
-  }
-
-  if (exists(image)) {
-    return image
-  }
-
-  if (exists(localFolder)) {
-    return localFolder
-  }
-
-  return ""
-}
-
-export function deepCopy<T>(obj: T): T | undefined {
-  if (obj === undefined) {
-    return undefined
-  }
-
-  return JSON.parse(JSON.stringify(obj))
-}
-
-export function canHealthCheck(providerConfig: TProvider["config"]): boolean {
-  return !!providerConfig?.exec?.proxy?.["health"] || !!providerConfig?.exec?.daemon
-}
-
-export function hasCapability(
-  proInstance: TProInstance | undefined,
-  capability: "daemon" | "update-provider" | "health-check"
-): boolean {
-  return proInstance?.capabilities?.includes(capability) ?? false
 }

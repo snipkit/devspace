@@ -1,6 +1,5 @@
 {
-  "identifier": "sh.khulnasoft.devspace.for.devspace.devs",
-  "plugins": {
+  "tauri": {
     "updater": {
       "active": false
     }

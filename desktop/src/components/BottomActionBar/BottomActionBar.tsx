@@ -14,76 +14,40 @@ import {
 import { motion } from "framer-motion"
 import { RefObject, createContext, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { ErrorMessageBox } from "../Error"
-import { useBorderColor } from "@/Theme"
 
-type TModalBottomBarProps = Readonly<{
-  isModal?: boolean
-  hasSidebar?: boolean
-  stickToBottom?: boolean
-  children: React.ReactNode
-}>
+type TModalBottomBarProps = Readonly<{ isModal?: boolean; children: React.ReactNode }>
 
 const BottomActionBarContext = createContext<{ ref: RefObject<HTMLDivElement> } | undefined>(
   undefined
 )
-export function BottomActionBar({
-  isModal = false,
-  hasSidebar = true,
-  stickToBottom,
-  children,
-}: TModalBottomBarProps) {
+export function BottomActionBar({ isModal = false, children }: TModalBottomBarProps) {
   const ref = useRef<HTMLDivElement>(null)
-  const bottomBarBackgroundColor = useColorModeValue("white", "gray.900")
+  const bottomBarBackgroundColor = useColorModeValue("white", "gray.700")
   const bottomBarBackgroundColorModal = useColorModeValue("white", "background.darkest")
-  const borderColor = useBorderColor()
   const translateX = useBreakpointValue({
-    base: hasSidebar ? "translateX(-3rem)" : "",
+    base: "translateX(-3rem)",
     xl: isModal ? "translateX(-3rem)" : "",
   })
   const paddingX = useBreakpointValue({ base: "3rem", xl: isModal ? "3rem" : "4" })
   const value = useMemo(() => ({ ref }), [ref])
-
-  const width = useMemo(() => {
-    if (isModal) {
-      return "calc(100% + 5.5rem)"
-    }
-
-    if (hasSidebar) {
-      return { base: `calc(100vw - ${SIDEBAR_WIDTH})`, xl: "full" }
-    }
-
-    return { base: "100vw", xl: "full" }
-  }, [hasSidebar, isModal])
-
-  const otherProps = useMemo<BoxProps>(() => {
-    if (stickToBottom) {
-      return {
-        position: "fixed",
-        bottom: "2rem",
-      }
-    }
-
-    return {
-      position: "sticky",
-      bottom: "-1.1rem",
-    }
-  }, [stickToBottom])
 
   return (
     <BottomActionBarContext.Provider value={value}>
       <HStack
         ref={ref}
         as={motion.div}
-        {...otherProps}
         initial={{ transform: `translateY(100%) ${translateX}` }}
         animate={{ transform: `translateY(0) ${translateX}` }}
+        position="sticky"
         marginTop="10"
+        bottom="-1.1rem"
         left="0"
-        width={width}
+        width={
+          isModal ? "calc(100% + 5.5rem)" : { base: `calc(100vw - ${SIDEBAR_WIDTH})`, xl: "full" }
+        }
         height="20"
         alignItems="center"
         borderTopWidth="thin"
-        borderColor={borderColor}
         backgroundColor={isModal ? bottomBarBackgroundColor : bottomBarBackgroundColorModal}
         justifyContent="space-between"
         paddingX={paddingX}
@@ -142,6 +106,7 @@ function useErrorDimensions(
   defaultWidth: BoxProps["width"] = "5xl"
 ) {
   const [errorHeight, setErrorHeight] = useState<BoxProps["height"]>(defaultHeight)
+  // TODO: calculate width dynamically based on parent width
   const [errorWidth] = useState<BoxProps["width"]>(defaultWidth)
 
   useEffect(() => {

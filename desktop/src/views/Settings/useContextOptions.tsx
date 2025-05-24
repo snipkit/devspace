@@ -6,7 +6,8 @@ import { QueryKeys } from "../../queryKeys"
 import { TContextOptionName } from "../../types"
 import { ClearableInput } from "./ClearableInput"
 
-const DEFAULT_DEVSPACE_AGENT_URL = "https://dev.khulnasoft.com/releases/latest/download/"
+const DEFAULT_DEVSPACE_AGENT_URL =
+  "https://github.com/khulnasoft-lab/devspace/releases/latest/download/"
 
 export function useContextOptions() {
   const queryClient = useQueryClient()

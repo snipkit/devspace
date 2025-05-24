@@ -1,4 +1,4 @@
-import { LazyStore } from "@tauri-apps/plugin-store"
+import { Store as TauriPluginStore } from "tauri-plugin-store-api"
 import { TUnsubscribeFn } from "../types"
 import { EventManager } from "./eventManager"
 import { exists } from "./helpers"
@@ -56,7 +56,7 @@ export class LocalStorageBackend<T extends TBaseStore> implements TStorageBacken
     try {
       window.localStorage.setItem(this.getKey(key), JSON.stringify(value))
     } catch {
-      // noop
+      // TODO: let caller know, noop for now
     }
   }
 
@@ -83,11 +83,11 @@ export class LocalStorageBackend<T extends TBaseStore> implements TStorageBacken
 }
 
 export class FileStorageBackend<T extends TBaseStore> implements TStorageBackend<T> {
-  private readonly store: LazyStore
+  private readonly store: TauriPluginStore
 
   constructor(name: string) {
     const fileName = `.${name}.json`
-    this.store = new LazyStore(fileName)
+    this.store = new TauriPluginStore(fileName)
   }
 
   public async set<TKey extends keyof T>(key: TKey, value: T[TKey]): Promise<void> {
@@ -95,7 +95,7 @@ export class FileStorageBackend<T extends TBaseStore> implements TStorageBackend
       await this.store.set(key.toString(), value)
       await this.store.save()
     } catch {
-      // noop
+      // TODO: let caller know, noop for now
     }
   }
 

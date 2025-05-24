@@ -1,10 +1,9 @@
 use crate::AppState;
 use crate::{custom_protocol::ParseError, window::WindowHelper, AppHandle};
-use log::{error, info, warn};
+use log::{error, warn};
 use serde::{de, Deserialize, Serialize};
 use std::collections::{HashMap, VecDeque};
-use tauri::{Emitter, Manager, State};
-use tauri_plugin_notification::NotificationExt;
+use tauri::{Manager, State};
 use tokio::sync::mpsc::Receiver;
 
 pub async fn send_ui_message(
@@ -43,9 +42,9 @@ impl UiMessageHelper {
                 UiMessage::Ready => {
                     self.is_ready = true;
 
-                    self.app_handle.get_webview_window("main").map(|w| w.show());
+                    self.app_handle.get_window("main").map(|w| w.show());
                     while let Some(msg) = self.message_buffer.pop_front() {
-                        let emit_result = self.app_handle.emit("event", msg);
+                        let emit_result = self.app_handle.emit_all("event", msg);
                         if let Err(err) = emit_result {
                             warn!("Error sending message: {}", err);
                         }
@@ -53,30 +52,6 @@ impl UiMessageHelper {
                 }
                 UiMessage::ExitRequested => {
                     self.is_ready = false;
-                }
-                UiMessage::LoginRequired(msg) => {
-                    info!("Login required: {} {}", msg.host, msg.provider);
-
-                    let main_window = self.app_handle.get_webview_window("main");
-                    if !self.is_ready || main_window.is_none() {
-                        // send os notification if we aren't ready to display the main window
-                        let title = "Login required".to_string();
-                        let body = format!(
-                            "You have been logged out. Please log back in to {}",
-                            msg.host,
-                        );
-                        let _ = self
-                            .app_handle
-                            .notification()
-                            .builder()
-                            .title(title)
-                            .body(body)
-                            .show();
-                        continue;
-                    }
-
-                    // let main window handle
-                    let _ = self.app_handle.emit("event", UiMessage::LoginRequired(msg));
                 }
                 // send all other messages to the UI
                 _ => self.handle_msg(ui_msg),
@@ -86,14 +61,14 @@ impl UiMessageHelper {
 
     fn handle_msg(&mut self, msg: UiMessage) {
         if self.is_ready {
-            self.app_handle.get_webview_window("main").map(|w| w.show());
-            let _ = self.app_handle.emit("event", msg);
+            self.app_handle.get_window("main").map(|w| w.show());
+            let _ = self.app_handle.emit_all("event", msg);
         } else {
             // recreate window
             self.message_buffer.push_back(msg);
 
             // create a new main window if we can't find it
-            let main_window = self.app_handle.get_webview_window("main");
+            let main_window = self.app_handle.get_window("main");
             if main_window.is_none() {
                 let _ = self.window_helper.new_main(self.app_name.clone());
             }
@@ -110,11 +85,9 @@ pub enum UiMessage {
     ShowDashboard,
     ShowToast(ShowToastMsg),
     OpenWorkspace(OpenWorkspaceMsg),
-    OpenProInstance(OpenProInstanceMsg),
     SetupPro(SetupProMsg),
     ImportWorkspace(ImportWorkspaceMsg),
     CommandFailed(ParseError),
-    LoginRequired(LoginRequiredMsg),
 }
 
 #[derive(Debug, Serialize, Clone)]
@@ -155,12 +128,6 @@ pub struct OpenWorkspaceMsg {
     pub provider_id: Option<String>,
     pub ide: Option<String>,
     pub source: Option<String>,
-}
-
-#[derive(Debug, PartialEq, Serialize, Deserialize, Clone)]
-#[serde(deny_unknown_fields)]
-pub struct OpenProInstanceMsg {
-    pub host: Option<String>,
 }
 
 #[derive(Debug, PartialEq, Serialize, Clone)]
@@ -275,11 +242,4 @@ impl OpenWorkspaceMsg {
             source: None,
         }
     }
-}
-
-#[derive(Debug, PartialEq, Serialize, Clone)]
-#[serde(deny_unknown_fields)]
-pub struct LoginRequiredMsg {
-    pub host: String,
-    pub provider: String,
 }

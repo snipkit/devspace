@@ -327,7 +327,7 @@ function ConfigureOptionsForm({
                   padding={"10px"}
                   margin={"10px"}
                   borderColor={borderColor}>
-                  <FormControl variant="contrast">
+                  <FormControl>
                     <Checkbox {...formMethods.register(FieldName.REUSE_MACHINE)}>
                       Reuse Machine
                     </Checkbox>

@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useId, useMemo, useRef, useSyncExternalStore } from "react"
-import { TStreamEventListenerFn, client } from "../../../client"
+import { client, TStreamEventListenerFn } from "../../../client"
 import { TStreamID, TUnsubscribeFn } from "../../../types"
-import { useWorkspaceStore } from "../workspaceStore"
-import { IWorkspaceStore } from "../workspaceStore/workspaceStore"
+import { devSpaceStore } from "../devSpaceStore"
 import { TActionID, TActionObj } from "./action"
 
 type TActionResult = Readonly<{
@@ -12,17 +11,16 @@ type TActionResult = Readonly<{
 }>
 
 export function useAction(actionID: TActionID | undefined): TActionResult | undefined {
-  const { store } = useWorkspaceStore()
   const isCancellingRef = useRef(false)
   const viewID = useId()
   const data = useSyncExternalStore(
-    useCallback((listener) => store.subscribe(listener), [store]),
+    useCallback((listener) => devSpaceStore.subscribe(listener), []),
     () => {
       if (actionID === undefined) {
         return undefined
       }
 
-      return getAction(actionID, store)
+      return getAction(actionID)
     }
   )
 
@@ -57,11 +55,8 @@ export function useAction(actionID: TActionID | undefined): TActionResult | unde
   }, [data, connect, replay])
 }
 
-export function getAction(
-  actionID: TActionID,
-  store: IWorkspaceStore<string, unknown>
-): TActionObj | undefined {
-  const { active, history } = store.getAllActions()
+export function getAction(actionID: TActionID): TActionObj | undefined {
+  const { active, history } = devSpaceStore.getAllActions()
 
   return [...active, ...history].find((action) => action.id === actionID)
 }

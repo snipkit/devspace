@@ -55,7 +55,7 @@ linters-settings:
       - map
 
   # goimports:
-  #   local-prefixes: github.com/khulnasoft-sh
+  #   local-prefixes: github.com/khulnasoft-lab
 
   importas:
     no-unaliased: true

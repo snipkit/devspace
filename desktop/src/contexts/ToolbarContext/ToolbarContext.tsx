@@ -1,5 +1,16 @@
-import { ReactNode, useCallback, useMemo, useState } from "react"
-import { TToolbarAction, TToolbarContext, ToolbarContext } from "./useToolbar"
+import { ReactNode, createContext, useContext, useMemo, useState, useCallback } from "react"
+
+type TToolbarContext = Readonly<{
+  title: ReactNode
+  setTitle: (title: ReactNode) => void
+  actions: readonly ReactNode[]
+  addAction: (id: string, action: ReactNode) => void
+}>
+type TToolbarAction = Readonly<{
+  id: string
+  node: ReactNode
+}>
+const ToolbarContext = createContext<TToolbarContext>(null!)
 
 export function ToolbarProvider({ children }: Readonly<{ children: ReactNode }>) {
   const [title, setTitle] = useState<ReactNode>(null)
@@ -27,4 +38,8 @@ export function ToolbarProvider({ children }: Readonly<{ children: ReactNode }>)
   )
 
   return <ToolbarContext.Provider value={value}>{children}</ToolbarContext.Provider>
+}
+
+export function useToolbar() {
+  return useContext(ToolbarContext)
 }

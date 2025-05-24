@@ -3,8 +3,7 @@ pub mod constants;
 pub use config::{DevspaceCommandConfig, DevspaceCommandError};
 pub use constants::DEVSPACE_BINARY_NAME;
 
-pub mod delete_provider;
 pub mod delete_pro_instance;
-pub mod list_workspaces;
+pub mod delete_provider;
 pub mod list_pro_instances;
-pub mod start_daemon;
+pub mod list_workspaces;

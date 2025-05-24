@@ -3,7 +3,6 @@ import {
   TOptionWithID,
   useProviderDisplayOptions,
 } from "@/views/Providers"
-import { mergeOptionDefinitions } from "@/views/Providers/helpers"
 import { ViewIcon } from "@chakra-ui/icons"
 import {
   ButtonGroup,
@@ -22,11 +21,13 @@ import {
   Text,
   Tooltip,
   VStack,
+  useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react"
 import { ReactElement, useCallback, useRef, useState } from "react"
 import { HiPencil } from "react-icons/hi2"
 import { TNamedProvider } from "../../../types"
+import { mergeOptionDefinitions } from "@/views/Providers/helpers"
 
 type TProviderOptionsPopoverProps = Readonly<{ provider: TNamedProvider; trigger: ReactElement }>
 export function ProviderOptionsPopover({ provider, trigger }: TProviderOptionsPopoverProps) {
@@ -163,6 +164,8 @@ export function ProviderOptionsPopover({ provider, trigger }: TProviderOptionsPo
 type TProviderOptionListProps = Readonly<{ options: readonly TOptionWithID[] }>
 
 function ProviderOptionList({ options }: TProviderOptionListProps) {
+  const valueColor = useColorModeValue("gray.500", "gray.400")
+
   return (
     <List width="full" marginBottom="2">
       {options.map((option, i) => {
@@ -192,8 +195,8 @@ function ProviderOptionList({ options }: TProviderOptionListProps) {
                 whiteSpace="nowrap"
                 width="full"
                 overflowX="hidden"
-                variant="muted"
-                userSelect="text"
+                color={valueColor}
+                userSelect="auto"
                 _hover={{ overflow: "visible", cursor: "text" }}>
                 {option.enum.find((e) => e.value === value)?.displayName ?? value}
               </Text>
@@ -204,8 +207,8 @@ function ProviderOptionList({ options }: TProviderOptionListProps) {
                 whiteSpace="nowrap"
                 width="full"
                 overflowX="hidden"
-                variant="muted"
-                userSelect="text"
+                color={valueColor}
+                userSelect="auto"
                 _hover={{ overflow: "visible", cursor: "text" }}>
                 {value}
               </Text>

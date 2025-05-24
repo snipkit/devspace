@@ -18,7 +18,7 @@ import (
 var version string = strings.TrimPrefix(versionpkg.GetVersion(), "v")
 var devVersion string = strings.TrimPrefix(versionpkg.DevVersion, "v")
 
-var githubSlug = "khulnasoft-sh/devspace"
+var githubSlug = "khulnasoft-lab/devspace"
 
 func PrintNewerVersionWarning() {
 	if os.Getenv("DEVSPACE_SKIP_VERSION_CHECK") != "true" {

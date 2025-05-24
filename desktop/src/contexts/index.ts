@@ -1,4 +1,4 @@
 export * from "./DevSpaceContext"
-export * from "./ToolbarContext"
-export { SettingsProvider, useSettings, useChangeSettings } from "./SettingsContext"
+export { SettingsProvider, useChangeSettings, useSettings } from "./SettingsContext"
 export type { TSettings } from "./SettingsContext"
+export * from "./ToolbarContext"

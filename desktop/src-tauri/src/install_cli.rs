@@ -4,8 +4,6 @@ use std::path::Path;
 use std::str::Lines;
 use std::{env, path::PathBuf};
 use thiserror::Error;
-use std::fs;
-use log::{info,debug};
 
 #[derive(Error, Debug)]
 #[allow(dead_code)]
@@ -93,11 +91,6 @@ fn install(_app_handle: AppHandle, force: bool) -> Result<(), InstallCLIError> {
         // $HOME/.local/bin/devspace
         let mut user_local_bin = home;
         user_local_bin.push(".local/bin/devspace");
-
-        // create .local/bin if necessary
-        if let Some(path) = user_local_bin.clone().parent() {
-            fs::create_dir_all(path);
-        }
 
         target_paths.push(user_local_bin);
         target_paths.push(user_bin);
@@ -221,7 +214,6 @@ fn find_fs_type(curr_path: &Path, mount_lines: &Lines) -> Option<String> {
 #[cfg(target_os = "windows")]
 fn install(app_handle: AppHandle, force: bool) -> Result<(), InstallCLIError> {
     use log::error;
-    use tauri::Manager;
     use std::fs;
     use windows::Win32::{
         Foundation::{GetLastError, HWND, LPARAM},
@@ -239,9 +231,9 @@ fn install(app_handle: AppHandle, force: bool) -> Result<(), InstallCLIError> {
 
     let cli_path = get_cli_path().map_err(|e| InstallCLIError::NoExePath(e))?;
     let mut bin_dir = app_handle
-        .path()
+        .path_resolver()
         .app_data_dir()
-        .map_err(|_|InstallCLIError::DataDir)?;
+        .ok_or(InstallCLIError::DataDir)?;
     bin_dir.push("bin");
 
     // Create binary directory in app dir and write bin_files to disk

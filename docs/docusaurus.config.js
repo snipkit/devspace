@@ -6,7 +6,7 @@ module.exports = {
   url: "https://dev.khulnasoft.com",
   baseUrl: __webpack_public_path__,
   favicon: "/media/devspace-favicon.svg",
-  organizationName: "khulnasoft-sh", // Usually your GitHub org/user name.
+  organizationName: "khulnasoft-lab", // Usually your GitHub org/user name.
   projectName: "devspace", // Usually your repo name.
   themeConfig: {
     colorMode: {

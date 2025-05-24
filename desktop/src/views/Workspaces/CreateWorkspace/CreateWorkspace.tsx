@@ -37,9 +37,9 @@ import { RECOMMENDED_PROVIDER_SOURCES, SIDEBAR_WIDTH } from "../../../constants"
 import { useProvider, useProviders, useWorkspace, useWorkspaces } from "../../../contexts"
 import { Plus } from "../../../icons"
 import { CommunitySvg, ProviderPlaceholderSvg } from "../../../images"
-import { canHealthCheck, exists, getKeys, isEmpty, useFormErrors } from "../../../lib"
+import { exists, getKeys, isEmpty, useFormErrors } from "../../../lib"
 import { Routes } from "../../../routes"
-import { TIDE, TWorkspace, TWorkspaceSourceType } from "../../../types"
+import { TIDE, TWorkspaceSourceType } from "../../../types"
 import { useIDEs } from "../../../useIDEs"
 import { useSetupProviderModal } from "../../Providers"
 import { ProviderOptionsPopover } from "./ProviderOptionsPopover"
@@ -52,7 +52,7 @@ export function CreateWorkspace() {
   const { ides } = useIDEs()
 
   const navigate = useNavigate()
-  const workspace = useWorkspace<TWorkspace>(undefined)
+  const workspace = useWorkspace(undefined)
   const [[providers]] = useProviders()
   const [sourceType, setSourceType] = useState<TWorkspaceSourceType>("git")
 
@@ -112,7 +112,7 @@ export function CreateWorkspace() {
     }
 
     const installed = Object.entries(providers)
-      .filter(([, p]) => !!p.state?.initialized && !canHealthCheck(p.config))
+      .filter(([, p]) => !!p.state?.initialized)
       .map(([key, value]) => ({ name: key, ...value }))
 
     return {
@@ -150,7 +150,7 @@ export function CreateWorkspace() {
     }
   }, [providers, showSetupProviderModal, wasDismissed])
 
-  const backgroundColor = useColorModeValue("gray.50", "gray.900")
+  const backgroundColor = useColorModeValue("gray.50", "gray.800")
   const borderColor = useBorderColor()
   const bottomBarBackgroundColor = useColorModeValue("white", "background.darkest")
   const { colorMode } = useColorMode()
@@ -167,7 +167,6 @@ export function CreateWorkspace() {
             borderWidth="thin"
             borderColor={borderColor}>
             <FormControl
-              borderLeftRadius="lg"
               backgroundColor={backgroundColor}
               paddingX="20"
               paddingY="20"
@@ -224,6 +223,7 @@ export function CreateWorkspace() {
                 borderBottomWidth="thin"
                 borderColor={borderColor}
                 width="full"
+                color="gray.500"
                 marginBottom="4"
                 fontWeight="medium"
                 textAlign="center">
@@ -450,7 +450,7 @@ type TProviderInputProps = Readonly<{
 function ProviderInput({ options, field, onAddProviderClicked }: TProviderInputProps) {
   const gridChildWidth = useToken("sizes", "12")
   const [provider] = useProvider(field.value)
-  const workspaces = useWorkspaces<TWorkspace>()
+  const workspaces = useWorkspaces()
   const reuseWorkspace = useMemo(() => {
     return workspaces.find((workspace) => {
       return (
