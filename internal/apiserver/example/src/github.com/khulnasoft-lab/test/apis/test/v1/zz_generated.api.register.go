@@ -20,7 +20,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 }
 
 var (
-	ApiVersion = builders.NewApiVersion("test.loft.sh", "v1").WithResources(
+	ApiVersion = builders.NewApiVersion("test.khulnasoft.com", "v1").WithResources(
 		test.TestClusterRoleStorage,
 	)
 

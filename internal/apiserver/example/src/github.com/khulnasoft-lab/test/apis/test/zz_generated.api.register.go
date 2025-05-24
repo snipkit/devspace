@@ -41,7 +41,7 @@ var (
 		func() runtime.Object { return &ClusterRoleList{} },
 	)
 	// Registered resources and subresources
-	ApiVersion = builders.NewApiGroup("test.loft.sh").WithKinds(
+	ApiVersion = builders.NewApiGroup("test.khulnasoft.com").WithKinds(
 		InternalClusterRole,
 		InternalClusterRoleStatus,
 	)

@@ -1,7 +1,7 @@
 package v1
 
 import (
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -12,23 +12,23 @@ var (
 	}
 
 	// DevSpaceWorkspaceIDLabel holds the actual workspace id of the devspace workspace
-	DevSpaceWorkspaceIDLabel = "loft.sh/workspace-id"
+	DevSpaceWorkspaceIDLabel = "khulnasoft.com/workspace-id"
 
 	// DevSpaceWorkspaceUIDLabel holds the actual workspace uid of the devspace workspace
-	DevSpaceWorkspaceUIDLabel = "loft.sh/workspace-uid"
+	DevSpaceWorkspaceUIDLabel = "khulnasoft.com/workspace-uid"
 
 	// DevSpaceKubernetesProviderWorkspaceUIDLabel holds the actual workspace uid of the devspace workspace on resources
 	// created by the DevSpace Kubernetes provider.
 	DevSpaceKubernetesProviderWorkspaceUIDLabel = "dev.khulnasoft.com/workspace-uid"
 
 	// DevSpaceWorkspacePictureAnnotation holds the workspace picture url of the devspace workspace
-	DevSpaceWorkspacePictureAnnotation = "loft.sh/workspace-picture"
+	DevSpaceWorkspacePictureAnnotation = "khulnasoft.com/workspace-picture"
 
 	// DevSpaceWorkspaceSourceAnnotation holds the workspace source of the devspace workspace
-	DevSpaceWorkspaceSourceAnnotation = "loft.sh/workspace-source"
+	DevSpaceWorkspaceSourceAnnotation = "khulnasoft.com/workspace-source"
 
 	// DevSpaceWorkspaceRunnerNetworkPeerAnnotation holds the workspace runner network peer name of the devspace workspace
-	DevSpaceWorkspaceRunnerEndpointAnnotation = "loft.sh/runner-endpoint"
+	DevSpaceWorkspaceRunnerEndpointAnnotation = "khulnasoft.com/runner-endpoint"
 )
 
 var (
@@ -132,7 +132,7 @@ type PresetRef struct {
 
 	// Version holds the preset version to use. Version is expected to
 	// be in semantic versioning format. Alternatively, you can also exchange
-	// major, minor or patch with an 'x' to tell Loft to automatically select
+	// major, minor or patch with an 'x' to tell Khulnasoft to automatically select
 	// the latest major, minor or patch version.
 	// +optional
 	Version string `json:"version,omitempty"`

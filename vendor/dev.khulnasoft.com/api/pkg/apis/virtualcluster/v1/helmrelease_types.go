@@ -1,7 +1,7 @@
 package v1
 
 import (
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

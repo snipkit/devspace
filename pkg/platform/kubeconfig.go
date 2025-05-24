@@ -81,7 +81,7 @@ func kubeConfigForSpaceInstance(ctx context.Context, baseClient client.Client, s
 		return nil, err
 	}
 
-	spaceInstance, err := managementClient.Loft().ManagementV1().SpaceInstances(namespace).Get(ctx, spaceInstanceName, metav1.GetOptions{})
+	spaceInstance, err := managementClient.Khulnasoft().ManagementV1().SpaceInstances(namespace).Get(ctx, spaceInstanceName, metav1.GetOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("get space instance: %w", err)
 	}
@@ -101,19 +101,19 @@ func kubeConfigForSpaceInstance(ctx context.Context, baseClient client.Client, s
 	ttl := int64(configTTL.Seconds())
 
 	// direct cluster access?
-	if hostCluster.GetAnnotations()[annotations.LoftDirectClusterEndpoint] != "" {
+	if hostCluster.GetAnnotations()[annotations.KhulnasoftDirectClusterEndpoint] != "" {
 		tok := &managementv1.DirectClusterEndpointToken{
 			Spec: managementv1.DirectClusterEndpointTokenSpec{
 				Scope: scope,
 				TTL:   ttl,
 			},
 		}
-		directClusterEndpointToken, err := managementClient.Loft().ManagementV1().DirectClusterEndpointTokens().Create(ctx, tok, metav1.CreateOptions{})
+		directClusterEndpointToken, err := managementClient.Khulnasoft().ManagementV1().DirectClusterEndpointTokens().Create(ctx, tok, metav1.CreateOptions{})
 		if err != nil {
 			return nil, fmt.Errorf("create direct cluster endpoint token: %w", err)
 		}
 
-		directClusterEndpoint := hostCluster.GetAnnotations()[annotations.LoftDirectClusterEndpoint]
+		directClusterEndpoint := hostCluster.GetAnnotations()[annotations.KhulnasoftDirectClusterEndpoint]
 		host := fmt.Sprintf("https://%s/kubernetes/project/%s/space/%s", directClusterEndpoint, projectName, spaceInstance.Name)
 
 		return newKubeConfig(host, directClusterEndpointToken.Status.Token, spaceInstance.Spec.ClusterRef.Namespace, true), nil
@@ -130,7 +130,7 @@ func kubeConfigForSpaceInstance(ctx context.Context, baseClient client.Client, s
 			},
 		},
 	}
-	ownedAccessKey, err := managementClient.Loft().ManagementV1().OwnedAccessKeys().Create(ctx, key, metav1.CreateOptions{})
+	ownedAccessKey, err := managementClient.Khulnasoft().ManagementV1().OwnedAccessKeys().Create(ctx, key, metav1.CreateOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("create access key: %w", err)
 	}
@@ -147,7 +147,7 @@ func kubeConfigForVirtualClusterInstance(ctx context.Context, baseClient client.
 		return nil, err
 	}
 
-	virtualClusterInstance, err := managementClient.Loft().ManagementV1().VirtualClusterInstances(namespace).Get(ctx, virtualClusterInstanceName, metav1.GetOptions{})
+	virtualClusterInstance, err := managementClient.Khulnasoft().ManagementV1().VirtualClusterInstances(namespace).Get(ctx, virtualClusterInstanceName, metav1.GetOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("get virtual cluster instance: %w", err)
 	}
@@ -169,7 +169,7 @@ func kubeConfigForVirtualClusterInstance(ctx context.Context, baseClient client.
 				CertificateTTL: &certTTL,
 			},
 		}
-		directVirtualClusterKubeConfig, err := managementClient.Loft().ManagementV1().VirtualClusterInstances(namespace).
+		directVirtualClusterKubeConfig, err := managementClient.Khulnasoft().ManagementV1().VirtualClusterInstances(namespace).
 			GetKubeConfig(ctx, virtualClusterInstance.Name, config, metav1.CreateOptions{})
 		if err != nil {
 			return nil, fmt.Errorf("create direct cluster endpoint token: %w", err)
@@ -190,19 +190,19 @@ func kubeConfigForVirtualClusterInstance(ctx context.Context, baseClient client.
 	}
 
 	// direct cluster access?
-	if hostCluster.GetAnnotations()[annotations.LoftDirectClusterEndpoint] != "" {
+	if hostCluster.GetAnnotations()[annotations.KhulnasoftDirectClusterEndpoint] != "" {
 		tok := &managementv1.DirectClusterEndpointToken{
 			Spec: managementv1.DirectClusterEndpointTokenSpec{
 				Scope: scope,
 				TTL:   ttl,
 			},
 		}
-		directClusterEndpointToken, err := managementClient.Loft().ManagementV1().DirectClusterEndpointTokens().Create(ctx, tok, metav1.CreateOptions{})
+		directClusterEndpointToken, err := managementClient.Khulnasoft().ManagementV1().DirectClusterEndpointTokens().Create(ctx, tok, metav1.CreateOptions{})
 		if err != nil {
 			return nil, fmt.Errorf("create direct cluster endpoint token: %w", err)
 		}
 
-		directClusterEndpoint := hostCluster.GetAnnotations()[annotations.LoftDirectClusterEndpoint]
+		directClusterEndpoint := hostCluster.GetAnnotations()[annotations.KhulnasoftDirectClusterEndpoint]
 		host := fmt.Sprintf("https://%s/kubernetes/project/%s/virtualcluster/%s", directClusterEndpoint, projectName, virtualClusterInstance.Name)
 
 		return newKubeConfig(host, directClusterEndpointToken.Status.Token, virtualClusterInstance.Spec.ClusterRef.Namespace, true), nil
@@ -219,7 +219,7 @@ func kubeConfigForVirtualClusterInstance(ctx context.Context, baseClient client.
 			},
 		},
 	}
-	ownedAccessKey, err := managementClient.Loft().ManagementV1().OwnedAccessKeys().Create(ctx, key, metav1.CreateOptions{})
+	ownedAccessKey, err := managementClient.Khulnasoft().ManagementV1().OwnedAccessKeys().Create(ctx, key, metav1.CreateOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("create access key: %w", err)
 	}
@@ -234,7 +234,7 @@ func findHostCluster(ctx context.Context, baseClient client.Client, projectName 
 	if err != nil {
 		return managementv1.Cluster{}, err
 	}
-	projectClusters, err := managementClient.Loft().ManagementV1().Projects().ListClusters(ctx, projectName, metav1.GetOptions{})
+	projectClusters, err := managementClient.Khulnasoft().ManagementV1().Projects().ListClusters(ctx, projectName, metav1.GetOptions{})
 	if err != nil {
 		return managementv1.Cluster{}, fmt.Errorf("get project clusters: %w", err)
 	}
@@ -249,7 +249,7 @@ func findHostCluster(ctx context.Context, baseClient client.Client, projectName 
 }
 
 func newKubeConfig(host, token, namespace string, insecure bool) *clientcmdapi.Config {
-	contextName := "loft"
+	contextName := "khulnasoft"
 	kubeConfig := clientcmdapi.NewConfig()
 	kubeConfig.Contexts = map[string]*clientcmdapi.Context{
 		contextName: {

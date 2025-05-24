@@ -1,7 +1,7 @@
 package v1
 
 import (
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -72,7 +72,7 @@ type RunnerSpec struct {
 	// +optional
 	Endpoint string `json:"endpoint,omitempty"`
 
-	// If ClusterRef is defined, Loft will schedule the runner on the given
+	// If ClusterRef is defined, Khulnasoft will schedule the runner on the given
 	// cluster.
 	// +optional
 	ClusterRef *RunnerClusterRef `json:"clusterRef,omitempty"`

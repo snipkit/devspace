@@ -1,2 +1,2 @@
 # utils
-contains the common code required by loft open source projects.
+contains the common code required by khulnasoft open source projects.

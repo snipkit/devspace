@@ -63,7 +63,7 @@ type SelfStatus struct {
 	// +optional
 	ChatAuthToken string `json:"chatAuthToken,omitempty"`
 
-	// InstanceID is the loft instance id
+	// InstanceID is the khulnasoft instance id
 	// +optional
 	InstanceID string `json:"instanceID,omitempty"`
 

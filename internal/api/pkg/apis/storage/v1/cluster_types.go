@@ -1,26 +1,26 @@
 package v1
 
 import (
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
-	MetricsFederationServiceNamespaceAnnotation = "loft.sh/metrics-federation-service-namespace"
-	MetricsFederationServiceNameAnnotation      = "loft.sh/metrics-federation-service-name"
-	MetricsFederationServicePortAnnotation      = "loft.sh/metrics-federation-service-port"
+	MetricsFederationServiceNamespaceAnnotation = "khulnasoft.com/metrics-federation-service-namespace"
+	MetricsFederationServiceNameAnnotation      = "khulnasoft.com/metrics-federation-service-name"
+	MetricsFederationServicePortAnnotation      = "khulnasoft.com/metrics-federation-service-port"
 
-	PrometheusLastAppliedHashAnnotation                              = "loft.sh/prometheus-last-applied-hash"
+	PrometheusLastAppliedHashAnnotation                              = "khulnasoft.com/prometheus-last-applied-hash"
 	PrometheusDeployed                  agentstoragev1.ConditionType = "PrometheusDeployed"
 	PrometheusAvailable                 agentstoragev1.ConditionType = "PrometheusAvailable"
 
-	GlobalPrometheusLastAppliedHashAnnotation                              = "loft.sh/global-prometheus-last-applied-hash"
+	GlobalPrometheusLastAppliedHashAnnotation                              = "khulnasoft.com/global-prometheus-last-applied-hash"
 	GlobalPrometheusDeployed                  agentstoragev1.ConditionType = "GlobalPrometheusDeployed"
 	GlobalPrometheusAvailable                 agentstoragev1.ConditionType = "GlobalPrometheusAvailable"
 
-	OpenCostLastAppliedHashAnnotation                              = "loft.sh/opencost-last-applied-hash"
+	OpenCostLastAppliedHashAnnotation                              = "khulnasoft.com/opencost-last-applied-hash"
 	OpenCostDeployed                  agentstoragev1.ConditionType = "OpenCostDeployed"
 	OpenCostAvailable                 agentstoragev1.ConditionType = "OpenCostAvailable"
 )

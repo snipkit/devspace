@@ -91,10 +91,10 @@ type fromEnvOption struct{}
 
 func (fromEnvOption) apply(o *options) {
 	o.development = os.Getenv("DEVELOPMENT") == "true"
-	o.disableStacktrace = os.Getenv("LOFT_LOG_DISABLE_STACKTRACE") == "" || os.Getenv("LOFT_LOG_DISABLE_STACKTRACE") != "false"
+	o.disableStacktrace = os.Getenv("KHULNASOFT_LOG_DISABLE_STACKTRACE") == "" || os.Getenv("KHULNASOFT_LOG_DISABLE_STACKTRACE") != "false"
 	o.logEncoding = GetEncoding()
 	o.logFullCallerPath = LogFullCallerPath()
-	o.logLevel = LoftLogLevel()
+	o.logLevel = KhulnasoftLogLevel()
 }
 
 func WithOptionsFromEnv() Option {

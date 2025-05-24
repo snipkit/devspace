@@ -37,7 +37,7 @@ run-desktop: build ## Run the desktop app
 	cd desktop && yarn desktop:dev:debug
 
 .PHONY: run-daemon
-run-daemon: build ## Run the daemon against loft host
+run-daemon: build ## Run the daemon against khulnasoft host
 	$(BINARY_NAME) pro daemon start --host $(PLATFORM_HOST)
 
 ##@ Testing

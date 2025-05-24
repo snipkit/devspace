@@ -399,7 +399,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 				framework.ExpectNoError(err)
 			})
 
-			err = f.DevSpaceUp(ctx, "https://github.com/loft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
+			err = f.DevSpaceUp(ctx, "https://github.com/khulnasoft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
 			framework.ExpectNoError(err)
 
 			id := "subpath--devspace-jupyter-notebook-hello-world"
@@ -428,14 +428,14 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 			})
 
 			id := "subpath--devspace-jupyter-notebook-hello-world"
-			err = f.DevSpaceUp(ctx, "https://github.com/loft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
+			err = f.DevSpaceUp(ctx, "https://github.com/khulnasoft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
 			framework.ExpectNoError(err)
 
 			_, err = f.DevSpaceSSH(ctx, id, "pwd")
 			framework.ExpectNoError(err)
 
 			// recreate
-			err = f.DevSpaceUpRecreate(ctx, "https://github.com/loft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
+			err = f.DevSpaceUpRecreate(ctx, "https://github.com/khulnasoft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
 			framework.ExpectNoError(err)
 
 			_, err = f.DevSpaceSSH(ctx, id, "pwd")
@@ -464,7 +464,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 			})
 
 			id := "subpath--devspace-jupyter-notebook-hello-world"
-			err = f.DevSpaceUp(ctx, "https://github.com/loft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
+			err = f.DevSpaceUp(ctx, "https://github.com/khulnasoft-sh/examples@subpath:/devspace/jupyter-notebook-hello-world")
 			framework.ExpectNoError(err)
 
 			// create files in root and in workspace, after create we expect data to still be there
@@ -474,7 +474,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 			framework.ExpectNoError(err)
 
 			// reset
-			err = f.DevSpaceUpReset(ctx, "https://github.com/loft-sh/examples/@subpath:/devspace/jupyter-notebook-hello-world")
+			err = f.DevSpaceUpReset(ctx, "https://github.com/khulnasoft-sh/examples/@subpath:/devspace/jupyter-notebook-hello-world")
 			framework.ExpectNoError(err)
 
 			// this should fail! because --reset should trigger a new git clone
@@ -542,7 +542,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 				initialList, err := f.DevSpaceList(ctx)
 				framework.ExpectNoError(err)
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevSpaceUp(ctx, "notfound.loft.sh")
+				err = f.DevSpaceUp(ctx, "notfound.khulnasoft.com")
 				framework.ExpectError(err)
 
 				out, err := f.DevSpaceList(ctx)

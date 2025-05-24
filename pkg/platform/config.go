@@ -12,7 +12,7 @@ import (
 
 const (
 	defaultTimeout                    = 10 * time.Minute
-	LoftPlatformConfigFileName string = "loft-config.json" // TODO: replace hardcoded strings with this
+	KhulnasoftPlatformConfigFileName string = "khulnasoft-config.json" // TODO: replace hardcoded strings with this
 )
 
 func Timeout() time.Duration {
@@ -33,9 +33,9 @@ func ReadConfig(contextName string, providerName string) (*client.Config, error)
 		return nil, err
 	}
 
-	configPath := filepath.Join(providerDir, LoftPlatformConfigFileName)
+	configPath := filepath.Join(providerDir, KhulnasoftPlatformConfigFileName)
 
-	// Check if given context and provider have Loft Platform configuration
+	// Check if given context and provider have Khulnasoft Platform configuration
 	if _, err := os.Stat(configPath); os.IsNotExist(err) {
 		// If not just return empty response
 		return nil, err
@@ -46,11 +46,11 @@ func ReadConfig(contextName string, providerName string) (*client.Config, error)
 		return nil, err
 	}
 
-	loftConfig := &client.Config{}
-	err = json.Unmarshal(content, loftConfig)
+	khulnasoftConfig := &client.Config{}
+	err = json.Unmarshal(content, khulnasoftConfig)
 	if err != nil {
 		return nil, err
 	}
 
-	return loftConfig, nil
+	return khulnasoftConfig, nil
 }

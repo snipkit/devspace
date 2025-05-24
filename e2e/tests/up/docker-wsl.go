@@ -218,7 +218,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/loft-sh/example-dotfiles")
+				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/khulnasoft-sh/example-dotfiles")
 				framework.ExpectNoError(err)
 
 				out, err := f.DevSpaceSSH(ctx, tempDir, "ls ~/.file*")
@@ -246,7 +246,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/loft-sh/example-dotfiles", "--dotfiles-script", "install-example")
+				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/khulnasoft-sh/example-dotfiles", "--dotfiles-script", "install-example")
 				framework.ExpectNoError(err)
 
 				out, err := f.DevSpaceSSH(ctx, tempDir, "ls /tmp/worked")
@@ -278,7 +278,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/loft-sh/example-dotfiles@sha256:9a0b41808bf8f50e9871b3b5c9280fe22bf46a04")
+				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/khulnasoft-sh/example-dotfiles@sha256:9a0b41808bf8f50e9871b3b5c9280fe22bf46a04")
 				framework.ExpectNoError(err)
 
 				out, err := f.DevSpaceSSH(ctx, tempDir, "ls ~/.file*")
@@ -311,7 +311,7 @@ var _ = DevSpaceDescribe("devspace up test suite", func() {
 				ginkgo.DeferCleanup(f.DevSpaceWorkspaceDelete, context.Background(), tempDir)
 
 				// Wait for devspace workspace to come online (deadline: 30s)
-				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/loft-sh/example-dotfiles@do-not-delete")
+				err = f.DevSpaceUp(ctx, tempDir, "--dotfiles", "https://github.com/khulnasoft-sh/example-dotfiles@do-not-delete")
 				framework.ExpectNoError(err)
 
 				out, err := f.DevSpaceSSH(ctx, tempDir, "cat ~/.branch_test")

@@ -1,4 +1,4 @@
 //
-// +domain=loft.sh
+// +domain=khulnasoft.com
 
 package apis

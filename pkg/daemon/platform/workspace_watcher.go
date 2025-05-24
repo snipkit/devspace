@@ -10,7 +10,7 @@ import (
 
 	managementv1 "dev.khulnasoft.com/api/pkg/apis/management/v1"
 	storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
-	loftclient "dev.khulnasoft.com/api/pkg/clientset/versioned"
+	khulnasoftclient "dev.khulnasoft.com/api/pkg/clientset/versioned"
 	typedmanagementv1 "dev.khulnasoft.com/api/pkg/clientset/versioned/typed/management/v1"
 	informers "dev.khulnasoft.com/api/pkg/informers/externalversions"
 	"dev.khulnasoft.com/pkg/platform"
@@ -385,8 +385,8 @@ func (s *instanceStore) updateWorkspaceLatencies(ctx context.Context) {
 	wg.Wait()
 }
 
-func getClientSet(config *rest.Config) (loftclient.Interface, error) {
-	clientset, err := loftclient.NewForConfig(config)
+func getClientSet(config *rest.Config) (khulnasoftclient.Interface, error) {
+	clientset, err := khulnasoftclient.NewForConfig(config)
 	if err != nil {
 		return nil, err
 	}
@@ -402,7 +402,7 @@ func getClientSet(config *rest.Config) (loftclient.Interface, error) {
 var _ rest.Interface = (*extendedRESTClient)(nil)
 
 type extendedClientset struct {
-	*loftclient.Clientset
+	*khulnasoftclient.Clientset
 	ManagementClient typedmanagementv1.ManagementV1Interface
 }
 

@@ -28,7 +28,7 @@ const (
 	Tunnel_GitCredentials_FullMethodName    = "/tunnel.Tunnel/GitCredentials"
 	Tunnel_GitSSHSignature_FullMethodName   = "/tunnel.Tunnel/GitSSHSignature"
 	Tunnel_GitUser_FullMethodName           = "/tunnel.Tunnel/GitUser"
-	Tunnel_LoftConfig_FullMethodName        = "/tunnel.Tunnel/LoftConfig"
+	Tunnel_KhulnasoftConfig_FullMethodName        = "/tunnel.Tunnel/KhulnasoftConfig"
 	Tunnel_GPGPublicKeys_FullMethodName     = "/tunnel.Tunnel/GPGPublicKeys"
 	Tunnel_KubeConfig_FullMethodName        = "/tunnel.Tunnel/KubeConfig"
 	Tunnel_ForwardPort_FullMethodName       = "/tunnel.Tunnel/ForwardPort"
@@ -49,7 +49,7 @@ type TunnelClient interface {
 	GitCredentials(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
 	GitSSHSignature(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
 	GitUser(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*Message, error)
-	LoftConfig(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
+	KhulnasoftConfig(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
 	GPGPublicKeys(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
 	KubeConfig(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error)
 	ForwardPort(ctx context.Context, in *ForwardPortRequest, opts ...grpc.CallOption) (*ForwardPortResponse, error)
@@ -137,10 +137,10 @@ func (c *tunnelClient) GitUser(ctx context.Context, in *Empty, opts ...grpc.Call
 	return out, nil
 }
 
-func (c *tunnelClient) LoftConfig(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error) {
+func (c *tunnelClient) KhulnasoftConfig(ctx context.Context, in *Message, opts ...grpc.CallOption) (*Message, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Message)
-	err := c.cc.Invoke(ctx, Tunnel_LoftConfig_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, Tunnel_KhulnasoftConfig_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -255,7 +255,7 @@ type TunnelServer interface {
 	GitCredentials(context.Context, *Message) (*Message, error)
 	GitSSHSignature(context.Context, *Message) (*Message, error)
 	GitUser(context.Context, *Empty) (*Message, error)
-	LoftConfig(context.Context, *Message) (*Message, error)
+	KhulnasoftConfig(context.Context, *Message) (*Message, error)
 	GPGPublicKeys(context.Context, *Message) (*Message, error)
 	KubeConfig(context.Context, *Message) (*Message, error)
 	ForwardPort(context.Context, *ForwardPortRequest) (*ForwardPortResponse, error)
@@ -294,8 +294,8 @@ func (UnimplementedTunnelServer) GitSSHSignature(context.Context, *Message) (*Me
 func (UnimplementedTunnelServer) GitUser(context.Context, *Empty) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GitUser not implemented")
 }
-func (UnimplementedTunnelServer) LoftConfig(context.Context, *Message) (*Message, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method LoftConfig not implemented")
+func (UnimplementedTunnelServer) KhulnasoftConfig(context.Context, *Message) (*Message, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method KhulnasoftConfig not implemented")
 }
 func (UnimplementedTunnelServer) GPGPublicKeys(context.Context, *Message) (*Message, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GPGPublicKeys not implemented")
@@ -465,20 +465,20 @@ func _Tunnel_GitUser_Handler(srv interface{}, ctx context.Context, dec func(inte
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Tunnel_LoftConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Tunnel_KhulnasoftConfig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Message)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(TunnelServer).LoftConfig(ctx, in)
+		return srv.(TunnelServer).KhulnasoftConfig(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Tunnel_LoftConfig_FullMethodName,
+		FullMethod: Tunnel_KhulnasoftConfig_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TunnelServer).LoftConfig(ctx, req.(*Message))
+		return srv.(TunnelServer).KhulnasoftConfig(ctx, req.(*Message))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -624,8 +624,8 @@ var Tunnel_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Tunnel_GitUser_Handler,
 		},
 		{
-			MethodName: "LoftConfig",
-			Handler:    _Tunnel_LoftConfig_Handler,
+			MethodName: "KhulnasoftConfig",
+			Handler:    _Tunnel_KhulnasoftConfig_Handler,
 		},
 		{
 			MethodName: "GPGPublicKeys",

@@ -19,7 +19,7 @@ type ListAvailableCmd struct {
 }
 
 func getDevspaceProviderList() error {
-	req, err := http.NewRequest("GET", "https://api.github.com/users/loft-sh/repos", nil)
+	req, err := http.NewRequest("GET", "https://api.github.com/users/khulnasoft-sh/repos", nil)
 	if err != nil {
 		return err
 	}
@@ -40,7 +40,7 @@ func getDevspaceProviderList() error {
 		return err
 	}
 
-	fmt.Println("List of available providers from loft:")
+	fmt.Println("List of available providers from khulnasoft:")
 	for _, v := range jsonResult {
 		if strings.Contains(v["name"].(string), "devspace-provider") {
 			name := strings.TrimPrefix(v["name"].(string), "devspace-provider-")

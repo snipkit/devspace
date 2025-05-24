@@ -3,8 +3,8 @@
 package fake
 
 import (
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
-	storagev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
+	storagev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

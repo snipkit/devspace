@@ -23,7 +23,7 @@ import (
 )
 
 const PROVIDER_BINARY = "PRO_PROVIDER"
-const providerRepo = "loft-sh/devspace"
+const providerRepo = "khulnasoft-sh/devspace"
 
 // LoginCmd holds the login cmd flags
 type LoginCmd struct {
@@ -59,7 +59,7 @@ func NewLoginCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	}
 
 	loginCmd.Flags().StringVar(&cmd.AccessKey, "access-key", "", "If defined will use the given access key to login")
-	loginCmd.Flags().BoolVar(&cmd.Login, "login", true, "If enabled will automatically try to log into the Loft DevSpace Pro")
+	loginCmd.Flags().BoolVar(&cmd.Login, "login", true, "If enabled will automatically try to log into the Khulnasoft DevSpace Pro")
 	loginCmd.Flags().BoolVar(&cmd.Use, "use", true, "If enabled will automatically activate the provider")
 	loginCmd.Flags().StringVar(&cmd.Provider, "provider", "", "Optional name how the DevSpace Pro provider will be named")
 	loginCmd.Flags().StringVar(&cmd.Version, "version", "", "The version to use for the DevSpace provider")
@@ -155,7 +155,7 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 			log.Debug("remote version < 0.7.0, installing proxy provider")
 			// proxy providers are deprecated and shouldn't be used
 			// unless explicitly the server version is below 0.7.0
-			err = cmd.addLoftProvider(devSpaceConfig, fullURL, log)
+			err = cmd.addKhulnasoftProvider(devSpaceConfig, fullURL, log)
 			if err != nil {
 				return err
 			}
@@ -185,7 +185,7 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 		return err
 	}
 
-	// 2. Login to Loft
+	// 2. Login to Khulnasoft
 	if cmd.Login {
 		err = login(ctx, devSpaceConfig, fullURL, cmd.Provider, cmd.AccessKey, false, cmd.ForceBrowser, log)
 		if err != nil {
@@ -206,8 +206,8 @@ func (cmd *LoginCmd) Run(ctx context.Context, fullURL string, log log.Logger) er
 	return nil
 }
 
-func (cmd *LoginCmd) addLoftProvider(devSpaceConfig *config.Config, url string, log log.Logger) error {
-	// find out loft version
+func (cmd *LoginCmd) addKhulnasoftProvider(devSpaceConfig *config.Config, url string, log log.Logger) error {
+	// find out khulnasoft version
 	err := cmd.resolveProviderSource(url)
 	if err != nil {
 		return err
@@ -252,7 +252,7 @@ func (cmd *LoginCmd) resolveProviderSource(url string) error {
 }
 
 func login(ctx context.Context, devSpaceConfig *config.Config, url string, providerName string, accessKey string, skipBrowserLogin, forceBrowser bool, log log.Logger) error {
-	configPath, err := platform.LoftConfigPath(devSpaceConfig.DefaultContext, providerName)
+	configPath, err := platform.KhulnasoftConfigPath(devSpaceConfig.DefaultContext, providerName)
 	if err != nil {
 		return err
 	}
@@ -275,7 +275,7 @@ func login(ctx context.Context, devSpaceConfig *config.Config, url string, provi
 		err = loader.LoginWithAccessKey(url, accessKey, true, true)
 	} else {
 		if skipBrowserLogin {
-			return fmt.Errorf("unable to login to loft host")
+			return fmt.Errorf("unable to login to khulnasoft host")
 		}
 		err = loader.Login(url, true, log)
 	}
@@ -291,11 +291,11 @@ version: v0.0.0
 icon: https://dev.khulnasoft.com/assets/devspace.svg
 description: DevSpace Pro
 options:
-  LOFT_CONFIG:
+  KHULNASOFT_CONFIG:
     global: true
     hidden: true
     required: true
-    default: "${PROVIDER_FOLDER}/loft-config.json"
+    default: "${PROVIDER_FOLDER}/khulnasoft-config.json"
 binaries:
   PRO_PROVIDER:
     - os: linux
@@ -304,7 +304,7 @@ binaries:
     - os: linux
       arch: arm64
       path: /usr/local/bin/devspace
-    - os: darwin 
+    - os: darwin
       arch: amd64
       path: /usr/local/bin/devspace
     - os: darwin

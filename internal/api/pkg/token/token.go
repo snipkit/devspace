@@ -3,12 +3,12 @@ package token
 import storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
 
 type PrivateClaims struct {
-	Loft Loft `json:"loft.sh,omitempty"`
+	Khulnasoft Khulnasoft `json:"khulnasoft.com,omitempty"`
 }
 
-const LoftAdminKind = "LoftAdmin"
+const KhulnasoftAdminKind = "KhulnasoftAdmin"
 
-type Loft struct {
+type Khulnasoft struct {
 	// The UID of the user or team that this token is for
 	UID string `json:"uid,omitempty"`
 	// The kubernetes name of the user or team that this token is signed for

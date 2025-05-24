@@ -607,7 +607,7 @@ func streamMount(ctx context.Context, workspaceInfo *provider2.ContainerWorkspac
 		// build the url
 		logger.Infof("Download %s into DevContainer %s", m.Source, m.Target)
 		url := fmt.Sprintf(
-			"https://%s/kubernetes/management/apis/management.loft.sh/v1/namespaces/%s/devspaceworkspaceinstances/%s/download?path=%s",
+			"https://%s/kubernetes/management/apis/management.khulnasoft.com/v1/namespaces/%s/devspaceworkspaceinstances/%s/download?path=%s",
 			ts.RemoveProtocol(workspaceInfo.CLIOptions.Platform.PlatformHost),
 			workspaceInfo.CLIOptions.Platform.InstanceNamespace,
 			workspaceInfo.CLIOptions.Platform.InstanceName,

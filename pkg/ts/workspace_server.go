@@ -164,7 +164,7 @@ func (s *WorkspaceServer) validateConfig() error {
 // setupControlURL constructs the control URL and verifies DERP connection.
 func (s *WorkspaceServer) setupControlURL(ctx context.Context) (*url.URL, error) {
 	baseURL := &url.URL{
-		Scheme: GetEnvOrDefault("LOFT_TSNET_SCHEME", "https"),
+		Scheme: GetEnvOrDefault("KHULNASOFT_TSNET_SCHEME", "https"),
 		Host:   s.config.PlatformHost,
 	}
 	if err := CheckDerpConnection(ctx, baseURL); err != nil {
@@ -296,7 +296,7 @@ func (s *WorkspaceServer) gitCredentialsHandler(w http.ResponseWriter, r *http.R
 	}
 
 	// build the runner URL
-	runnerURL := fmt.Sprintf("http://%s.ts.loft/devspace/%s/%s/workspace-git-credentials", discoveredRunner, projectName, workspaceName)
+	runnerURL := fmt.Sprintf("http://%s.ts.khulnasoft/devspace/%s/%s/workspace-git-credentials", discoveredRunner, projectName, workspaceName)
 	parsedURL, err := url.Parse(runnerURL)
 	if err != nil {
 		http.Error(w, "failed to parse runner URL", http.StatusInternalServerError)
@@ -323,13 +323,13 @@ func (s *WorkspaceServer) httpPortForwardHandler(w http.ResponseWriter, r *http.
 	s.log.Debugf("httpPortForwardHandler: starting")
 
 	// Retrieve required custom headers.
-	targetPort := r.Header.Get("X-Loft-Forward-Port")
-	baseForwardStr := r.Header.Get("X-Loft-Forward-Url")
+	targetPort := r.Header.Get("X-Khulnasoft-Forward-Port")
+	baseForwardStr := r.Header.Get("X-Khulnasoft-Forward-Url")
 	if targetPort == "" || baseForwardStr == "" {
-		http.Error(w, "missing required X-Loft headers", http.StatusBadRequest)
+		http.Error(w, "missing required X-Khulnasoft headers", http.StatusBadRequest)
 		return
 	}
-	s.log.Debugf("httpPortForwardHandler: received headers: X-Loft-Forward-Port=%s, X-Loft-Forward-Url=%s", targetPort, baseForwardStr)
+	s.log.Debugf("httpPortForwardHandler: received headers: X-Khulnasoft-Forward-Port=%s, X-Khulnasoft-Forward-Url=%s", targetPort, baseForwardStr)
 
 	// Parse and modify the URL to target the local endpoint.
 	parsedURL, err := url.Parse(baseForwardStr)
@@ -349,9 +349,9 @@ func (s *WorkspaceServer) httpPortForwardHandler(w http.ResponseWriter, r *http.
 		req.URL = &dest
 		req.Host = dest.Host
 		// Remove custom headers so they are not forwarded.
-		req.Header.Del("X-Loft-Forward-Port")
-		req.Header.Del("X-Loft-Forward-Url")
-		req.Header.Del("X-Loft-Forward-Authorization")
+		req.Header.Del("X-Khulnasoft-Forward-Port")
+		req.Header.Del("X-Khulnasoft-Forward-Url")
+		req.Header.Del("X-Khulnasoft-Forward-Authorization")
 	}
 	proxy.Transport = http.DefaultTransport
 
@@ -440,7 +440,7 @@ func (s *WorkspaceServer) sendHeartbeat(ctx context.Context, client *http.Client
 		return fmt.Errorf("failed to discover runner: %w", err)
 	}
 
-	heartbeatURL := fmt.Sprintf("http://%s.ts.loft/devspace/%s/%s/heartbeat", discoveredRunner, projectName, workspaceName)
+	heartbeatURL := fmt.Sprintf("http://%s.ts.khulnasoft/devspace/%s/%s/heartbeat", discoveredRunner, projectName, workspaceName)
 	s.log.Infof("Sending heartbeat to %s, because there are %d active connections", heartbeatURL, connections)
 	req, err := http.NewRequestWithContext(ctx, "GET", heartbeatURL, nil)
 	if err != nil {

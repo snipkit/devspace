@@ -1,5 +1,5 @@
 // +k8s:deepcopy-gen=package,register
-// +groupName=management.loft.sh
+// +groupName=management.khulnasoft.com
 // +k8s:defaulter-gen=TypeMeta
 
 // Package api is the internal version of the API.

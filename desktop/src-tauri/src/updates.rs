@@ -16,7 +16,7 @@ use ts_rs::TS;
 
 const UPDATE_POLL_INTERVAL: std::time::Duration = std::time::Duration::from_secs(60 * 10);
 const RELEASES_URL: &str = "https://update-server.dev.khulnasoft.com/releases";
-const FALLBACK_RELEASES_URL: &str = "https://api.github.com/repos/loft-sh/devspace/releases";
+const FALLBACK_RELEASES_URL: &str = "https://api.github.com/repos/khulnasoft-sh/devspace/releases";
 
 #[derive(Error, Debug)]
 pub enum UpdateError {
@@ -267,7 +267,7 @@ impl<'a> UpdateHelper<'a> {
     }
 
     pub async fn fetch_releases_from_url(&self, url: &str) -> anyhow::Result<Vec<Release>> {
-        let client = Client::builder().user_agent("loft-sh/devspace").build()?;
+        let client = Client::builder().user_agent("khulnasoft-sh/devspace").build()?;
 
         let response = client
             .request(Method::GET, url)

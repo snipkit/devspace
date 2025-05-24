@@ -4,7 +4,7 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-const GroupVersion = "authentication.loft.sh/v1"
+const GroupVersion = "authentication.khulnasoft.com/v1"
 
 // OIDCTokenRequest is used by the /auth/oidc/token route
 type OIDCTokenRequest struct {

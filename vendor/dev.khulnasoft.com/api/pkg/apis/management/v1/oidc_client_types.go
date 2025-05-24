@@ -8,7 +8,7 @@ import (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// OIDCClient represents an OIDC client to use with Loft as an OIDC provider
+// OIDCClient represents an OIDC client to use with Khulnasoft as an OIDC provider
 // +k8s:openapi-gen=true
 // +resource:path=oidcclients,rest=OIDCClientREST
 type OIDCClient struct {

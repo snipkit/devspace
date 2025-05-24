@@ -1,7 +1,7 @@
 package v1
 
 import (
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

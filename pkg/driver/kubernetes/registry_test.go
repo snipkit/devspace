@@ -15,7 +15,7 @@ func TestGetRegistryFromImageName(t *testing.T) {
 		{
 			name: "should return official docker registry",
 			args: args{
-				imageName: "docker.io/loftsh/devspace",
+				imageName: "docker.io/khulnasoftsh/devspace",
 			},
 			want:    OfficialDockerRegistry,
 			wantErr: false,
@@ -23,7 +23,7 @@ func TestGetRegistryFromImageName(t *testing.T) {
 		{
 			name: "should return official docker registry",
 			args: args{
-				imageName: "hub.docker.com/loftsh/devspace",
+				imageName: "hub.docker.com/khulnasoftsh/devspace",
 			},
 			want:    OfficialDockerRegistry,
 			wantErr: false,
@@ -39,7 +39,7 @@ func TestGetRegistryFromImageName(t *testing.T) {
 		{
 			name: "should return github registry",
 			args: args{
-				imageName: "ghcr.io/loftsh/devspace",
+				imageName: "ghcr.io/khulnasoftsh/devspace",
 			},
 			want:    "ghcr.io",
 			wantErr: false,

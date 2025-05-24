@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	defaultEndpoint = "https://analytics.loft.rocks/v1/insert"
+	defaultEndpoint = "https://analytics.khulnasoft.rocks/v1/insert"
 
 	eventsCountThreshold = 100
 

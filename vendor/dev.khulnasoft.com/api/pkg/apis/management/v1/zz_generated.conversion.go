@@ -10,8 +10,8 @@ import (
 	unsafe "unsafe"
 
 	licenseapi "dev.khulnasoft.com/admin-apis/pkg/licenseapi"
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
-	loftstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
+	khulnasoftstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	auditv1 "dev.khulnasoft.com/api/pkg/apis/audit/v1"
 	management "dev.khulnasoft.com/api/pkg/apis/management"
 	storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
@@ -1500,43 +1500,43 @@ func RegisterConversions(s *runtime.Scheme) error {
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*LoftUpgrade)(nil), (*management.LoftUpgrade)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1_LoftUpgrade_To_management_LoftUpgrade(a.(*LoftUpgrade), b.(*management.LoftUpgrade), scope)
+	if err := s.AddGeneratedConversionFunc((*KhulnasoftUpgrade)(nil), (*management.KhulnasoftUpgrade)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1_KhulnasoftUpgrade_To_management_KhulnasoftUpgrade(a.(*KhulnasoftUpgrade), b.(*management.KhulnasoftUpgrade), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*management.LoftUpgrade)(nil), (*LoftUpgrade)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_management_LoftUpgrade_To_v1_LoftUpgrade(a.(*management.LoftUpgrade), b.(*LoftUpgrade), scope)
+	if err := s.AddGeneratedConversionFunc((*management.KhulnasoftUpgrade)(nil), (*KhulnasoftUpgrade)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_management_KhulnasoftUpgrade_To_v1_KhulnasoftUpgrade(a.(*management.KhulnasoftUpgrade), b.(*KhulnasoftUpgrade), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*LoftUpgradeList)(nil), (*management.LoftUpgradeList)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1_LoftUpgradeList_To_management_LoftUpgradeList(a.(*LoftUpgradeList), b.(*management.LoftUpgradeList), scope)
+	if err := s.AddGeneratedConversionFunc((*KhulnasoftUpgradeList)(nil), (*management.KhulnasoftUpgradeList)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1_KhulnasoftUpgradeList_To_management_KhulnasoftUpgradeList(a.(*KhulnasoftUpgradeList), b.(*management.KhulnasoftUpgradeList), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*management.LoftUpgradeList)(nil), (*LoftUpgradeList)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_management_LoftUpgradeList_To_v1_LoftUpgradeList(a.(*management.LoftUpgradeList), b.(*LoftUpgradeList), scope)
+	if err := s.AddGeneratedConversionFunc((*management.KhulnasoftUpgradeList)(nil), (*KhulnasoftUpgradeList)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_management_KhulnasoftUpgradeList_To_v1_KhulnasoftUpgradeList(a.(*management.KhulnasoftUpgradeList), b.(*KhulnasoftUpgradeList), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*LoftUpgradeSpec)(nil), (*management.LoftUpgradeSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1_LoftUpgradeSpec_To_management_LoftUpgradeSpec(a.(*LoftUpgradeSpec), b.(*management.LoftUpgradeSpec), scope)
+	if err := s.AddGeneratedConversionFunc((*KhulnasoftUpgradeSpec)(nil), (*management.KhulnasoftUpgradeSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1_KhulnasoftUpgradeSpec_To_management_KhulnasoftUpgradeSpec(a.(*KhulnasoftUpgradeSpec), b.(*management.KhulnasoftUpgradeSpec), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*management.LoftUpgradeSpec)(nil), (*LoftUpgradeSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_management_LoftUpgradeSpec_To_v1_LoftUpgradeSpec(a.(*management.LoftUpgradeSpec), b.(*LoftUpgradeSpec), scope)
+	if err := s.AddGeneratedConversionFunc((*management.KhulnasoftUpgradeSpec)(nil), (*KhulnasoftUpgradeSpec)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_management_KhulnasoftUpgradeSpec_To_v1_KhulnasoftUpgradeSpec(a.(*management.KhulnasoftUpgradeSpec), b.(*KhulnasoftUpgradeSpec), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*LoftUpgradeStatus)(nil), (*management.LoftUpgradeStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_v1_LoftUpgradeStatus_To_management_LoftUpgradeStatus(a.(*LoftUpgradeStatus), b.(*management.LoftUpgradeStatus), scope)
+	if err := s.AddGeneratedConversionFunc((*KhulnasoftUpgradeStatus)(nil), (*management.KhulnasoftUpgradeStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1_KhulnasoftUpgradeStatus_To_management_KhulnasoftUpgradeStatus(a.(*KhulnasoftUpgradeStatus), b.(*management.KhulnasoftUpgradeStatus), scope)
 	}); err != nil {
 		return err
 	}
-	if err := s.AddGeneratedConversionFunc((*management.LoftUpgradeStatus)(nil), (*LoftUpgradeStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
-		return Convert_management_LoftUpgradeStatus_To_v1_LoftUpgradeStatus(a.(*management.LoftUpgradeStatus), b.(*LoftUpgradeStatus), scope)
+	if err := s.AddGeneratedConversionFunc((*management.KhulnasoftUpgradeStatus)(nil), (*KhulnasoftUpgradeStatus)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_management_KhulnasoftUpgradeStatus_To_v1_KhulnasoftUpgradeStatus(a.(*management.KhulnasoftUpgradeStatus), b.(*KhulnasoftUpgradeStatus), scope)
 	}); err != nil {
 		return err
 	}
@@ -3745,7 +3745,7 @@ func autoConvert_v1_AuthenticationOIDC_To_management_AuthenticationOIDC(in *Auth
 	out.CAFile = in.CAFile
 	out.InsecureCA = in.InsecureCA
 	out.PreferredUsernameClaim = in.PreferredUsernameClaim
-	out.LoftUsernameClaim = in.LoftUsernameClaim
+	out.KhulnasoftUsernameClaim = in.KhulnasoftUsernameClaim
 	out.UsernameClaim = in.UsernameClaim
 	out.EmailClaim = in.EmailClaim
 	out.UsernamePrefix = in.UsernamePrefix
@@ -3772,7 +3772,7 @@ func autoConvert_management_AuthenticationOIDC_To_v1_AuthenticationOIDC(in *mana
 	out.CAFile = in.CAFile
 	out.InsecureCA = in.InsecureCA
 	out.PreferredUsernameClaim = in.PreferredUsernameClaim
-	out.LoftUsernameClaim = in.LoftUsernameClaim
+	out.KhulnasoftUsernameClaim = in.KhulnasoftUsernameClaim
 	out.UsernameClaim = in.UsernameClaim
 	out.EmailClaim = in.EmailClaim
 	out.UsernamePrefix = in.UsernamePrefix
@@ -4144,7 +4144,7 @@ func Convert_management_ClusterAccess_To_v1_ClusterAccess(in *management.Cluster
 func autoConvert_v1_ClusterAccessKey_To_management_ClusterAccessKey(in *ClusterAccessKey, out *management.ClusterAccessKey, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
 	out.AccessKey = in.AccessKey
-	out.LoftHost = in.LoftHost
+	out.KhulnasoftHost = in.KhulnasoftHost
 	out.Insecure = in.Insecure
 	out.CaCert = in.CaCert
 	return nil
@@ -4158,7 +4158,7 @@ func Convert_v1_ClusterAccessKey_To_management_ClusterAccessKey(in *ClusterAcces
 func autoConvert_management_ClusterAccessKey_To_v1_ClusterAccessKey(in *management.ClusterAccessKey, out *ClusterAccessKey, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
 	out.AccessKey = in.AccessKey
-	out.LoftHost = in.LoftHost
+	out.KhulnasoftHost = in.KhulnasoftHost
 	out.Insecure = in.Insecure
 	out.CaCert = in.CaCert
 	return nil
@@ -4312,9 +4312,9 @@ func autoConvert_v1_ClusterAgentConfigCommon_To_management_ClusterAgentConfigCom
 	out.Audit = (*management.AgentAuditConfig)(unsafe.Pointer(in.Audit))
 	out.DefaultImageRegistry = in.DefaultImageRegistry
 	out.TokenCaCert = *(*[]byte)(unsafe.Pointer(&in.TokenCaCert))
-	out.LoftHost = in.LoftHost
+	out.KhulnasoftHost = in.KhulnasoftHost
 	out.ProjectNamespacePrefix = in.ProjectNamespacePrefix
-	out.LoftInstanceID = in.LoftInstanceID
+	out.KhulnasoftInstanceID = in.KhulnasoftInstanceID
 	if err := Convert_v1_AgentAnalyticsSpec_To_management_AgentAnalyticsSpec(&in.AnalyticsSpec, &out.AnalyticsSpec, s); err != nil {
 		return err
 	}
@@ -4331,9 +4331,9 @@ func autoConvert_management_ClusterAgentConfigCommon_To_v1_ClusterAgentConfigCom
 	out.Audit = (*AgentAuditConfig)(unsafe.Pointer(in.Audit))
 	out.DefaultImageRegistry = in.DefaultImageRegistry
 	out.TokenCaCert = *(*[]byte)(unsafe.Pointer(&in.TokenCaCert))
-	out.LoftHost = in.LoftHost
+	out.KhulnasoftHost = in.KhulnasoftHost
 	out.ProjectNamespacePrefix = in.ProjectNamespacePrefix
-	out.LoftInstanceID = in.LoftInstanceID
+	out.KhulnasoftInstanceID = in.KhulnasoftInstanceID
 	if err := Convert_management_AgentAnalyticsSpec_To_v1_AgentAnalyticsSpec(&in.AnalyticsSpec, &out.AnalyticsSpec, s); err != nil {
 		return err
 	}
@@ -4908,7 +4908,7 @@ func autoConvert_v1_ConfigStatus_To_management_ConfigStatus(in *ConfigStatus, ou
 	out.OIDC = (*management.OIDC)(unsafe.Pointer(in.OIDC))
 	out.Apps = (*management.Apps)(unsafe.Pointer(in.Apps))
 	out.Audit = (*management.Audit)(unsafe.Pointer(in.Audit))
-	out.LoftHost = in.LoftHost
+	out.KhulnasoftHost = in.KhulnasoftHost
 	out.ProjectNamespacePrefix = (*string)(unsafe.Pointer(in.ProjectNamespacePrefix))
 	out.DevSpaceSubDomain = in.DevSpaceSubDomain
 	out.UISettings = (*uiv1.UISettingsConfig)(unsafe.Pointer(in.UISettings))
@@ -4931,7 +4931,7 @@ func autoConvert_management_ConfigStatus_To_v1_ConfigStatus(in *management.Confi
 	out.OIDC = (*OIDC)(unsafe.Pointer(in.OIDC))
 	out.Apps = (*Apps)(unsafe.Pointer(in.Apps))
 	out.Audit = (*Audit)(unsafe.Pointer(in.Audit))
-	out.LoftHost = in.LoftHost
+	out.KhulnasoftHost = in.KhulnasoftHost
 	out.ProjectNamespacePrefix = (*string)(unsafe.Pointer(in.ProjectNamespacePrefix))
 	out.DevSpaceSubDomain = in.DevSpaceSubDomain
 	out.UISettings = (*uiv1.UISettingsConfig)(unsafe.Pointer(in.UISettings))
@@ -6824,100 +6824,100 @@ func Convert_management_LicenseTokenStatus_To_v1_LicenseTokenStatus(in *manageme
 	return autoConvert_management_LicenseTokenStatus_To_v1_LicenseTokenStatus(in, out, s)
 }
 
-func autoConvert_v1_LoftUpgrade_To_management_LoftUpgrade(in *LoftUpgrade, out *management.LoftUpgrade, s conversion.Scope) error {
+func autoConvert_v1_KhulnasoftUpgrade_To_management_KhulnasoftUpgrade(in *KhulnasoftUpgrade, out *management.KhulnasoftUpgrade, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
-	if err := Convert_v1_LoftUpgradeSpec_To_management_LoftUpgradeSpec(&in.Spec, &out.Spec, s); err != nil {
+	if err := Convert_v1_KhulnasoftUpgradeSpec_To_management_KhulnasoftUpgradeSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
-	if err := Convert_v1_LoftUpgradeStatus_To_management_LoftUpgradeStatus(&in.Status, &out.Status, s); err != nil {
+	if err := Convert_v1_KhulnasoftUpgradeStatus_To_management_KhulnasoftUpgradeStatus(&in.Status, &out.Status, s); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Convert_v1_LoftUpgrade_To_management_LoftUpgrade is an autogenerated conversion function.
-func Convert_v1_LoftUpgrade_To_management_LoftUpgrade(in *LoftUpgrade, out *management.LoftUpgrade, s conversion.Scope) error {
-	return autoConvert_v1_LoftUpgrade_To_management_LoftUpgrade(in, out, s)
+// Convert_v1_KhulnasoftUpgrade_To_management_KhulnasoftUpgrade is an autogenerated conversion function.
+func Convert_v1_KhulnasoftUpgrade_To_management_KhulnasoftUpgrade(in *KhulnasoftUpgrade, out *management.KhulnasoftUpgrade, s conversion.Scope) error {
+	return autoConvert_v1_KhulnasoftUpgrade_To_management_KhulnasoftUpgrade(in, out, s)
 }
 
-func autoConvert_management_LoftUpgrade_To_v1_LoftUpgrade(in *management.LoftUpgrade, out *LoftUpgrade, s conversion.Scope) error {
+func autoConvert_management_KhulnasoftUpgrade_To_v1_KhulnasoftUpgrade(in *management.KhulnasoftUpgrade, out *KhulnasoftUpgrade, s conversion.Scope) error {
 	out.ObjectMeta = in.ObjectMeta
-	if err := Convert_management_LoftUpgradeSpec_To_v1_LoftUpgradeSpec(&in.Spec, &out.Spec, s); err != nil {
+	if err := Convert_management_KhulnasoftUpgradeSpec_To_v1_KhulnasoftUpgradeSpec(&in.Spec, &out.Spec, s); err != nil {
 		return err
 	}
-	if err := Convert_management_LoftUpgradeStatus_To_v1_LoftUpgradeStatus(&in.Status, &out.Status, s); err != nil {
+	if err := Convert_management_KhulnasoftUpgradeStatus_To_v1_KhulnasoftUpgradeStatus(&in.Status, &out.Status, s); err != nil {
 		return err
 	}
 	return nil
 }
 
-// Convert_management_LoftUpgrade_To_v1_LoftUpgrade is an autogenerated conversion function.
-func Convert_management_LoftUpgrade_To_v1_LoftUpgrade(in *management.LoftUpgrade, out *LoftUpgrade, s conversion.Scope) error {
-	return autoConvert_management_LoftUpgrade_To_v1_LoftUpgrade(in, out, s)
+// Convert_management_KhulnasoftUpgrade_To_v1_KhulnasoftUpgrade is an autogenerated conversion function.
+func Convert_management_KhulnasoftUpgrade_To_v1_KhulnasoftUpgrade(in *management.KhulnasoftUpgrade, out *KhulnasoftUpgrade, s conversion.Scope) error {
+	return autoConvert_management_KhulnasoftUpgrade_To_v1_KhulnasoftUpgrade(in, out, s)
 }
 
-func autoConvert_v1_LoftUpgradeList_To_management_LoftUpgradeList(in *LoftUpgradeList, out *management.LoftUpgradeList, s conversion.Scope) error {
+func autoConvert_v1_KhulnasoftUpgradeList_To_management_KhulnasoftUpgradeList(in *KhulnasoftUpgradeList, out *management.KhulnasoftUpgradeList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]management.LoftUpgrade)(unsafe.Pointer(&in.Items))
+	out.Items = *(*[]management.KhulnasoftUpgrade)(unsafe.Pointer(&in.Items))
 	return nil
 }
 
-// Convert_v1_LoftUpgradeList_To_management_LoftUpgradeList is an autogenerated conversion function.
-func Convert_v1_LoftUpgradeList_To_management_LoftUpgradeList(in *LoftUpgradeList, out *management.LoftUpgradeList, s conversion.Scope) error {
-	return autoConvert_v1_LoftUpgradeList_To_management_LoftUpgradeList(in, out, s)
+// Convert_v1_KhulnasoftUpgradeList_To_management_KhulnasoftUpgradeList is an autogenerated conversion function.
+func Convert_v1_KhulnasoftUpgradeList_To_management_KhulnasoftUpgradeList(in *KhulnasoftUpgradeList, out *management.KhulnasoftUpgradeList, s conversion.Scope) error {
+	return autoConvert_v1_KhulnasoftUpgradeList_To_management_KhulnasoftUpgradeList(in, out, s)
 }
 
-func autoConvert_management_LoftUpgradeList_To_v1_LoftUpgradeList(in *management.LoftUpgradeList, out *LoftUpgradeList, s conversion.Scope) error {
+func autoConvert_management_KhulnasoftUpgradeList_To_v1_KhulnasoftUpgradeList(in *management.KhulnasoftUpgradeList, out *KhulnasoftUpgradeList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]LoftUpgrade)(unsafe.Pointer(&in.Items))
+	out.Items = *(*[]KhulnasoftUpgrade)(unsafe.Pointer(&in.Items))
 	return nil
 }
 
-// Convert_management_LoftUpgradeList_To_v1_LoftUpgradeList is an autogenerated conversion function.
-func Convert_management_LoftUpgradeList_To_v1_LoftUpgradeList(in *management.LoftUpgradeList, out *LoftUpgradeList, s conversion.Scope) error {
-	return autoConvert_management_LoftUpgradeList_To_v1_LoftUpgradeList(in, out, s)
+// Convert_management_KhulnasoftUpgradeList_To_v1_KhulnasoftUpgradeList is an autogenerated conversion function.
+func Convert_management_KhulnasoftUpgradeList_To_v1_KhulnasoftUpgradeList(in *management.KhulnasoftUpgradeList, out *KhulnasoftUpgradeList, s conversion.Scope) error {
+	return autoConvert_management_KhulnasoftUpgradeList_To_v1_KhulnasoftUpgradeList(in, out, s)
 }
 
-func autoConvert_v1_LoftUpgradeSpec_To_management_LoftUpgradeSpec(in *LoftUpgradeSpec, out *management.LoftUpgradeSpec, s conversion.Scope) error {
+func autoConvert_v1_KhulnasoftUpgradeSpec_To_management_KhulnasoftUpgradeSpec(in *KhulnasoftUpgradeSpec, out *management.KhulnasoftUpgradeSpec, s conversion.Scope) error {
 	out.Namespace = in.Namespace
 	out.Release = in.Release
 	out.Version = in.Version
 	return nil
 }
 
-// Convert_v1_LoftUpgradeSpec_To_management_LoftUpgradeSpec is an autogenerated conversion function.
-func Convert_v1_LoftUpgradeSpec_To_management_LoftUpgradeSpec(in *LoftUpgradeSpec, out *management.LoftUpgradeSpec, s conversion.Scope) error {
-	return autoConvert_v1_LoftUpgradeSpec_To_management_LoftUpgradeSpec(in, out, s)
+// Convert_v1_KhulnasoftUpgradeSpec_To_management_KhulnasoftUpgradeSpec is an autogenerated conversion function.
+func Convert_v1_KhulnasoftUpgradeSpec_To_management_KhulnasoftUpgradeSpec(in *KhulnasoftUpgradeSpec, out *management.KhulnasoftUpgradeSpec, s conversion.Scope) error {
+	return autoConvert_v1_KhulnasoftUpgradeSpec_To_management_KhulnasoftUpgradeSpec(in, out, s)
 }
 
-func autoConvert_management_LoftUpgradeSpec_To_v1_LoftUpgradeSpec(in *management.LoftUpgradeSpec, out *LoftUpgradeSpec, s conversion.Scope) error {
+func autoConvert_management_KhulnasoftUpgradeSpec_To_v1_KhulnasoftUpgradeSpec(in *management.KhulnasoftUpgradeSpec, out *KhulnasoftUpgradeSpec, s conversion.Scope) error {
 	out.Namespace = in.Namespace
 	out.Release = in.Release
 	out.Version = in.Version
 	return nil
 }
 
-// Convert_management_LoftUpgradeSpec_To_v1_LoftUpgradeSpec is an autogenerated conversion function.
-func Convert_management_LoftUpgradeSpec_To_v1_LoftUpgradeSpec(in *management.LoftUpgradeSpec, out *LoftUpgradeSpec, s conversion.Scope) error {
-	return autoConvert_management_LoftUpgradeSpec_To_v1_LoftUpgradeSpec(in, out, s)
+// Convert_management_KhulnasoftUpgradeSpec_To_v1_KhulnasoftUpgradeSpec is an autogenerated conversion function.
+func Convert_management_KhulnasoftUpgradeSpec_To_v1_KhulnasoftUpgradeSpec(in *management.KhulnasoftUpgradeSpec, out *KhulnasoftUpgradeSpec, s conversion.Scope) error {
+	return autoConvert_management_KhulnasoftUpgradeSpec_To_v1_KhulnasoftUpgradeSpec(in, out, s)
 }
 
-func autoConvert_v1_LoftUpgradeStatus_To_management_LoftUpgradeStatus(in *LoftUpgradeStatus, out *management.LoftUpgradeStatus, s conversion.Scope) error {
+func autoConvert_v1_KhulnasoftUpgradeStatus_To_management_KhulnasoftUpgradeStatus(in *KhulnasoftUpgradeStatus, out *management.KhulnasoftUpgradeStatus, s conversion.Scope) error {
 	return nil
 }
 
-// Convert_v1_LoftUpgradeStatus_To_management_LoftUpgradeStatus is an autogenerated conversion function.
-func Convert_v1_LoftUpgradeStatus_To_management_LoftUpgradeStatus(in *LoftUpgradeStatus, out *management.LoftUpgradeStatus, s conversion.Scope) error {
-	return autoConvert_v1_LoftUpgradeStatus_To_management_LoftUpgradeStatus(in, out, s)
+// Convert_v1_KhulnasoftUpgradeStatus_To_management_KhulnasoftUpgradeStatus is an autogenerated conversion function.
+func Convert_v1_KhulnasoftUpgradeStatus_To_management_KhulnasoftUpgradeStatus(in *KhulnasoftUpgradeStatus, out *management.KhulnasoftUpgradeStatus, s conversion.Scope) error {
+	return autoConvert_v1_KhulnasoftUpgradeStatus_To_management_KhulnasoftUpgradeStatus(in, out, s)
 }
 
-func autoConvert_management_LoftUpgradeStatus_To_v1_LoftUpgradeStatus(in *management.LoftUpgradeStatus, out *LoftUpgradeStatus, s conversion.Scope) error {
+func autoConvert_management_KhulnasoftUpgradeStatus_To_v1_KhulnasoftUpgradeStatus(in *management.KhulnasoftUpgradeStatus, out *KhulnasoftUpgradeStatus, s conversion.Scope) error {
 	return nil
 }
 
-// Convert_management_LoftUpgradeStatus_To_v1_LoftUpgradeStatus is an autogenerated conversion function.
-func Convert_management_LoftUpgradeStatus_To_v1_LoftUpgradeStatus(in *management.LoftUpgradeStatus, out *LoftUpgradeStatus, s conversion.Scope) error {
-	return autoConvert_management_LoftUpgradeStatus_To_v1_LoftUpgradeStatus(in, out, s)
+// Convert_management_KhulnasoftUpgradeStatus_To_v1_KhulnasoftUpgradeStatus is an autogenerated conversion function.
+func Convert_management_KhulnasoftUpgradeStatus_To_v1_KhulnasoftUpgradeStatus(in *management.KhulnasoftUpgradeStatus, out *KhulnasoftUpgradeStatus, s conversion.Scope) error {
+	return autoConvert_management_KhulnasoftUpgradeStatus_To_v1_KhulnasoftUpgradeStatus(in, out, s)
 }
 
 func autoConvert_v1_MaintenanceWindow_To_management_MaintenanceWindow(in *MaintenanceWindow, out *management.MaintenanceWindow, s conversion.Scope) error {
@@ -7835,7 +7835,7 @@ func Convert_management_ProjectSecretSpec_To_v1_ProjectSecretSpec(in *management
 }
 
 func autoConvert_v1_ProjectSecretStatus_To_management_ProjectSecretStatus(in *ProjectSecretStatus, out *management.ProjectSecretStatus, s conversion.Scope) error {
-	out.Conditions = *(*loftstoragev1.Conditions)(unsafe.Pointer(&in.Conditions))
+	out.Conditions = *(*khulnasoftstoragev1.Conditions)(unsafe.Pointer(&in.Conditions))
 	return nil
 }
 
@@ -7845,7 +7845,7 @@ func Convert_v1_ProjectSecretStatus_To_management_ProjectSecretStatus(in *Projec
 }
 
 func autoConvert_management_ProjectSecretStatus_To_v1_ProjectSecretStatus(in *management.ProjectSecretStatus, out *ProjectSecretStatus, s conversion.Scope) error {
-	out.Conditions = *(*loftstoragev1.Conditions)(unsafe.Pointer(&in.Conditions))
+	out.Conditions = *(*khulnasoftstoragev1.Conditions)(unsafe.Pointer(&in.Conditions))
 	return nil
 }
 

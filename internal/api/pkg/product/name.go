@@ -10,7 +10,7 @@ import (
 )
 
 // Product is the global variable to be set at build time
-var productName string = string(licenseapi.Loft)
+var productName string = string(licenseapi.Khulnasoft)
 var once sync.Once
 
 func loadProductVar() {
@@ -19,8 +19,8 @@ func loadProductVar() {
 		productName = string(licenseapi.DevSpacePro)
 	} else if productEnv == string(licenseapi.VClusterPro) {
 		productName = string(licenseapi.VClusterPro)
-	} else if productEnv == string(licenseapi.Loft) {
-		productName = string(licenseapi.Loft)
+	} else if productEnv == string(licenseapi.Khulnasoft) {
+		productName = string(licenseapi.Khulnasoft)
 	} else if productEnv != "" {
 		klog.TODO().Error(fmt.Errorf("unrecognized product %s", productEnv), "error parsing product", "product", productEnv)
 	}
@@ -33,15 +33,15 @@ func Name() licenseapi.ProductName {
 
 // Name returns the name of the product
 func DisplayName() string {
-	loftDisplayName := "Loft"
+	khulnasoftDisplayName := "Khulnasoft"
 
 	switch Name() {
 	case licenseapi.DevSpacePro:
 		return "DevSpace Pro"
 	case licenseapi.VClusterPro:
 		return "vCluster Platform"
-	case licenseapi.Loft:
+	case licenseapi.Khulnasoft:
 	}
 
-	return loftDisplayName
+	return khulnasoftDisplayName
 }

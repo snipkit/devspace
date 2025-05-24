@@ -68,7 +68,7 @@ type AccessKeySpec struct {
 	Scope *AccessKeyScope `json:"scope,omitempty"`
 
 	// The type of an access key, which basically describes if the access
-	// key is user managed or managed by loft itself.
+	// key is user managed or managed by khulnasoft itself.
 	// +optional
 	Type AccessKeyType `json:"type,omitempty"`
 
@@ -130,21 +130,21 @@ type AccessKeyScope struct {
 	// +optional
 	Rules []AccessKeyScopeRule `json:"rules,omitempty"`
 
-	// AllowLoftCLI allows certain read-only management requests to
-	// make sure loft cli works correctly with this specific access key.
+	// AllowKhulnasoftCLI allows certain read-only management requests to
+	// make sure khulnasoft cli works correctly with this specific access key.
 	//
 	// Deprecated: Use the `roles` field instead
 	//  ```yaml
 	//  # Example:
 	//  roles:
-	//    - role: loftCLI
+	//    - role: khulnasoftCLI
 	//  ```
 	// +optional
-	AllowLoftCLI bool `json:"allowLoftCli,omitempty"`
+	AllowKhulnasoftCLI bool `json:"allowKhulnasoftCli,omitempty"`
 }
 
 func (a AccessKeyScope) ContainsRole(val AccessKeyScopeRoleName) bool {
-	if a.AllowLoftCLI && val == AccessKeyScopeRoleLoftCLI {
+	if a.AllowKhulnasoftCLI && val == AccessKeyScopeRoleKhulnasoftCLI {
 		return true
 	}
 
@@ -161,7 +161,7 @@ func (a AccessKeyScope) ContainsRole(val AccessKeyScopeRoleName) bool {
 			// (ThomasK33): Adding this so that the exhaustive linter is happy
 			case AccessKeyScopeRoleNetworkPeer:
 				return true
-			case AccessKeyScopeRoleLoftCLI:
+			case AccessKeyScopeRoleKhulnasoftCLI:
 				return false
 			}
 		}
@@ -208,7 +208,7 @@ const (
 	AccessKeyScopeRoleAgent       AccessKeyScopeRoleName = "agent"
 	AccessKeyScopeRoleVCluster    AccessKeyScopeRoleName = "vcluster"
 	AccessKeyScopeRoleNetworkPeer AccessKeyScopeRoleName = "network-peer"
-	AccessKeyScopeRoleLoftCLI     AccessKeyScopeRoleName = "loft-cli"
+	AccessKeyScopeRoleKhulnasoftCLI     AccessKeyScopeRoleName = "khulnasoft-cli"
 	AccessKeyScopeRoleRunner      AccessKeyScopeRoleName = "runner"
 )
 
@@ -305,7 +305,7 @@ type RequestTarget string
 
 // Valid request targets
 const (
-	// RequestTargetManagement specifies a loft management api request
+	// RequestTargetManagement specifies a khulnasoft management api request
 	RequestTargetManagement RequestTarget = "Management"
 	// RequestTargetCluster specifies a connected kubernetes cluster request
 	RequestTargetCluster RequestTarget = "Cluster"

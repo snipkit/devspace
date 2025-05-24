@@ -25,7 +25,7 @@ import (
 
 	storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
 	"dev.khulnasoft.com/api/pkg/auth"
-	loftclientset "dev.khulnasoft.com/api/pkg/clientset/versioned"
+	khulnasoftclientset "dev.khulnasoft.com/api/pkg/clientset/versioned"
 	proflags "dev.khulnasoft.com/cmd/pro/flags"
 	"dev.khulnasoft.com/pkg/platform"
 	"dev.khulnasoft.com/pkg/platform/client"
@@ -49,13 +49,13 @@ import (
 	"k8s.io/kubectl/pkg/util/term"
 )
 
-const LoftRouterDomainSecret = "loft-router-domain"
+const KhulnasoftRouterDomainSecret = "khulnasoft-router-domain"
 const passwordChangedHint = "(has been changed)"
 const defaultUser = "admin"
 
 const defaultReleaseName = "devspace-pro"
 
-var defaultDeploymentName = "loft" // Need to update helm chart if we change this!
+var defaultDeploymentName = "khulnasoft" // Need to update helm chart if we change this!
 
 // StartCmd holds the login cmd flags
 type StartCmd struct {
@@ -117,10 +117,10 @@ func NewStartCmd(flags *proflags.GlobalFlags) *cobra.Command {
 	startCmd.Flags().StringVar(&cmd.Email, "email", "", "The email to use for the installation")
 	startCmd.Flags().BoolVar(&cmd.Reset, "reset", false, "If true, an existing instance will be deleted before installing DevSpace Pro")
 	startCmd.Flags().BoolVar(&cmd.NoWait, "no-wait", false, "If true, will not wait after installing it")
-	startCmd.Flags().BoolVar(&cmd.NoTunnel, "no-tunnel", false, "If true, will not create a loft.host tunnel for this installation")
+	startCmd.Flags().BoolVar(&cmd.NoTunnel, "no-tunnel", false, "If true, will not create a khulnasoft.host tunnel for this installation")
 	startCmd.Flags().BoolVar(&cmd.NoLogin, "no-login", false, "If true, will not login to a DevSpace Pro instance on start")
 	startCmd.Flags().StringVar(&cmd.ChartPath, "chart-path", "", "The local chart path to deploy DevSpace Pro")
-	startCmd.Flags().StringVar(&cmd.ChartRepo, "chart-repo", "https://charts.loft.sh/", "The chart repo to deploy DevSpace Pro")
+	startCmd.Flags().StringVar(&cmd.ChartRepo, "chart-repo", "https://charts.khulnasoft.com/", "The chart repo to deploy DevSpace Pro")
 
 	return startCmd
 }
@@ -166,12 +166,12 @@ func (cmd *StartCmd) Run(ctx context.Context) error {
 		cmd.Password = defaultPassword
 	}
 
-	// Upgrade Loft if already installed
+	// Upgrade Khulnasoft if already installed
 	if isInstalled {
 		return cmd.handleAlreadyExistingInstallation(ctx)
 	}
 
-	// Install Loft
+	// Install Khulnasoft
 	cmd.Log.Info("Welcome to DevSpace Pro!")
 	cmd.Log.Info("This installer will help you to get started.")
 
@@ -192,14 +192,14 @@ func (cmd *StartCmd) Run(ctx context.Context) error {
 func (cmd *StartCmd) upgrade() error {
 	extraArgs := []string{}
 	if cmd.Host != "" || cmd.NoTunnel {
-		extraArgs = append(extraArgs, "--set-string", "env.DISABLE_LOFT_ROUTER=true")
+		extraArgs = append(extraArgs, "--set-string", "env.DISABLE_KHULNASOFT_ROUTER=true")
 	}
 	if cmd.Password != "" {
 		extraArgs = append(extraArgs, "--set", "admin.password="+cmd.Password)
 	}
 	if cmd.Host != "" {
 		extraArgs = append(extraArgs, "--set", "ingress.enabled=true", "--set", "ingress.host="+cmd.Host)
-		extraArgs = append(extraArgs, "--set", "env.LOFT_HOST="+cmd.Host)
+		extraArgs = append(extraArgs, "--set", "env.KHULNASOFT_HOST="+cmd.Host)
 		extraArgs = append(extraArgs, "--set", "devspaceIngress.enabled=true", "--set", "devspaceIngress.host=*."+cmd.Host)
 		extraArgs = append(extraArgs, "--set", "env.DEVSPACE_SUBDOMAIN=*."+cmd.Host)
 	}
@@ -236,7 +236,7 @@ func (cmd *StartCmd) upgrade() error {
 			return errors.New(err.Error() + fmt.Sprintf("\n\nIf want to purge and reinstall DevSpace Pro, run: %s\n", ansi.Color("devspace pro start --reset", "green+b")))
 		}
 
-		// Try to purge Loft and retry install
+		// Try to purge Khulnasoft and retry install
 		cmd.Log.Info("Trying to delete objects blocking current installation")
 
 		manifests, err := getReleaseManifests(chartName, chartRepo, cmd.Context, cmd.Namespace, extraArgs, cmd.Log)
@@ -256,10 +256,10 @@ func (cmd *StartCmd) upgrade() error {
 		// Ignoring potential errors here
 		_ = kubectlDelete.Run()
 
-		// Retry Loft installation
+		// Retry Khulnasoft installation
 		err = upgradeRelease(chartName, chartRepo, cmd.Context, cmd.Namespace, extraArgs, cmd.Log)
 		if err != nil {
-			return errors.New(err.Error() + fmt.Sprintf("\n\nExisting installation failed. Reach out to get help:\n- via Slack: %s (fastest option)\n- via Online Chat: %s\n- via Email: %s\n", ansi.Color("https://slack.loft.sh/", "green+b"), ansi.Color("https://loft.sh/", "green+b"), ansi.Color("support@loft.sh", "green+b")))
+			return errors.New(err.Error() + fmt.Sprintf("\n\nExisting installation failed. Reach out to get help:\n- via Slack: %s (fastest option)\n- via Online Chat: %s\n- via Email: %s\n", ansi.Color("https://slack.khulnasoft.com/", "green+b"), ansi.Color("https://khulnasoft.com/", "green+b"), ansi.Color("support@khulnasoft.com", "green+b")))
 		}
 	}
 
@@ -272,7 +272,7 @@ func (cmd *StartCmd) success(ctx context.Context) error {
 	}
 
 	// wait until deployment is ready
-	loftPod, err := cmd.waitForDeployment(ctx)
+	khulnasoftPod, err := cmd.waitForDeployment(ctx)
 	if err != nil {
 		return err
 	}
@@ -280,14 +280,14 @@ func (cmd *StartCmd) success(ctx context.Context) error {
 	// check if installed locally
 	isLocal := isInstalledLocally(ctx, cmd.KubeClient, cmd.Namespace)
 	if isLocal {
-		// check if loft domain secret is there
+		// check if khulnasoft domain secret is there
 		if !cmd.NoTunnel {
-			loftRouterDomain, err := cmd.pingLoftRouter(ctx, loftPod)
+			khulnasoftRouterDomain, err := cmd.pingKhulnasoftRouter(ctx, khulnasoftPod)
 			if err != nil {
-				cmd.Log.Errorf("Error retrieving loft router domain: %v", err)
+				cmd.Log.Errorf("Error retrieving khulnasoft router domain: %v", err)
 				cmd.Log.Info("Fallback to use port-forwarding")
-			} else if loftRouterDomain != "" {
-				return cmd.successLoftRouter(loftRouterDomain)
+			} else if khulnasoftRouterDomain != "" {
+				return cmd.successKhulnasoftRouter(khulnasoftRouterDomain)
 			}
 		}
 
@@ -295,13 +295,13 @@ func (cmd *StartCmd) success(ctx context.Context) error {
 	}
 
 	// get login link
-	cmd.Log.Info("Checking Loft status...")
+	cmd.Log.Info("Checking Khulnasoft status...")
 	host, err := getIngressHost(ctx, cmd.KubeClient, cmd.Namespace)
 	if err != nil {
 		return err
 	}
 
-	// check if loft is reachable
+	// check if khulnasoft is reachable
 	reachable, err := isHostReachable(ctx, host)
 	if !reachable || err != nil {
 		const (
@@ -310,7 +310,7 @@ func (cmd *StartCmd) success(ctx context.Context) error {
 		)
 
 		answer, err := cmd.Log.Question(&survey.QuestionOptions{
-			Question:     "Unable to reach Loft at https://" + host + ". Do you want to start port-forwarding instead?",
+			Question:     "Unable to reach Khulnasoft at https://" + host + ". Do you want to start port-forwarding instead?",
 			DefaultValue: YesOption,
 			Options: []string{
 				YesOption,
@@ -361,7 +361,7 @@ Thanks for using DevSpace Pro!
 `,
 			ansi.Color(url, "green+b"),
 			ansi.Color("devspace pro login "+url, "green+b"),
-			"https://loft.sh/docs/administration/ssl",
+			"https://khulnasoft.com/docs/administration/ssl",
 			url))
 	}
 	ready, err := isHostReachable(ctx, host)
@@ -455,8 +455,8 @@ func (cmd *StartCmd) startDocker(ctx context.Context) error {
 		return err
 	}
 
-	// try to find loft container
-	containerID, err := cmd.findLoftContainer(ctx, name, true)
+	// try to find khulnasoft container
+	containerID, err := cmd.findKhulnasoftContainer(ctx, name, true)
 	if err != nil {
 		return err
 	}
@@ -483,7 +483,7 @@ func (cmd *StartCmd) startDocker(ctx context.Context) error {
 		return cmd.successDocker(ctx, containerID)
 	}
 
-	// Install Loft
+	// Install Khulnasoft
 	cmd.Log.Info("Welcome to DevSpace Pro!")
 	cmd.Log.Info("This installer will help you get started.")
 
@@ -492,7 +492,7 @@ func (cmd *StartCmd) startDocker(ctx context.Context) error {
 	if err != nil {
 		return err
 	} else if containerID == "" {
-		return fmt.Errorf("%w: %s", ErrMissingContainer, "couldn't find Loft container after starting it")
+		return fmt.Errorf("%w: %s", ErrMissingContainer, "couldn't find Khulnasoft container after starting it")
 	}
 
 	return cmd.successDocker(ctx, containerID)
@@ -503,8 +503,8 @@ func (cmd *StartCmd) successDocker(ctx context.Context, containerID string) erro
 		return nil
 	}
 
-	// wait until Loft is ready
-	host, err := cmd.waitForLoftDocker(ctx, containerID)
+	// wait until Khulnasoft is ready
+	host, err := cmd.waitForKhulnasoftDocker(ctx, containerID)
 	if err != nil {
 		return err
 	}
@@ -514,7 +514,7 @@ func (cmd *StartCmd) successDocker(ctx context.Context, containerID string) erro
 	err = wait.PollUntilContextTimeout(ctx, time.Second, time.Minute*10, true, func(ctx context.Context) (bool, error) {
 		containerDetails, err := cmd.inspectContainer(ctx, containerID)
 		if err != nil {
-			return false, fmt.Errorf("inspect loft container: %w", err)
+			return false, fmt.Errorf("inspect khulnasoft container: %w", err)
 		} else if strings.ToLower(containerDetails.State.Status) == "exited" || strings.ToLower(containerDetails.State.Status) == "dead" {
 			logs, _ := cmd.logsContainer(ctx, containerID)
 			return false, fmt.Errorf("container failed (status: %s):\n %s", containerDetails.State.Status, logs)
@@ -556,7 +556,7 @@ Thanks for using DevSpace Pro!
 	))
 }
 
-func (cmd *StartCmd) waitForLoftDocker(ctx context.Context, containerID string) (string, error) {
+func (cmd *StartCmd) waitForKhulnasoftDocker(ctx context.Context, containerID string) (string, error) {
 	cmd.Log.Info("Wait for DevSpace Pro to become available...")
 
 	// check for local port
@@ -569,13 +569,13 @@ func (cmd *StartCmd) waitForLoftDocker(ctx context.Context, containerID string) 
 
 	// check if no tunnel
 	if cmd.NoTunnel {
-		return "", fmt.Errorf("%w: %s", ErrLoftNotReachable, "cannot connect to DevSpace Pro as it has no exposed port and --no-tunnel is enabled")
+		return "", fmt.Errorf("%w: %s", ErrKhulnasoftNotReachable, "cannot connect to DevSpace Pro as it has no exposed port and --no-tunnel is enabled")
 	}
 
 	// wait for router
 	url := ""
 	waitErr := wait.PollUntilContextTimeout(ctx, time.Second, time.Minute*10, true, func(ctx context.Context) (bool, error) {
-		url, err = cmd.findLoftRouter(ctx, containerID)
+		url, err = cmd.findKhulnasoftRouter(ctx, containerID)
 		if err != nil {
 			return false, nil
 		}
@@ -583,14 +583,14 @@ func (cmd *StartCmd) waitForLoftDocker(ctx context.Context, containerID string) 
 		return true, nil
 	})
 	if waitErr != nil {
-		return "", fmt.Errorf("error waiting for loft router domain: %w", err)
+		return "", fmt.Errorf("error waiting for khulnasoft router domain: %w", err)
 	}
 
 	return url, nil
 }
 
-func (cmd *StartCmd) findLoftRouter(ctx context.Context, id string) (string, error) {
-	out, err := cmd.buildDockerCmd(ctx, "exec", id, "cat", "/var/lib/loft/loft-domain.txt").Output()
+func (cmd *StartCmd) findKhulnasoftRouter(ctx context.Context, id string) (string, error) {
+	out, err := cmd.buildDockerCmd(ctx, "exec", id, "cat", "/var/lib/khulnasoft/khulnasoft-domain.txt").Output()
 	if err != nil {
 		return "", WrapCommandError(out, err)
 	}
@@ -602,7 +602,7 @@ func (cmd *StartCmd) prepareDocker() error {
 	// test for helm and kubectl
 	_, err := exec.LookPath("docker")
 	if err != nil {
-		return fmt.Errorf("seems like docker is not installed. Docker is required for the installation of loft. Please visit https://docs.docker.com/engine/install/ for install instructions")
+		return fmt.Errorf("seems like docker is not installed. Docker is required for the installation of khulnasoft. Please visit https://docs.docker.com/engine/install/ for install instructions")
 	}
 
 	output, err := exec.Command("docker", "ps").CombinedOutput()
@@ -634,7 +634,7 @@ func (cmd *StartCmd) uninstallDocker(ctx context.Context, id string) error {
 func (cmd *StartCmd) runInDocker(ctx context.Context, name string) (string, error) {
 	args := []string{"run", "-d", "--name", name}
 	if cmd.NoTunnel {
-		args = append(args, "--env", "DISABLE_LOFT_ROUTER=true")
+		args = append(args, "--env", "DISABLE_KHULNASOFT_ROUTER=true")
 	}
 	if cmd.Password != "" {
 		args = append(args, "--env", "ADMIN_PASSWORD_HASH="+hash.String(cmd.Password))
@@ -643,8 +643,8 @@ func (cmd *StartCmd) runInDocker(ctx context.Context, name string) (string, erro
 	// run as root otherwise we get permission errors
 	args = append(args, "-u", "root")
 
-	// mount the loft lib
-	args = append(args, "-v", "loft-data:/var/lib/loft")
+	// mount the khulnasoft lib
+	args = append(args, "-v", "khulnasoft-data:/var/lib/khulnasoft")
 
 	// set port
 	if cmd.LocalPort != "" {
@@ -672,7 +672,7 @@ func (cmd *StartCmd) runInDocker(ctx context.Context, name string) (string, erro
 		return "", err
 	}
 
-	return cmd.findLoftContainer(ctx, name, false)
+	return cmd.findKhulnasoftContainer(ctx, name, false)
 }
 
 func (cmd *StartCmd) logsContainer(ctx context.Context, id string) (string, error) {
@@ -713,7 +713,7 @@ func (cmd *StartCmd) removeContainer(ctx context.Context, id string) error {
 	return nil
 }
 
-func (cmd *StartCmd) findLoftContainer(ctx context.Context, name string, onlyRunning bool) (string, error) {
+func (cmd *StartCmd) findKhulnasoftContainer(ctx context.Context, name string, onlyRunning bool) (string, error) {
 	args := []string{"ps", "-q", "-a", "-f", "name=^" + name + "$"}
 	out, err := cmd.buildDockerCmd(ctx, args...).Output()
 	if err != nil {
@@ -763,7 +763,7 @@ func (cmd *StartCmd) prepare() error {
 	if err != nil {
 		return err
 	}
-	loftConfig := loader.Config()
+	khulnasoftConfig := loader.Config()
 
 	// first load the kube config
 	kubeClientConfig := clientcmd.NewNonInteractiveDeferredLoadingClientConfig(clientcmd.NewDefaultClientConfigLoadingRules(), &clientcmd.ConfigOverrides{})
@@ -778,11 +778,11 @@ func (cmd *StartCmd) prepare() error {
 	contextToLoad := kubeConfig.CurrentContext
 	if cmd.Context != "" {
 		contextToLoad = cmd.Context
-	} else if loftConfig.LastInstallContext != "" && loftConfig.LastInstallContext != contextToLoad {
+	} else if khulnasoftConfig.LastInstallContext != "" && khulnasoftConfig.LastInstallContext != contextToLoad {
 		contextToLoad, err = cmd.Log.Question(&survey.QuestionOptions{
 			Question:     "Seems like you try to use 'devspace pro start' with a different kubernetes context than before. Please choose which kubernetes context you want to use",
 			DefaultValue: contextToLoad,
-			Options:      []string{contextToLoad, loftConfig.LastInstallContext},
+			Options:      []string{contextToLoad, khulnasoftConfig.LastInstallContext},
 		})
 		if err != nil {
 			return err
@@ -790,7 +790,7 @@ func (cmd *StartCmd) prepare() error {
 	}
 	cmd.Context = contextToLoad
 
-	loftConfig.LastInstallContext = contextToLoad
+	khulnasoftConfig.LastInstallContext = contextToLoad
 	_ = loader.Save()
 
 	// kube client config
@@ -799,7 +799,7 @@ func (cmd *StartCmd) prepare() error {
 	// test for helm and kubectl
 	_, err = exec.LookPath("helm")
 	if err != nil {
-		return fmt.Errorf("seems like helm is not installed. Helm is required for the installation of loft. Please visit https://helm.sh/docs/intro/install/ for install instructions")
+		return fmt.Errorf("seems like helm is not installed. Helm is required for the installation of khulnasoft. Please visit https://helm.sh/docs/intro/install/ for install instructions")
 	}
 
 	output, err := exec.Command("helm", "version").CombinedOutput()
@@ -809,7 +809,7 @@ func (cmd *StartCmd) prepare() error {
 
 	_, err = exec.LookPath("kubectl")
 	if err != nil {
-		return fmt.Errorf("seems like kubectl is not installed. Kubectl is required for the installation of loft. Please visit https://kubernetes.io/docs/tasks/tools/install-kubectl/ for install instructions")
+		return fmt.Errorf("seems like kubectl is not installed. Kubectl is required for the installation of khulnasoft. Please visit https://kubernetes.io/docs/tasks/tools/install-kubectl/ for install instructions")
 	}
 
 	output, err = exec.Command("kubectl", "version", "--context", contextToLoad).CombinedOutput()
@@ -842,7 +842,7 @@ func (cmd *StartCmd) handleAlreadyExistingInstallation(ctx context.Context) erro
 	if !cmd.Upgrade && term.IsTerminal(os.Stdin) {
 		cmd.Log.Info("Existing instance found.")
 
-		// Check if Loft is installed in a local cluster
+		// Check if Khulnasoft is installed in a local cluster
 		isLocal := isInstalledLocally(ctx, cmd.KubeClient, cmd.Namespace)
 
 		// Skip question if --host flag is provided
@@ -931,9 +931,9 @@ func (cmd *StartCmd) handleAlreadyExistingInstallation(ctx context.Context) erro
 }
 
 func (cmd *StartCmd) waitForDeployment(ctx context.Context) (*corev1.Pod, error) {
-	// wait for loft pod to start
+	// wait for khulnasoft pod to start
 	cmd.Log.Info("Waiting for DevSpace Pro pod to be running...")
-	loftPod, err := platform.WaitForPodReady(ctx, cmd.KubeClient, cmd.Namespace, cmd.Log)
+	khulnasoftPod, err := platform.WaitForPodReady(ctx, cmd.KubeClient, cmd.Namespace, cmd.Log)
 	cmd.Log.Donef("Release Pod successfully started")
 	if err != nil {
 		return nil, err
@@ -950,25 +950,25 @@ func (cmd *StartCmd) waitForDeployment(ctx context.Context) (*corev1.Pod, error)
 		cmd.Password = ""
 	}
 
-	return loftPod, nil
+	return khulnasoftPod, nil
 }
 
-func (cmd *StartCmd) pingLoftRouter(ctx context.Context, loftPod *corev1.Pod) (string, error) {
-	loftRouterSecret, err := cmd.KubeClient.CoreV1().Secrets(loftPod.Namespace).Get(ctx, LoftRouterDomainSecret, metav1.GetOptions{})
+func (cmd *StartCmd) pingKhulnasoftRouter(ctx context.Context, khulnasoftPod *corev1.Pod) (string, error) {
+	khulnasoftRouterSecret, err := cmd.KubeClient.CoreV1().Secrets(khulnasoftPod.Namespace).Get(ctx, KhulnasoftRouterDomainSecret, metav1.GetOptions{})
 	if err != nil {
 		if kerrors.IsNotFound(err) {
 			return "", nil
 		}
 
-		return "", fmt.Errorf("find loft router domain secret: %w", err)
-	} else if loftRouterSecret.Data == nil || len(loftRouterSecret.Data["domain"]) == 0 {
+		return "", fmt.Errorf("find khulnasoft router domain secret: %w", err)
+	} else if khulnasoftRouterSecret.Data == nil || len(khulnasoftRouterSecret.Data["domain"]) == 0 {
 		return "", nil
 	}
 
 	// get the domain from secret
-	loftRouterDomain := string(loftRouterSecret.Data["domain"])
+	khulnasoftRouterDomain := string(khulnasoftRouterSecret.Data["domain"])
 
-	// wait until loft is reachable at the given url
+	// wait until khulnasoft is reachable at the given url
 	httpClient := &http.Client{
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
@@ -976,9 +976,9 @@ func (cmd *StartCmd) pingLoftRouter(ctx context.Context, loftPod *corev1.Pod) (s
 			},
 		},
 	}
-	cmd.Log.Infof("Waiting until DevSpace Pro is reachable at https://%s", loftRouterDomain)
+	cmd.Log.Infof("Waiting until DevSpace Pro is reachable at https://%s", khulnasoftRouterDomain)
 	err = wait.PollUntilContextTimeout(ctx, time.Second*3, time.Minute*5, true, func(ctx context.Context) (bool, error) {
-		req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://"+loftRouterDomain+"/version", nil)
+		req, err := http.NewRequestWithContext(ctx, http.MethodGet, "https://"+khulnasoftRouterDomain+"/version", nil)
 		if err != nil {
 			return false, nil
 		}
@@ -994,10 +994,10 @@ func (cmd *StartCmd) pingLoftRouter(ctx context.Context, loftPod *corev1.Pod) (s
 		return "", err
 	}
 
-	return loftRouterDomain, nil
+	return khulnasoftRouterDomain, nil
 }
 
-func (cmd *StartCmd) successLoftRouter(url string) error {
+func (cmd *StartCmd) successKhulnasoftRouter(url string) error {
 	if !cmd.NoLogin {
 		err := cmd.login(url)
 		if err != nil {
@@ -1101,7 +1101,7 @@ func (cmd *StartCmd) loginViaCLI(url string) error {
 		return err
 	}
 
-	// log into loft
+	// log into khulnasoft
 	loader, err := client.NewClientFromPath(cmd.Config)
 	if err != nil {
 		return err
@@ -1169,7 +1169,7 @@ func uninstall(ctx context.Context, kubeClient kubernetes.Interface, restConfig 
 		return err
 	}
 
-	err = apiRegistrationClient.ApiregistrationV1().APIServices().Delete(ctx, "v1.management.loft.sh", metav1.DeleteOptions{})
+	err = apiRegistrationClient.ApiregistrationV1().APIServices().Delete(ctx, "v1.management.khulnasoft.com", metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
@@ -1179,18 +1179,18 @@ func uninstall(ctx context.Context, kubeClient kubernetes.Interface, restConfig 
 		return err
 	}
 
-	err = kubeClient.CoreV1().Secrets(namespace).Delete(context.Background(), "loft-user-secret-admin", metav1.DeleteOptions{})
+	err = kubeClient.CoreV1().Secrets(namespace).Delete(context.Background(), "khulnasoft-user-secret-admin", metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
 
-	err = kubeClient.CoreV1().Secrets(namespace).Delete(context.Background(), LoftRouterDomainSecret, metav1.DeleteOptions{})
+	err = kubeClient.CoreV1().Secrets(namespace).Delete(context.Background(), KhulnasoftRouterDomainSecret, metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
 
 	// we also cleanup the validating webhook configuration and apiservice
-	err = kubeClient.AdmissionregistrationV1().ValidatingWebhookConfigurations().Delete(ctx, "loft-agent", metav1.DeleteOptions{})
+	err = kubeClient.AdmissionregistrationV1().ValidatingWebhookConfigurations().Delete(ctx, "khulnasoft-agent", metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
@@ -1200,17 +1200,17 @@ func uninstall(ctx context.Context, kubeClient kubernetes.Interface, restConfig 
 		return err
 	}
 
-	err = apiRegistrationClient.ApiregistrationV1().APIServices().Delete(ctx, "v1.cluster.loft.sh", metav1.DeleteOptions{})
+	err = apiRegistrationClient.ApiregistrationV1().APIServices().Delete(ctx, "v1.cluster.khulnasoft.com", metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
 
-	err = kubeClient.CoreV1().ConfigMaps(namespace).Delete(ctx, "loft-agent-controller", metav1.DeleteOptions{})
+	err = kubeClient.CoreV1().ConfigMaps(namespace).Delete(ctx, "khulnasoft-agent-controller", metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
 
-	err = kubeClient.CoreV1().ConfigMaps(namespace).Delete(ctx, "loft-applied-defaults", metav1.DeleteOptions{})
+	err = kubeClient.CoreV1().ConfigMaps(namespace).Delete(ctx, "khulnasoft-applied-defaults", metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
@@ -1236,10 +1236,10 @@ func isAlreadyInstalled(ctx context.Context, kubeClient kubernetes.Interface, na
 }
 
 func getDefaultPassword(ctx context.Context, kubeClient kubernetes.Interface, namespace string) (string, error) {
-	loftNamespace, err := kubeClient.CoreV1().Namespaces().Get(ctx, namespace, metav1.GetOptions{})
+	khulnasoftNamespace, err := kubeClient.CoreV1().Namespaces().Get(ctx, namespace, metav1.GetOptions{})
 	if err != nil {
 		if kerrors.IsNotFound(err) {
-			loftNamespace, err := kubeClient.CoreV1().Namespaces().Create(ctx, &corev1.Namespace{
+			khulnasoftNamespace, err := kubeClient.CoreV1().Namespaces().Create(ctx, &corev1.Namespace{
 				ObjectMeta: metav1.ObjectMeta{
 					Name: namespace,
 				},
@@ -1248,19 +1248,19 @@ func getDefaultPassword(ctx context.Context, kubeClient kubernetes.Interface, na
 				return "", err
 			}
 
-			return string(loftNamespace.UID), nil
+			return string(khulnasoftNamespace.UID), nil
 		}
 
 		return "", err
 	}
 
-	return string(loftNamespace.UID), nil
+	return string(khulnasoftNamespace.UID), nil
 }
 
 func isInstalledLocally(ctx context.Context, kubeClient kubernetes.Interface, namespace string) bool {
-	_, err := kubeClient.NetworkingV1().Ingresses(namespace).Get(ctx, "loft-ingress", metav1.GetOptions{})
+	_, err := kubeClient.NetworkingV1().Ingresses(namespace).Get(ctx, "khulnasoft-ingress", metav1.GetOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
-		_, err = kubeClient.NetworkingV1beta1().Ingresses(namespace).Get(ctx, "loft-ingress", metav1.GetOptions{})
+		_, err = kubeClient.NetworkingV1beta1().Ingresses(namespace).Get(ctx, "khulnasoft-ingress", metav1.GetOptions{})
 		return kerrors.IsNotFound(err)
 	}
 
@@ -1269,11 +1269,11 @@ func isInstalledLocally(ctx context.Context, kubeClient kubernetes.Interface, na
 
 func enterHostNameQuestion(log log.Logger) (string, error) {
 	return log.Question(&survey.QuestionOptions{
-		Question: fmt.Sprintf("Enter a hostname for your %s instance (e.g. loft.my-domain.tld): \n ", "DevSpace Pro"),
+		Question: fmt.Sprintf("Enter a hostname for your %s instance (e.g. khulnasoft.my-domain.tld): \n ", "DevSpace Pro"),
 		ValidationFunc: func(answer string) error {
 			u, err := netUrl.Parse("https://" + answer)
 			if err != nil || u.Path != "" || u.Port() != "" || len(strings.Split(answer, ".")) < 2 {
-				return fmt.Errorf("please enter a valid hostname without protocol (https://), without path and without port, e.g. loft.my-domain.tld")
+				return fmt.Errorf("please enter a valid hostname without protocol (https://), without path and without port, e.g. khulnasoft.my-domain.tld")
 			}
 			return nil
 		},
@@ -1335,12 +1335,12 @@ func ensureIngressController(ctx context.Context, kubeClient kubernetes.Interfac
 		if len(list.Items) == 1 {
 			secret := list.Items[0]
 			originalSecret := secret.DeepCopy()
-			secret.Labels["loft.sh/app"] = "true"
+			secret.Labels["khulnasoft.com/app"] = "true"
 			if secret.Annotations == nil {
 				secret.Annotations = map[string]string{}
 			}
 
-			secret.Annotations["loft.sh/url"] = "https://kubernetes.github.io/ingress-nginx"
+			secret.Annotations["khulnasoft.com/url"] = "https://kubernetes.github.io/ingress-nginx"
 			originalJSON, err := json.Marshal(originalSecret)
 			if err != nil {
 				return err
@@ -1366,17 +1366,17 @@ func ensureIngressController(ctx context.Context, kubeClient kubernetes.Interfac
 }
 
 func deleteUser(ctx context.Context, restConfig *rest.Config, name string) error {
-	loftClient, err := loftclientset.NewForConfig(restConfig)
+	khulnasoftClient, err := khulnasoftclientset.NewForConfig(restConfig)
 	if err != nil {
 		return err
 	}
 
-	user, err := loftClient.StorageV1().Users().Get(ctx, name, metav1.GetOptions{})
+	user, err := khulnasoftClient.StorageV1().Users().Get(ctx, name, metav1.GetOptions{})
 	if err != nil {
 		return nil
 	} else if len(user.Finalizers) > 0 {
 		user.Finalizers = nil
-		_, err = loftClient.StorageV1().Users().Update(ctx, user, metav1.UpdateOptions{})
+		_, err = khulnasoftClient.StorageV1().Users().Update(ctx, user, metav1.UpdateOptions{})
 		if err != nil {
 			if kerrors.IsConflict(err) {
 				return deleteUser(ctx, restConfig, name)
@@ -1386,7 +1386,7 @@ func deleteUser(ctx context.Context, restConfig *rest.Config, name string) error
 		}
 	}
 
-	err = loftClient.StorageV1().Users().Delete(ctx, name, metav1.DeleteOptions{})
+	err = khulnasoftClient.StorageV1().Users().Delete(ctx, name, metav1.DeleteOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return err
 	}
@@ -1395,16 +1395,16 @@ func deleteUser(ctx context.Context, restConfig *rest.Config, name string) error
 }
 
 func ensureAdminPassword(ctx context.Context, kubeClient kubernetes.Interface, restConfig *rest.Config, password string, log log.Logger) (bool, error) {
-	loftClient, err := loftclientset.NewForConfig(restConfig)
+	khulnasoftClient, err := khulnasoftclientset.NewForConfig(restConfig)
 	if err != nil {
 		return false, err
 	}
 
-	admin, err := loftClient.StorageV1().Users().Get(ctx, "admin", metav1.GetOptions{})
+	admin, err := khulnasoftClient.StorageV1().Users().Get(ctx, "admin", metav1.GetOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return false, err
 	} else if admin == nil {
-		admin, err = loftClient.StorageV1().Users().Create(ctx, &storagev1.User{
+		admin, err = khulnasoftClient.StorageV1().Users().Create(ctx, &storagev1.User{
 			ObjectMeta: metav1.ObjectMeta{
 				Name: "admin",
 			},
@@ -1414,8 +1414,8 @@ func ensureAdminPassword(ctx context.Context, kubeClient kubernetes.Interface, r
 				Subject:  "admin",
 				Groups:   []string{"system:masters"},
 				PasswordRef: &storagev1.SecretRef{
-					SecretName:      "loft-user-secret-admin",
-					SecretNamespace: "loft",
+					SecretName:      "khulnasoft-user-secret-admin",
+					SecretNamespace: "khulnasoft",
 					Key:             "password",
 				},
 			},
@@ -1451,7 +1451,7 @@ func ensureAdminPassword(ctx context.Context, kubeClient kubernetes.Interface, r
 		return false, nil
 	}
 
-	// create the password secret if it was not found, this can happen if you delete the loft namespace without deleting the admin user
+	// create the password secret if it was not found, this can happen if you delete the khulnasoft namespace without deleting the admin user
 	secret = &corev1.Secret{
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      admin.Spec.PasswordRef.SecretName,
@@ -1471,9 +1471,9 @@ func ensureAdminPassword(ctx context.Context, kubeClient kubernetes.Interface, r
 }
 
 func getIngressHost(ctx context.Context, kubeClient kubernetes.Interface, namespace string) (string, error) {
-	ingress, err := kubeClient.NetworkingV1().Ingresses(namespace).Get(ctx, "loft-ingress", metav1.GetOptions{})
+	ingress, err := kubeClient.NetworkingV1().Ingresses(namespace).Get(ctx, "khulnasoft-ingress", metav1.GetOptions{})
 	if err != nil {
-		ingress, err := kubeClient.NetworkingV1beta1().Ingresses(namespace).Get(ctx, "loft-ingress", metav1.GetOptions{})
+		ingress, err := kubeClient.NetworkingV1beta1().Ingresses(namespace).Get(ctx, "khulnasoft-ingress", metav1.GetOptions{})
 		if err != nil {
 			return "", err
 		} else {
@@ -1489,7 +1489,7 @@ func getIngressHost(ctx context.Context, kubeClient kubernetes.Interface, namesp
 		}
 	}
 
-	return "", fmt.Errorf("couldn't find any host in loft ingress '%s/loft-ingress', please make sure you have not changed any deployed resources", namespace)
+	return "", fmt.Errorf("couldn't find any host in khulnasoft ingress '%s/khulnasoft-ingress', please make sure you have not changed any deployed resources", namespace)
 }
 
 type version struct {
@@ -1501,7 +1501,7 @@ func isHostReachable(ctx context.Context, host string) (bool, error) {
 	// we disable http2 as Kubernetes has problems with this
 	transport.ForceAttemptHTTP2 = false
 	transport.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
-	// wait until loft is reachable at the given url
+	// wait until khulnasoft is reachable at the given url
 	client := &http.Client{Transport: transport}
 	url := "https://" + host + "/version"
 	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
@@ -1530,7 +1530,7 @@ func isHostReachable(ctx context.Context, host string) (bool, error) {
 }
 
 func upgradeRelease(chartName, chartRepo, kubeContext, namespace string, extraArgs []string, log log.Logger) error {
-	// now we install loft
+	// now we install khulnasoft
 	args := []string{
 		"upgrade",
 		defaultReleaseName,
@@ -1624,7 +1624,7 @@ func getHelmWorkdir(chartName string) (string, error) {
 
 var (
 	ErrMissingContainer = errors.New("missing container")
-	ErrLoftNotReachable = errors.New("DevSpace Pro is not reachable")
+	ErrKhulnasoftNotReachable = errors.New("DevSpace Pro is not reachable")
 )
 
 type ContainerDetails struct {

@@ -3,7 +3,7 @@ package kube
 import (
 	"fmt"
 
-	loftclient "dev.khulnasoft.com/api/pkg/clientset/versioned"
+	khulnasoftclient "dev.khulnasoft.com/api/pkg/clientset/versioned"
 
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -11,7 +11,7 @@ import (
 
 type Interface interface {
 	kubernetes.Interface
-	Loft() loftclient.Interface
+	Khulnasoft() khulnasoftclient.Interface
 }
 
 func NewForConfig(c *rest.Config) (Interface, error) {
@@ -20,22 +20,22 @@ func NewForConfig(c *rest.Config) (Interface, error) {
 		return nil, fmt.Errorf("create kube client: %w", err)
 	}
 
-	loftClient, err := loftclient.NewForConfig(c)
+	khulnasoftClient, err := khulnasoftclient.NewForConfig(c)
 	if err != nil {
-		return nil, fmt.Errorf("create loft client: %w", err)
+		return nil, fmt.Errorf("create khulnasoft client: %w", err)
 	}
 
 	return &client{
 		Interface:  kubeClient,
-		loftClient: loftClient,
+		khulnasoftClient: khulnasoftClient,
 	}, nil
 }
 
 type client struct {
 	kubernetes.Interface
-	loftClient loftclient.Interface
+	khulnasoftClient khulnasoftclient.Interface
 }
 
-func (c *client) Loft() loftclient.Interface {
-	return c.loftClient
+func (c *client) Khulnasoft() khulnasoftclient.Interface {
+	return c.khulnasoftClient
 }

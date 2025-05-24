@@ -6,7 +6,7 @@ import (
 	"context"
 	time "time"
 
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
 	versioned "dev.khulnasoft.com/agentapi/pkg/clientset/versioned"
 	internalinterfaces "dev.khulnasoft.com/agentapi/pkg/informers/externalversions/internalinterfaces"
 	v1 "dev.khulnasoft.com/agentapi/pkg/listers/cluster/v1"

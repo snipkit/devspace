@@ -496,8 +496,8 @@ jobs:
       #     source_file: 'desktop/flatpak/sh.khulnasoft.DevSpace.yaml'
       #     destination_repo: 'flathub/sh.khulnasoft.DevSpace'
       #     destination_folder: ''
-      #     user_email: 'bot@loft.sh'
-      #     user_name: 'loftbot'
+      #     user_email: 'bot@khulnasoft.com'
+      #     user_name: 'khulnasoftbot'
       #     commit_message: 'Update flatpak manifest with latest release'
 
   publish-updates:

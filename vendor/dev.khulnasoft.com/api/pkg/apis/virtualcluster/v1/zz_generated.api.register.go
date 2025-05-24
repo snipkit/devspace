@@ -20,7 +20,7 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 }
 
 var (
-	ApiVersion = builders.NewApiVersion("virtualcluster.loft.sh", "v1").WithResources(
+	ApiVersion = builders.NewApiVersion("virtualcluster.khulnasoft.com", "v1").WithResources(
 		virtualcluster.VirtualclusterHelmReleaseStorage,
 	)
 

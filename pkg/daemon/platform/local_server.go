@@ -175,7 +175,7 @@ func (l *localServer) watchPlatform(stopChan <-chan struct{}) error {
 		if err != nil {
 			l.log.Error(fmt.Errorf("create mangement client: %w", err))
 		} else {
-			_, err = managementClient.Loft().ManagementV1().Selves().Create(context.Background(), &managementv1.Self{}, metav1.CreateOptions{})
+			_, err = managementClient.Khulnasoft().ManagementV1().Selves().Create(context.Background(), &managementv1.Self{}, metav1.CreateOptions{})
 			l.platformStatus.mu.Lock()
 			if err != nil {
 				if IsAccessKeyNotFound(err) {
@@ -284,7 +284,7 @@ func (l *localServer) userProfile(w http.ResponseWriter, r *http.Request, params
 	}
 	userName := l.pc.Self().Status.User.Name
 
-	profile, err := managementClient.Loft().ManagementV1().Users().GetProfile(r.Context(), userName, metav1.GetOptions{})
+	profile, err := managementClient.Khulnasoft().ManagementV1().Users().GetProfile(r.Context(), userName, metav1.GetOptions{})
 	if err != nil {
 		http.Error(w, fmt.Errorf("get user profile: %w", err).Error(), http.StatusInternalServerError)
 		return
@@ -308,7 +308,7 @@ func (l *localServer) updateUserProfile(w http.ResponseWriter, r *http.Request, 
 		return
 	}
 	userName := l.pc.Self().Status.User.Name
-	updatedProfile, err := managementClient.Loft().ManagementV1().Users().UpdateProfile(r.Context(), userName, profile, metav1.CreateOptions{})
+	updatedProfile, err := managementClient.Khulnasoft().ManagementV1().Users().UpdateProfile(r.Context(), userName, profile, metav1.CreateOptions{})
 	if err != nil {
 		http.Error(w, fmt.Errorf("update user profile: %w", err).Error(), http.StatusInternalServerError)
 		return
@@ -324,7 +324,7 @@ func (l *localServer) projects(w http.ResponseWriter, r *http.Request, params ht
 		return
 	}
 
-	projectList, err := managementClient.Loft().ManagementV1().Projects().List(r.Context(), metav1.ListOptions{})
+	projectList, err := managementClient.Khulnasoft().ManagementV1().Projects().List(r.Context(), metav1.ListOptions{})
 	if err != nil {
 		http.Error(w, fmt.Errorf("list projects: %w", err).Error(), http.StatusInternalServerError)
 		return
@@ -345,7 +345,7 @@ func (l *localServer) projectTemplates(w http.ResponseWriter, r *http.Request, p
 		return
 	}
 
-	templateList, err := managementClient.Loft().ManagementV1().Projects().ListTemplates(r.Context(), projectName, metav1.GetOptions{})
+	templateList, err := managementClient.Khulnasoft().ManagementV1().Projects().ListTemplates(r.Context(), projectName, metav1.GetOptions{})
 	if err != nil {
 		http.Error(w, fmt.Errorf("list templates: %w", err).Error(), http.StatusInternalServerError)
 		return
@@ -365,7 +365,7 @@ func (l *localServer) projectClusters(w http.ResponseWriter, r *http.Request, pa
 		return
 	}
 
-	clusterList, err := managementClient.Loft().ManagementV1().Projects().ListClusters(r.Context(), projectName, metav1.GetOptions{})
+	clusterList, err := managementClient.Khulnasoft().ManagementV1().Projects().ListClusters(r.Context(), projectName, metav1.GetOptions{})
 	if err != nil {
 		http.Error(w, fmt.Errorf("list cluster: %w", err).Error(), http.StatusInternalServerError)
 		return
@@ -391,7 +391,7 @@ func (l *localServer) listWorkspace(w http.ResponseWriter, r *http.Request, para
 		return
 	}
 
-	projectList, err := managementClient.Loft().ManagementV1().Projects().List(r.Context(), metav1.ListOptions{})
+	projectList, err := managementClient.Khulnasoft().ManagementV1().Projects().List(r.Context(), metav1.ListOptions{})
 	if err != nil {
 		http.Error(w, fmt.Errorf("list projects: %w", err).Error(), http.StatusInternalServerError)
 		return
@@ -404,7 +404,7 @@ func (l *localServer) listWorkspace(w http.ResponseWriter, r *http.Request, para
 	instances := []managementv1.DevSpaceWorkspaceInstance{}
 	for _, p := range projectList.Items {
 		ns := project.ProjectNamespace(p.GetName())
-		workspaceList, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(ns).List(r.Context(), metav1.ListOptions{})
+		workspaceList, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(ns).List(r.Context(), metav1.ListOptions{})
 		if err != nil {
 			http.Error(w, fmt.Errorf("list workspaces in project %s: %w", p.GetName(), err).Error(), http.StatusNoContent)
 			return
@@ -629,7 +629,7 @@ func createInstance(ctx context.Context, client platformclient.Client, instance 
 		return nil, err
 	}
 
-	updatedInstance, err := managementClient.Loft().ManagementV1().
+	updatedInstance, err := managementClient.Khulnasoft().ManagementV1().
 		DevSpaceWorkspaceInstances(instance.GetNamespace()).
 		Create(ctx, instance, metav1.CreateOptions{})
 	if err != nil {

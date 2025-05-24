@@ -71,7 +71,7 @@ func Clusters(ctx context.Context, client client.Client, projectName string) (*m
 		return nil, err
 	}
 
-	clustersList, err := managementClient.Loft().ManagementV1().Projects().ListClusters(ctx, projectName, metav1.GetOptions{})
+	clustersList, err := managementClient.Khulnasoft().ManagementV1().Projects().ListClusters(ctx, projectName, metav1.GetOptions{})
 	if err != nil {
 		return clustersList, fmt.Errorf("list clusters: %w", err)
 	}

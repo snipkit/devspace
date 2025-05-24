@@ -1,26 +1,26 @@
+import { client as globalClient } from "@/client"
 import { TWorkspaceOwnerFilterState } from "@/components"
 import { ProWorkspaceInstance } from "@/contexts"
 import { DaemonStatus } from "@/gen"
-import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
-import { ManagementV1Project } from "@loft-enterprise/client/gen/models/managementV1Project"
-import { ManagementV1ProjectClusters } from "@loft-enterprise/client/gen/models/managementV1ProjectClusters"
-import { ManagementV1ProjectTemplates } from "@loft-enterprise/client/gen/models/managementV1ProjectTemplates"
-import { ManagementV1Self } from "@loft-enterprise/client/gen/models/managementV1Self"
-import { ManagementV1UserProfile } from "@loft-enterprise/client/gen/models/managementV1UserProfile"
-import { Result, ResultError, Return, isError, sleep } from "../../lib"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
+import { ManagementV1Project } from "@khulnasoft-enterprise/client/gen/models/managementV1Project"
+import { ManagementV1ProjectClusters } from "@khulnasoft-enterprise/client/gen/models/managementV1ProjectClusters"
+import { ManagementV1ProjectTemplates } from "@khulnasoft-enterprise/client/gen/models/managementV1ProjectTemplates"
+import { ManagementV1Self } from "@khulnasoft-enterprise/client/gen/models/managementV1Self"
+import { ManagementV1UserProfile } from "@khulnasoft-enterprise/client/gen/models/managementV1UserProfile"
+import { Result, ResultError, Return, isError } from "../../lib"
 import {
-  TGitCredentialHelperData,
-  TImportWorkspaceConfig,
-  TListProInstancesConfig,
-  TPlatformHealthCheck,
-  TPlatformVersionInfo,
-  TProID,
-  TProInstance,
+    TGitCredentialHelperData,
+    TImportWorkspaceConfig,
+    TListProInstancesConfig,
+    TPlatformHealthCheck,
+    TPlatformVersionInfo,
+    TProID,
+    TProInstance,
 } from "../../types"
 import { TAURI_SERVER_URL } from "../tauriClient"
 import { TDebuggable, TStreamEventListenerFn } from "../types"
 import { ProCommands } from "./proCommands"
-import { client as globalClient } from "@/client"
 
 export class ProClient implements TDebuggable {
   constructor(protected readonly id: string) {}

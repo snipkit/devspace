@@ -5,5 +5,5 @@
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen=package,register
 // +k8s:defaulter-gen=TypeMeta
-// +groupName=ui.loft.sh
+// +groupName=ui.khulnasoft.com
 package v1 // import "dev.khulnasoft.com/api/pkg/apis/ui/v1"

@@ -1,19 +1,19 @@
 package v1
 
 import (
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 const (
-	LoftProjectSecret                           = "loft.sh/project-secret"
-	LoftProjectSecretNameLabel                  = "loft.sh/project-secret-name"
-	LoftProjectSecretDescription                = "loft.sh/project-secret-description"
-	LoftProjectSecretDisplayName                = "loft.sh/project-secret-displayname"
-	LoftProjectSecretOwner                      = "loft.sh/project-secret-owner"
-	LoftProjectSecretAccess                     = "loft.sh/project-secret-access"
-	LoftProjectSecretStatusConditionsAnnotation = "loft.sh/project-secret-status-conditions"
+	KhulnasoftProjectSecret                           = "khulnasoft.com/project-secret"
+	KhulnasoftProjectSecretNameLabel                  = "khulnasoft.com/project-secret-name"
+	KhulnasoftProjectSecretDescription                = "khulnasoft.com/project-secret-description"
+	KhulnasoftProjectSecretDisplayName                = "khulnasoft.com/project-secret-displayname"
+	KhulnasoftProjectSecretOwner                      = "khulnasoft.com/project-secret-owner"
+	KhulnasoftProjectSecretAccess                     = "khulnasoft.com/project-secret-access"
+	KhulnasoftProjectSecretStatusConditionsAnnotation = "khulnasoft.com/project-secret-status-conditions"
 )
 
 // +genclient

@@ -133,7 +133,7 @@ func createInstance(ctx context.Context, client client.Client, instance *managem
 		return nil, err
 	}
 
-	updatedInstance, err := managementClient.Loft().ManagementV1().
+	updatedInstance, err := managementClient.Khulnasoft().ManagementV1().
 		DevSpaceWorkspaceInstances(instance.GetNamespace()).
 		Create(ctx, instance, metav1.CreateOptions{})
 	if err != nil {

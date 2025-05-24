@@ -40,7 +40,7 @@ type LicenseExpansion interface{}
 
 type LicenseTokenExpansion interface{}
 
-type LoftUpgradeExpansion interface{}
+type KhulnasoftUpgradeExpansion interface{}
 
 type OIDCClientExpansion interface{}
 

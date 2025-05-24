@@ -34,7 +34,7 @@ import (
 	clientcmdapi "k8s.io/client-go/tools/clientcmd/api"
 )
 
-var CacheFolder = ".loft"
+var CacheFolder = ".khulnasoft"
 
 // DefaultCacheConfig is the path to the config
 var DefaultCacheConfig = "config.json"
@@ -52,7 +52,7 @@ const (
 
 func init() {
 	hd, _ := util.UserHomeDir()
-	if folder, ok := os.LookupEnv("LOFT_CACHE_FOLDER"); ok {
+	if folder, ok := os.LookupEnv("KHULNASOFT_CACHE_FOLDER"); ok {
 		CacheFolder = filepath.Join(hd, folder)
 	} else {
 		CacheFolder = filepath.Join(hd, CacheFolder)
@@ -130,7 +130,7 @@ func (c *client) RefreshSelf(ctx context.Context) error {
 		return fmt.Errorf("create mangement client: %w", err)
 	}
 
-	c.self, err = managementClient.Loft().ManagementV1().Selves().Create(ctx, &managementv1.Self{}, metav1.CreateOptions{})
+	c.self, err = managementClient.Khulnasoft().ManagementV1().Selves().Create(ctx, &managementv1.Self{}, metav1.CreateOptions{})
 	if err != nil {
 		return fmt.Errorf("error trying to reach platform: %w. This usually indicates you either have no connection to the platform or are not authenticated", err)
 	}
@@ -156,13 +156,13 @@ func (c *client) Logout(ctx context.Context) error {
 		return fmt.Errorf("create management client: %w", err)
 	}
 
-	self, err := managementClient.Loft().ManagementV1().Selves().Create(ctx, &managementv1.Self{}, metav1.CreateOptions{})
+	self, err := managementClient.Khulnasoft().ManagementV1().Selves().Create(ctx, &managementv1.Self{}, metav1.CreateOptions{})
 	if err != nil {
 		return fmt.Errorf("get self: %w", err)
 	}
 
 	if self.Status.AccessKey != "" && self.Status.AccessKeyType == storagev1.AccessKeyTypeLogin {
-		err = managementClient.Loft().ManagementV1().OwnedAccessKeys().Delete(ctx, self.Status.AccessKey, metav1.DeleteOptions{})
+		err = managementClient.Khulnasoft().ManagementV1().OwnedAccessKeys().Delete(ctx, self.Status.AccessKey, metav1.DeleteOptions{})
 		if err != nil {
 			return fmt.Errorf("delete access key: %w", err)
 		}
@@ -212,7 +212,7 @@ func (c *client) Save() error {
 		c.config.Kind = "Config"
 	}
 	if c.config.APIVersion == "" {
-		c.config.APIVersion = "storage.loft.sh/v1"
+		c.config.APIVersion = "storage.khulnasoft.com/v1"
 	}
 
 	err := os.MkdirAll(filepath.Dir(c.configPath), 0o755)
@@ -251,7 +251,7 @@ type keyStruct struct {
 
 func verifyHost(host string) error {
 	if !strings.HasPrefix(host, "https") {
-		return fmt.Errorf("cannot log into a non https loft instance '%s', please make sure you have TLS enabled", host)
+		return fmt.Errorf("cannot log into a non https khulnasoft instance '%s', please make sure you have TLS enabled", host)
 	}
 
 	return nil
@@ -346,9 +346,9 @@ func (c *client) LoginWithAccessKey(host, accessKey string, insecure bool, force
 	if !force && c.config.AccessKey != "" {
 		managementClient, err := c.Management()
 		if err == nil {
-			self, err := managementClient.Loft().ManagementV1().Selves().Create(context.TODO(), &managementv1.Self{}, metav1.CreateOptions{})
+			self, err := managementClient.Khulnasoft().ManagementV1().Selves().Create(context.TODO(), &managementv1.Self{}, metav1.CreateOptions{})
 			if err == nil && self.Status.AccessKey != "" && self.Status.AccessKeyType == storagev1.AccessKeyTypeLogin {
-				_ = managementClient.Loft().ManagementV1().OwnedAccessKeys().Delete(context.TODO(), self.Status.AccessKey, metav1.DeleteOptions{})
+				_ = managementClient.Khulnasoft().ManagementV1().OwnedAccessKeys().Delete(context.TODO(), self.Status.AccessKey, metav1.DeleteOptions{})
 			}
 		}
 	}
@@ -364,13 +364,13 @@ func (c *client) LoginWithAccessKey(host, accessKey string, insecure bool, force
 	}
 
 	// try to get self
-	_, err = managementClient.Loft().ManagementV1().Selves().Create(context.TODO(), &managementv1.Self{}, metav1.CreateOptions{})
+	_, err = managementClient.Khulnasoft().ManagementV1().Selves().Create(context.TODO(), &managementv1.Self{}, metav1.CreateOptions{})
 	if err != nil {
 		var urlError *url.Error
 		if errors.As(err, &urlError) {
 			var err x509.UnknownAuthorityError
 			if errors.As(urlError.Err, &err) {
-				return fmt.Errorf("unsafe login endpoint '%s', if you wish to login into an insecure loft endpoint run with the '--insecure' flag", c.config.Host)
+				return fmt.Errorf("unsafe login endpoint '%s', if you wish to login into an insecure khulnasoft endpoint run with the '--insecure' flag", c.config.Host)
 			}
 		}
 
@@ -380,7 +380,7 @@ func (c *client) LoginWithAccessKey(host, accessKey string, insecure bool, force
 	return c.Save()
 }
 
-// VerifyVersion checks if the Loft version is compatible with this CLI version
+// VerifyVersion checks if the Khulnasoft version is compatible with this CLI version
 func VerifyVersion(baseClient Client) error {
 	v, err := baseClient.Version()
 	if err != nil {

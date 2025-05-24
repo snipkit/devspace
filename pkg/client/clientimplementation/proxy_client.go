@@ -202,8 +202,8 @@ func (s *proxyClient) Up(ctx context.Context, opt client.UpOptions) error {
 
 	// check if the provider is outdated
 	providerOptions := s.devSpaceConfig.ProviderOptions(s.config.Name)
-	if providerOptions["LOFT_CONFIG"].Value != "" {
-		baseClient, err := platformclient.InitClientFromPath(ctx, providerOptions["LOFT_CONFIG"].Value)
+	if providerOptions["KHULNASOFT_CONFIG"].Value != "" {
+		baseClient, err := platformclient.InitClientFromPath(ctx, providerOptions["KHULNASOFT_CONFIG"].Value)
 		if err != nil {
 			return fmt.Errorf("error initializing platform client: %w", err)
 		}

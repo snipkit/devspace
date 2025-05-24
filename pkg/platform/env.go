@@ -9,20 +9,20 @@ const (
 	WorkspacePictureEnv  = "WORKSPACE_PICTURE"
 	WorkspaceSourceEnv   = "WORKSPACE_SOURCE"
 
-	ConfigEnv  = "LOFT_CONFIG"
-	ProjectEnv = "LOFT_PROJECT"
-	ClusterEnv = "LOFT_CLUSTER"
-	RunnerEnv  = "LOFT_RUNNER"
+	ConfigEnv  = "KHULNASOFT_CONFIG"
+	ProjectEnv = "KHULNASOFT_PROJECT"
+	ClusterEnv = "KHULNASOFT_CLUSTER"
+	RunnerEnv  = "KHULNASOFT_RUNNER"
 
-	TemplateOptionEnv        = "LOFT_TEMPLATE"
-	TemplateVersionOptionEnv = "LOFT_TEMPLATE_VERSION"
+	TemplateOptionEnv        = "KHULNASOFT_TEMPLATE"
+	TemplateVersionOptionEnv = "KHULNASOFT_TEMPLATE_VERSION"
 
-	TimeoutEnv        = "LOFT_TIMEOUT"
+	TimeoutEnv        = "KHULNASOFT_TIMEOUT"
 	ProviderBinaryEnv = "PRO_PROVIDER"
 
-	SpaceInstanceNameEnv          = "LOFT_SPACE_INSTANCE_NAME"
-	VirtualClusterInstanceNameEnv = "LOFT_VIRTUAL_CLUSTER_INSTANCE_NAME"
-	InstanceNamespaceEnv          = "LOFT_INSTANCE_NAMESPACE"
+	SpaceInstanceNameEnv          = "KHULNASOFT_SPACE_INSTANCE_NAME"
+	VirtualClusterInstanceNameEnv = "KHULNASOFT_VIRTUAL_CLUSTER_INSTANCE_NAME"
+	InstanceNamespaceEnv          = "KHULNASOFT_INSTANCE_NAMESPACE"
 
 	DaemonFolderEnv = "DAEMON_FOLDER"
 )

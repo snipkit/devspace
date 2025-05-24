@@ -1,3 +1,3 @@
 // +k8s:openapi-gen=true
-// +groupName=audit.loft.sh
+// +groupName=audit.khulnasoft.com
 package audit

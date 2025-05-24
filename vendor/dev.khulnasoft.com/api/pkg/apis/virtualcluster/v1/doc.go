@@ -6,5 +6,5 @@
 // +k8s:deepcopy-gen=package,register
 // +k8s:conversion-gen=dev.khulnasoft.com/api/pkg/apis/virtualcluster
 // +k8s:defaulter-gen=TypeMeta
-// +groupName=virtualcluster.loft.sh
+// +groupName=virtualcluster.khulnasoft.com
 package v1 // import "dev.khulnasoft.com/api/pkg/apis/virtualcluster/v1"

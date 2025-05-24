@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
 	"dev.khulnasoft.com/api/pkg/managerfactory"
 	"dev.khulnasoft.com/apiserver/pkg/builders"
 	"k8s.io/apimachinery/pkg/apis/meta/internalversion"
@@ -43,7 +43,7 @@ var (
 		func() runtime.Object { return &HelmReleaseList{} },
 	)
 	// Registered resources and subresources
-	ApiVersion = builders.NewApiGroup("virtualcluster.loft.sh").WithKinds(
+	ApiVersion = builders.NewApiGroup("virtualcluster.khulnasoft.com").WithKinds(
 		InternalHelmRelease,
 		InternalHelmReleaseStatus,
 	)

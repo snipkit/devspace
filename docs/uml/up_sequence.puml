@@ -20,7 +20,7 @@ DevSpace -> Agent: devspace workspace build
 activate Agent
 Agent --> ContainerRuntime: build
 ContainerRuntime --> Agent: image
-Agent --> DevSpace: 
+Agent --> DevSpace:
 deactivate Agent
 end
 
@@ -42,7 +42,7 @@ Agent -> ContainerAgent: devspace agent container daemon
 end
 
 alt if pro user
-Agent -> ContainerAgent: devspace agent container setup-loft-platform-access
+Agent -> ContainerAgent: devspace agent container setup-khulnasoft-platform-access
 ContainerAgent -> Platform: Setup pro
 Platform --> ContainerAgent: platform creds
 end
@@ -58,9 +58,9 @@ end
 
 Agent -> ContainerAgent: Run life cycle hooks
 
-ContainerAgent --> Agent: 
+ContainerAgent --> Agent:
 deactivate ContainerAgent
-Agent --> DevSpace: 
+Agent --> DevSpace:
 deactivate Agent
 
 alt if using browser based IDE (openvscode, jupyter)

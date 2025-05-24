@@ -88,8 +88,8 @@ func (c *FakeManagementV1) LicenseTokens() v1.LicenseTokenInterface {
 	return &FakeLicenseTokens{c}
 }
 
-func (c *FakeManagementV1) LoftUpgrades() v1.LoftUpgradeInterface {
-	return &FakeLoftUpgrades{c}
+func (c *FakeManagementV1) KhulnasoftUpgrades() v1.KhulnasoftUpgradeInterface {
+	return &FakeKhulnasoftUpgrades{c}
 }
 
 func (c *FakeManagementV1) OIDCClients() v1.OIDCClientInterface {

@@ -34,7 +34,7 @@ const (
 // Products
 const (
 	/* NEVER CHANGE ANY OF THESE */
-	Loft        ProductName = "loft"
+	Khulnasoft        ProductName = "khulnasoft"
 	VClusterPro ProductName = "vcluster-pro"
 	DevSpacePro   ProductName = "devspace-pro"
 )

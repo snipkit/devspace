@@ -6,7 +6,7 @@
 package v1
 
 import (
-	storagev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	storagev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	corev1 "k8s.io/api/core/v1"
 	rbacv1 "k8s.io/api/rbac/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"

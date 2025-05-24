@@ -7,8 +7,8 @@ import (
 	"fmt"
 
 	pkglicenseapi "dev.khulnasoft.com/admin-apis/pkg/licenseapi"
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	auditv1 "dev.khulnasoft.com/api/pkg/apis/audit/v1"
 	storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
 	uiv1 "dev.khulnasoft.com/api/pkg/apis/ui/v1"
@@ -236,16 +236,16 @@ var (
 		return NewLicenseTokenRESTFunc(Factory)
 	}
 	NewLicenseTokenRESTFunc      NewRESTFunc
-	ManagementLoftUpgradeStorage = builders.NewApiResourceWithStorage( // Resource status endpoint
-		InternalLoftUpgrade,
-		func() runtime.Object { return &LoftUpgrade{} },     // Register versioned resource
-		func() runtime.Object { return &LoftUpgradeList{} }, // Register versioned resource list
-		NewLoftUpgradeREST,
+	ManagementKhulnasoftUpgradeStorage = builders.NewApiResourceWithStorage( // Resource status endpoint
+		InternalKhulnasoftUpgrade,
+		func() runtime.Object { return &KhulnasoftUpgrade{} },     // Register versioned resource
+		func() runtime.Object { return &KhulnasoftUpgradeList{} }, // Register versioned resource list
+		NewKhulnasoftUpgradeREST,
 	)
-	NewLoftUpgradeREST = func(getter generic.RESTOptionsGetter) rest.Storage {
-		return NewLoftUpgradeRESTFunc(Factory)
+	NewKhulnasoftUpgradeREST = func(getter generic.RESTOptionsGetter) rest.Storage {
+		return NewKhulnasoftUpgradeRESTFunc(Factory)
 	}
-	NewLoftUpgradeRESTFunc      NewRESTFunc
+	NewKhulnasoftUpgradeRESTFunc      NewRESTFunc
 	ManagementOIDCClientStorage = builders.NewApiResourceWithStorage( // Resource status endpoint
 		InternalOIDCClient,
 		func() runtime.Object { return &OIDCClient{} },     // Register versioned resource
@@ -838,17 +838,17 @@ var (
 		func() runtime.Object { return &LicenseToken{} },
 		func() runtime.Object { return &LicenseTokenList{} },
 	)
-	InternalLoftUpgrade = builders.NewInternalResource(
-		"loftupgrades",
-		"LoftUpgrade",
-		func() runtime.Object { return &LoftUpgrade{} },
-		func() runtime.Object { return &LoftUpgradeList{} },
+	InternalKhulnasoftUpgrade = builders.NewInternalResource(
+		"khulnasoftupgrades",
+		"KhulnasoftUpgrade",
+		func() runtime.Object { return &KhulnasoftUpgrade{} },
+		func() runtime.Object { return &KhulnasoftUpgradeList{} },
 	)
-	InternalLoftUpgradeStatus = builders.NewInternalResourceStatus(
-		"loftupgrades",
-		"LoftUpgradeStatus",
-		func() runtime.Object { return &LoftUpgrade{} },
-		func() runtime.Object { return &LoftUpgradeList{} },
+	InternalKhulnasoftUpgradeStatus = builders.NewInternalResourceStatus(
+		"khulnasoftupgrades",
+		"KhulnasoftUpgradeStatus",
+		func() runtime.Object { return &KhulnasoftUpgrade{} },
+		func() runtime.Object { return &KhulnasoftUpgradeList{} },
 	)
 	InternalOIDCClient = builders.NewInternalResource(
 		"oidcclients",
@@ -1267,7 +1267,7 @@ var (
 		func() runtime.Object { return &VirtualClusterTemplateList{} },
 	)
 	// Registered resources and subresources
-	ApiVersion = builders.NewApiGroup("management.loft.sh").WithKinds(
+	ApiVersion = builders.NewApiGroup("management.khulnasoft.com").WithKinds(
 		InternalAgentAuditEvent,
 		InternalAgentAuditEventStatus,
 		InternalAnnouncement,
@@ -1326,8 +1326,8 @@ var (
 		InternalLicenseRequestREST,
 		InternalLicenseToken,
 		InternalLicenseTokenStatus,
-		InternalLoftUpgrade,
-		InternalLoftUpgradeStatus,
+		InternalKhulnasoftUpgrade,
+		InternalKhulnasoftUpgradeStatus,
 		InternalOIDCClient,
 		InternalOIDCClientStatus,
 		InternalOwnedAccessKey,
@@ -1601,7 +1601,7 @@ type AuthenticationOIDC struct {
 	CAFile                 string   `json:"caFile,omitempty"`
 	InsecureCA             bool     `json:"insecureCa,omitempty"`
 	PreferredUsernameClaim string   `json:"preferredUsername,omitempty"`
-	LoftUsernameClaim      string   `json:"loftUsernameClaim,omitempty"`
+	KhulnasoftUsernameClaim      string   `json:"khulnasoftUsernameClaim,omitempty"`
 	UsernameClaim          string   `json:"usernameClaim,omitempty"`
 	EmailClaim             string   `json:"emailClaim,omitempty"`
 	UsernamePrefix         string   `json:"usernamePrefix,omitempty"`
@@ -1703,7 +1703,7 @@ type ClusterAccessKey struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 	AccessKey         string `json:"accessKey,omitempty"`
-	LoftHost          string `json:"loftHost,omitempty"`
+	KhulnasoftHost          string `json:"khulnasoftHost,omitempty"`
 	Insecure          bool   `json:"insecure,omitempty"`
 	CaCert            string `json:"caCert,omitempty"`
 }
@@ -1737,9 +1737,9 @@ type ClusterAgentConfigCommon struct {
 	Audit                  *AgentAuditConfig  `json:"audit,omitempty"`
 	DefaultImageRegistry   string             `json:"defaultImageRegistry,omitempty"`
 	TokenCaCert            []byte             `json:"tokenCaCert,omitempty"`
-	LoftHost               string             `json:"loftHost,omitempty"`
+	KhulnasoftHost               string             `json:"khulnasoftHost,omitempty"`
 	ProjectNamespacePrefix string             `json:"projectNamespacePrefix,omitempty"`
-	LoftInstanceID         string             `json:"loftInstanceID,omitempty"`
+	KhulnasoftInstanceID         string             `json:"khulnasoftInstanceID,omitempty"`
 	AnalyticsSpec          AgentAnalyticsSpec `json:"analyticsSpec"`
 }
 
@@ -1852,7 +1852,7 @@ type ConfigStatus struct {
 	OIDC                   *OIDC                           `json:"oidc,omitempty"`
 	Apps                   *Apps                           `json:"apps,omitempty"`
 	Audit                  *Audit                          `json:"audit,omitempty"`
-	LoftHost               string                          `json:"loftHost,omitempty"`
+	KhulnasoftHost               string                          `json:"khulnasoftHost,omitempty"`
 	ProjectNamespacePrefix *string                         `json:"projectNamespacePrefix,omitempty"`
 	DevSpaceSubDomain        string                          `json:"devSpaceSubDomain,omitempty"`
 	UISettings             *uiv1.UISettingsConfig          `json:"uiSettings,omitempty"`
@@ -2229,20 +2229,20 @@ type LicenseTokenStatus struct {
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type LoftUpgrade struct {
+type KhulnasoftUpgrade struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
-	Spec              LoftUpgradeSpec   `json:"spec,omitempty"`
-	Status            LoftUpgradeStatus `json:"status,omitempty"`
+	Spec              KhulnasoftUpgradeSpec   `json:"spec,omitempty"`
+	Status            KhulnasoftUpgradeStatus `json:"status,omitempty"`
 }
 
-type LoftUpgradeSpec struct {
+type KhulnasoftUpgradeSpec struct {
 	Namespace string `json:"namespace,omitempty"`
 	Release   string `json:"release,omitempty"`
 	Version   string `json:"version,omitempty"`
 }
 
-type LoftUpgradeStatus struct {
+type KhulnasoftUpgradeStatus struct {
 }
 
 type MaintenanceWindow struct {
@@ -5456,81 +5456,81 @@ func (s *storageLicenseToken) DeleteLicenseToken(ctx context.Context, id string)
 	return sync, err
 }
 
-// LoftUpgrade Functions and Structs
+// KhulnasoftUpgrade Functions and Structs
 //
 // +k8s:deepcopy-gen=false
-type LoftUpgradeStrategy struct {
+type KhulnasoftUpgradeStrategy struct {
 	builders.DefaultStorageStrategy
 }
 
 // +k8s:deepcopy-gen=false
-type LoftUpgradeStatusStrategy struct {
+type KhulnasoftUpgradeStatusStrategy struct {
 	builders.DefaultStatusStorageStrategy
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-type LoftUpgradeList struct {
+type KhulnasoftUpgradeList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []LoftUpgrade `json:"items"`
+	Items           []KhulnasoftUpgrade `json:"items"`
 }
 
-func (LoftUpgrade) NewStatus() interface{} {
-	return LoftUpgradeStatus{}
+func (KhulnasoftUpgrade) NewStatus() interface{} {
+	return KhulnasoftUpgradeStatus{}
 }
 
-func (pc *LoftUpgrade) GetStatus() interface{} {
+func (pc *KhulnasoftUpgrade) GetStatus() interface{} {
 	return pc.Status
 }
 
-func (pc *LoftUpgrade) SetStatus(s interface{}) {
-	pc.Status = s.(LoftUpgradeStatus)
+func (pc *KhulnasoftUpgrade) SetStatus(s interface{}) {
+	pc.Status = s.(KhulnasoftUpgradeStatus)
 }
 
-func (pc *LoftUpgrade) GetSpec() interface{} {
+func (pc *KhulnasoftUpgrade) GetSpec() interface{} {
 	return pc.Spec
 }
 
-func (pc *LoftUpgrade) SetSpec(s interface{}) {
-	pc.Spec = s.(LoftUpgradeSpec)
+func (pc *KhulnasoftUpgrade) SetSpec(s interface{}) {
+	pc.Spec = s.(KhulnasoftUpgradeSpec)
 }
 
-func (pc *LoftUpgrade) GetObjectMeta() *metav1.ObjectMeta {
+func (pc *KhulnasoftUpgrade) GetObjectMeta() *metav1.ObjectMeta {
 	return &pc.ObjectMeta
 }
 
-func (pc *LoftUpgrade) SetGeneration(generation int64) {
+func (pc *KhulnasoftUpgrade) SetGeneration(generation int64) {
 	pc.ObjectMeta.Generation = generation
 }
 
-func (pc LoftUpgrade) GetGeneration() int64 {
+func (pc KhulnasoftUpgrade) GetGeneration() int64 {
 	return pc.ObjectMeta.Generation
 }
 
-// Registry is an interface for things that know how to store LoftUpgrade.
+// Registry is an interface for things that know how to store KhulnasoftUpgrade.
 // +k8s:deepcopy-gen=false
-type LoftUpgradeRegistry interface {
-	ListLoftUpgrades(ctx context.Context, options *internalversion.ListOptions) (*LoftUpgradeList, error)
-	GetLoftUpgrade(ctx context.Context, id string, options *metav1.GetOptions) (*LoftUpgrade, error)
-	CreateLoftUpgrade(ctx context.Context, id *LoftUpgrade) (*LoftUpgrade, error)
-	UpdateLoftUpgrade(ctx context.Context, id *LoftUpgrade) (*LoftUpgrade, error)
-	DeleteLoftUpgrade(ctx context.Context, id string) (bool, error)
+type KhulnasoftUpgradeRegistry interface {
+	ListKhulnasoftUpgrades(ctx context.Context, options *internalversion.ListOptions) (*KhulnasoftUpgradeList, error)
+	GetKhulnasoftUpgrade(ctx context.Context, id string, options *metav1.GetOptions) (*KhulnasoftUpgrade, error)
+	CreateKhulnasoftUpgrade(ctx context.Context, id *KhulnasoftUpgrade) (*KhulnasoftUpgrade, error)
+	UpdateKhulnasoftUpgrade(ctx context.Context, id *KhulnasoftUpgrade) (*KhulnasoftUpgrade, error)
+	DeleteKhulnasoftUpgrade(ctx context.Context, id string) (bool, error)
 }
 
 // NewRegistry returns a new Registry interface for the given Storage. Any mismatched types will panic.
-func NewLoftUpgradeRegistry(sp builders.StandardStorageProvider) LoftUpgradeRegistry {
-	return &storageLoftUpgrade{sp}
+func NewKhulnasoftUpgradeRegistry(sp builders.StandardStorageProvider) KhulnasoftUpgradeRegistry {
+	return &storageKhulnasoftUpgrade{sp}
 }
 
 // Implement Registry
 // storage puts strong typing around storage calls
 // +k8s:deepcopy-gen=false
-type storageLoftUpgrade struct {
+type storageKhulnasoftUpgrade struct {
 	builders.StandardStorageProvider
 }
 
-func (s *storageLoftUpgrade) ListLoftUpgrades(ctx context.Context, options *internalversion.ListOptions) (*LoftUpgradeList, error) {
+func (s *storageKhulnasoftUpgrade) ListKhulnasoftUpgrades(ctx context.Context, options *internalversion.ListOptions) (*KhulnasoftUpgradeList, error) {
 	if options != nil && options.FieldSelector != nil && !options.FieldSelector.Empty() {
 		return nil, fmt.Errorf("field selector not supported yet")
 	}
@@ -5539,37 +5539,37 @@ func (s *storageLoftUpgrade) ListLoftUpgrades(ctx context.Context, options *inte
 	if err != nil {
 		return nil, err
 	}
-	return obj.(*LoftUpgradeList), err
+	return obj.(*KhulnasoftUpgradeList), err
 }
 
-func (s *storageLoftUpgrade) GetLoftUpgrade(ctx context.Context, id string, options *metav1.GetOptions) (*LoftUpgrade, error) {
+func (s *storageKhulnasoftUpgrade) GetKhulnasoftUpgrade(ctx context.Context, id string, options *metav1.GetOptions) (*KhulnasoftUpgrade, error) {
 	st := s.GetStandardStorage()
 	obj, err := st.Get(ctx, id, options)
 	if err != nil {
 		return nil, err
 	}
-	return obj.(*LoftUpgrade), nil
+	return obj.(*KhulnasoftUpgrade), nil
 }
 
-func (s *storageLoftUpgrade) CreateLoftUpgrade(ctx context.Context, object *LoftUpgrade) (*LoftUpgrade, error) {
+func (s *storageKhulnasoftUpgrade) CreateKhulnasoftUpgrade(ctx context.Context, object *KhulnasoftUpgrade) (*KhulnasoftUpgrade, error) {
 	st := s.GetStandardStorage()
 	obj, err := st.Create(ctx, object, nil, &metav1.CreateOptions{})
 	if err != nil {
 		return nil, err
 	}
-	return obj.(*LoftUpgrade), nil
+	return obj.(*KhulnasoftUpgrade), nil
 }
 
-func (s *storageLoftUpgrade) UpdateLoftUpgrade(ctx context.Context, object *LoftUpgrade) (*LoftUpgrade, error) {
+func (s *storageKhulnasoftUpgrade) UpdateKhulnasoftUpgrade(ctx context.Context, object *KhulnasoftUpgrade) (*KhulnasoftUpgrade, error) {
 	st := s.GetStandardStorage()
 	obj, _, err := st.Update(ctx, object.Name, rest.DefaultUpdatedObjectInfo(object), nil, nil, false, &metav1.UpdateOptions{})
 	if err != nil {
 		return nil, err
 	}
-	return obj.(*LoftUpgrade), nil
+	return obj.(*KhulnasoftUpgrade), nil
 }
 
-func (s *storageLoftUpgrade) DeleteLoftUpgrade(ctx context.Context, id string) (bool, error) {
+func (s *storageKhulnasoftUpgrade) DeleteKhulnasoftUpgrade(ctx context.Context, id string) (bool, error) {
 	st := s.GetStandardStorage()
 	_, sync, err := st.Delete(ctx, id, nil, &metav1.DeleteOptions{})
 	return sync, err

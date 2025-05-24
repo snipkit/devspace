@@ -274,7 +274,7 @@ func (c *client) Ping(ctx context.Context, writer io.Writer) error {
 }
 
 func (c *client) initPlatformClient(ctx context.Context) (platformclient.Client, error) {
-	configPath, err := platform.LoftConfigPath(c.Context(), c.Provider())
+	configPath, err := platform.KhulnasoftConfigPath(c.Context(), c.Provider())
 	if err != nil {
 		return nil, err
 	}

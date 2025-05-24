@@ -32,13 +32,13 @@ jobs:
           go install github.com/google/go-licenses@v1.6.0
 
       - name: Run go-licenses
-        run: go-licenses report ./... > docs/pages/licenses/devspace.mdx --template .github/licenses.tmpl --ignore github.com/loft-sh
+        run: go-licenses report ./... > docs/pages/licenses/devspace.mdx --template .github/licenses.tmpl --ignore github.com/khulnasoft-sh
 
       - name: Create pull request
         uses: peter-evans/create-pull-request@v5
         with:
           token: ${{ secrets.GH_ACCESS_TOKEN }}
-          committer: Loft Bot <loft-bot@users.noreply.github.com>
+          committer: Khulnasoft Bot <khulnasoft-bot@users.noreply.github.com>
           branch: licenses/devspace
           commit-message: "license(DevSpace): Updated OSS licenses"
           title: "license(DevSpace): Updated OSS licenses"

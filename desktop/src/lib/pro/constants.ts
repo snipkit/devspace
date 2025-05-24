@@ -5,11 +5,11 @@ export const WorkspaceInstanceSource = {
 }
 
 export const Annotations = {
-  WorkspaceSource: "loft.sh/workspace-source",
-  SleepModeLastActivity: "sleepmode.loft.sh/last-activity",
+  WorkspaceSource: "khulnasoft.com/workspace-source",
+  SleepModeLastActivity: "sleepmode.khulnasoft.com/last-activity",
 }
 
 export const Labels = {
-  WorkspaceID: "loft.sh/workspace-id",
-  WorkspaceUID: "loft.sh/workspace-uid",
+  WorkspaceID: "khulnasoft.com/workspace-id",
+  WorkspaceUID: "khulnasoft.com/workspace-uid",
 }

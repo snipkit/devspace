@@ -46,7 +46,7 @@ func NewUpdateCmd(flags *flags.GlobalFlags) *cobra.Command {
 
 func (cmd *UpdateCmd) Run(ctx context.Context, devSpaceConfig *config.Config, args []string) error {
 	if len(args) != 1 && len(args) != 2 {
-		return fmt.Errorf("please specify either a local file, url or git repository. E.g. devspace provider update my-provider loft-sh/devspace-provider-gcloud")
+		return fmt.Errorf("please specify either a local file, url or git repository. E.g. devspace provider update my-provider khulnasoft-sh/devspace-provider-gcloud")
 	}
 
 	providerSource := ""

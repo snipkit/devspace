@@ -27,7 +27,7 @@ var CriticalStatus = map[string]bool{
 }
 
 func WaitForPodReady(ctx context.Context, kubeClient kubernetes.Interface, namespace string, log log.Logger) (*corev1.Pod, error) {
-	// wait until we have a running loft pod
+	// wait until we have a running khulnasoft pod
 	now := time.Now()
 	pod := &corev1.Pod{}
 	err := wait.PollUntilContextTimeout(ctx, time.Second*2, Timeout(), true, func(ctx context.Context) (bool, error) {
@@ -49,9 +49,9 @@ func WaitForPodReady(ctx context.Context, kubeClient kubernetes.Interface, names
 			return pods.Items[i].CreationTimestamp.After(pods.Items[j].CreationTimestamp.Time)
 		})
 
-		loftPod := &pods.Items[0]
+		khulnasoftPod := &pods.Items[0]
 		found := false
-		for _, containerStatus := range loftPod.Status.ContainerStatuses {
+		for _, containerStatus := range khulnasoftPod.Status.ContainerStatuses {
 			if containerStatus.State.Running != nil && containerStatus.Ready {
 				if containerStatus.Name == "manager" {
 					found = true
@@ -69,17 +69,17 @@ func WaitForPodReady(ctx context.Context, kubeClient kubernetes.Interface, names
 					message = containerStatus.State.Waiting.Message
 				}
 
-				out, err := kubeClient.CoreV1().Pods(namespace).GetLogs(loftPod.Name, &corev1.PodLogOptions{
+				out, err := kubeClient.CoreV1().Pods(namespace).GetLogs(khulnasoftPod.Name, &corev1.PodLogOptions{
 					Container: "manager",
 				}).Do(context.Background()).Raw()
 				if err != nil {
-					return false, fmt.Errorf("there seems to be an issue with %s starting up: %s (%s). Please reach out to our support at https://loft.sh/", "DevSpace Pro", message, reason)
+					return false, fmt.Errorf("there seems to be an issue with %s starting up: %s (%s). Please reach out to our support at https://khulnasoft.com/", "DevSpace Pro", message, reason)
 				}
-				if strings.Contains(string(out), "register instance: Post \"https://license.loft.sh/register\": dial tcp") {
-					return false, fmt.Errorf("%[1]s logs: \n%[2]v \nThere seems to be an issue with %[1]s starting up. Looks like you try to install %[1]s into an air-gapped environment, please reach out to our support at https://loft.sh/ for an offline license", "DevSpace Pro", string(out))
+				if strings.Contains(string(out), "register instance: Post \"https://license.khulnasoft.com/register\": dial tcp") {
+					return false, fmt.Errorf("%[1]s logs: \n%[2]v \nThere seems to be an issue with %[1]s starting up. Looks like you try to install %[1]s into an air-gapped environment, please reach out to our support at https://khulnasoft.com/ for an offline license", "DevSpace Pro", string(out))
 				}
 
-				return false, fmt.Errorf("%[1]s logs: \n%v \nThere seems to be an issue with %[1]s starting up: %[2]s (%[3]s). Please reach out to our support at https://loft.sh/", "DevSpace Pro", string(out), message, reason)
+				return false, fmt.Errorf("%[1]s logs: \n%v \nThere seems to be an issue with %[1]s starting up: %[2]s (%[3]s). Please reach out to our support at https://khulnasoft.com/", "DevSpace Pro", string(out), message, reason)
 			} else if containerStatus.State.Waiting != nil && time.Now().After(now.Add(time.Second*10)) {
 				if containerStatus.State.Waiting.Message != "" {
 					log.Infof("Please keep waiting, %s container is still starting up: %s (%s)", "DevSpace Pro", containerStatus.State.Waiting.Message, containerStatus.State.Waiting.Reason)
@@ -95,7 +95,7 @@ func WaitForPodReady(ctx context.Context, kubeClient kubernetes.Interface, names
 			return false, nil
 		}
 
-		pod = loftPod
+		pod = khulnasoftPod
 		return found, nil
 	})
 	if err != nil {

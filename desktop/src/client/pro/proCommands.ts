@@ -1,40 +1,40 @@
 import { Result, ResultError, Return, getErrorFromChildProcess } from "@/lib"
 import {
-  TImportWorkspaceConfig,
-  TListProInstancesConfig,
-  TPlatformHealthCheck,
-  TProID,
-  TProInstance,
-  TPlatformVersionInfo,
-  TPlatformUpdateCheck,
+    TImportWorkspaceConfig,
+    TListProInstancesConfig,
+    TPlatformHealthCheck,
+    TPlatformUpdateCheck,
+    TPlatformVersionInfo,
+    TProID,
+    TProInstance,
 } from "@/types"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
+import { ManagementV1Project } from "@khulnasoft-enterprise/client/gen/models/managementV1Project"
+import { ManagementV1ProjectClusters } from "@khulnasoft-enterprise/client/gen/models/managementV1ProjectClusters"
+import { ManagementV1ProjectTemplates } from "@khulnasoft-enterprise/client/gen/models/managementV1ProjectTemplates"
+import { ManagementV1Self } from "@khulnasoft-enterprise/client/gen/models/managementV1Self"
 import { Command, isOk, serializeRawOptions, toFlagArg } from "../command"
 import {
-  DEVSPACE_COMMAND_DELETE,
-  DEVSPACE_COMMAND_IMPORT_WORKSPACE,
-  DEVSPACE_COMMAND_LIST,
-  DEVSPACE_COMMAND_LOGIN,
-  DEVSPACE_COMMAND_PRO,
-  DEVSPACE_FLAG_ACCESS_KEY,
-  DEVSPACE_FLAG_DEBUG,
-  DEVSPACE_FLAG_FORCE_BROWSER,
-  DEVSPACE_FLAG_HOST,
-  DEVSPACE_FLAG_INSTANCE,
-  DEVSPACE_FLAG_JSON_LOG_OUTPUT,
-  DEVSPACE_FLAG_JSON_OUTPUT,
-  DEVSPACE_FLAG_LOGIN,
-  DEVSPACE_FLAG_PROJECT,
-  DEVSPACE_FLAG_USE,
-  DEVSPACE_FLAG_WORKSPACE_ID,
-  DEVSPACE_FLAG_WORKSPACE_PROJECT,
-  DEVSPACE_FLAG_WORKSPACE_UID,
+    DEVSPACE_COMMAND_DELETE,
+    DEVSPACE_COMMAND_IMPORT_WORKSPACE,
+    DEVSPACE_COMMAND_LIST,
+    DEVSPACE_COMMAND_LOGIN,
+    DEVSPACE_COMMAND_PRO,
+    DEVSPACE_FLAG_ACCESS_KEY,
+    DEVSPACE_FLAG_DEBUG,
+    DEVSPACE_FLAG_FORCE_BROWSER,
+    DEVSPACE_FLAG_HOST,
+    DEVSPACE_FLAG_INSTANCE,
+    DEVSPACE_FLAG_JSON_LOG_OUTPUT,
+    DEVSPACE_FLAG_JSON_OUTPUT,
+    DEVSPACE_FLAG_LOGIN,
+    DEVSPACE_FLAG_PROJECT,
+    DEVSPACE_FLAG_USE,
+    DEVSPACE_FLAG_WORKSPACE_ID,
+    DEVSPACE_FLAG_WORKSPACE_PROJECT,
+    DEVSPACE_FLAG_WORKSPACE_UID,
 } from "../constants"
 import { TStreamEventListenerFn } from "../types"
-import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
-import { ManagementV1Project } from "@loft-enterprise/client/gen/models/managementV1Project"
-import { ManagementV1Self } from "@loft-enterprise/client/gen/models/managementV1Self"
-import { ManagementV1ProjectTemplates } from "@loft-enterprise/client/gen/models/managementV1ProjectTemplates"
-import { ManagementV1ProjectClusters } from "@loft-enterprise/client/gen/models/managementV1ProjectClusters"
 
 export class ProCommands {
   static DEBUG = false

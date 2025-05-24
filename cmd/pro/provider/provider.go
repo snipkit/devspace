@@ -27,7 +27,7 @@ func NewProProviderCmd(globalFlags *flags.GlobalFlags) *cobra.Command {
 		Args:   cobra.NoArgs,
 		Hidden: true,
 		PersistentPreRun: func(cmd *cobra.Command, args []string) {
-			if (globalFlags.Config == "" || globalFlags.Config == client.DefaultCacheConfig) && os.Getenv("LOFT_CONFIG") != "" {
+			if (globalFlags.Config == "" || globalFlags.Config == client.DefaultCacheConfig) && os.Getenv("KHULNASOFT_CONFIG") != "" {
 				globalFlags.Config = os.Getenv(platform.ConfigEnv)
 			}
 

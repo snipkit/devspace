@@ -16,63 +16,63 @@ import (
 
 func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenAPIDefinition {
 	return map[string]common.OpenAPIDefinition{
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Analytics":                                schema_loft_sh_admin_apis_pkg_licenseapi_Analytics(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Announcement":                             schema_loft_sh_admin_apis_pkg_licenseapi_Announcement(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.BlockRequest":                             schema_loft_sh_admin_apis_pkg_licenseapi_BlockRequest(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Button":                                   schema_loft_sh_admin_apis_pkg_licenseapi_Button(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Feature":                                  schema_loft_sh_admin_apis_pkg_licenseapi_Feature(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.GenericRequestInput":                      schema_loft_sh_admin_apis_pkg_licenseapi_GenericRequestInput(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.GenericRequestOutput":                     schema_loft_sh_admin_apis_pkg_licenseapi_GenericRequestOutput(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.InstanceTokenAuth":                        schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenAuth(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.InstanceTokenClaims":                      schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenClaims(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Invoice":                                  schema_loft_sh_admin_apis_pkg_licenseapi_Invoice(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.License":                                  schema_loft_sh_admin_apis_pkg_licenseapi_License(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.LicenseAPIRoute":                          schema_loft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoute(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.LicenseAPIRoutes":                         schema_loft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoutes(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Limit":                                    schema_loft_sh_admin_apis_pkg_licenseapi_Limit(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Module":                                   schema_loft_sh_admin_apis_pkg_licenseapi_Module(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.OfflineLicenseKeyClaims":                  schema_loft_sh_admin_apis_pkg_licenseapi_OfflineLicenseKeyClaims(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Plan":                                     schema_loft_sh_admin_apis_pkg_licenseapi_Plan(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PlanExpiration":                           schema_loft_sh_admin_apis_pkg_licenseapi_PlanExpiration(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PlanPeriod":                               schema_loft_sh_admin_apis_pkg_licenseapi_PlanPeriod(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PlanPrice":                                schema_loft_sh_admin_apis_pkg_licenseapi_PlanPrice(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PriceTier":                                schema_loft_sh_admin_apis_pkg_licenseapi_PriceTier(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Request":                                  schema_loft_sh_admin_apis_pkg_licenseapi_Request(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.ResourceCount":                            schema_loft_sh_admin_apis_pkg_licenseapi_ResourceCount(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.TierResource":                             schema_loft_sh_admin_apis_pkg_licenseapi_TierResource(ref),
-		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Trial":                                    schema_loft_sh_admin_apis_pkg_licenseapi_Trial(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Bash":                          schema_apis_loft_cluster_v1_Bash(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart":                         schema_apis_loft_cluster_v1_Chart(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfo":                     schema_apis_loft_cluster_v1_ChartInfo(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoList":                 schema_apis_loft_cluster_v1_ChartInfoList(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoSpec":                 schema_apis_loft_cluster_v1_ChartInfoSpec(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoStatus":               schema_apis_loft_cluster_v1_ChartInfoStatus(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartSecretRef":                schema_apis_loft_cluster_v1_ChartSecretRef(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.EpochInfo":                     schema_apis_loft_cluster_v1_EpochInfo(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Feature":                       schema_apis_loft_cluster_v1_Feature(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureList":                   schema_apis_loft_cluster_v1_FeatureList(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureSpec":                   schema_apis_loft_cluster_v1_FeatureSpec(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureStatus":                 schema_apis_loft_cluster_v1_FeatureStatus(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmRelease":                   schema_apis_loft_cluster_v1_HelmRelease(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseApp":                schema_apis_loft_cluster_v1_HelmReleaseApp(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseConfig":             schema_apis_loft_cluster_v1_HelmReleaseConfig(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseList":               schema_apis_loft_cluster_v1_HelmReleaseList(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseSpec":               schema_apis_loft_cluster_v1_HelmReleaseSpec(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseStatus":             schema_apis_loft_cluster_v1_HelmReleaseStatus(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Info":                          schema_apis_loft_cluster_v1_Info(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.LastActivityInfo":              schema_apis_loft_cluster_v1_LastActivityInfo(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Maintainer":                    schema_apis_loft_cluster_v1_Maintainer(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Metadata":                      schema_apis_loft_cluster_v1_Metadata(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ProjectSecretRef":              schema_apis_loft_cluster_v1_ProjectSecretRef(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfig":               schema_apis_loft_cluster_v1_SleepModeConfig(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfigSpec":           schema_apis_loft_cluster_v1_SleepModeConfigSpec(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfigStatus":         schema_apis_loft_cluster_v1_SleepModeConfigStatus(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuota":                  schema_apis_loft_storage_v1_ClusterQuota(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaList":              schema_apis_loft_storage_v1_ClusterQuotaList(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaSpec":              schema_apis_loft_storage_v1_ClusterQuotaSpec(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaStatus":            schema_apis_loft_storage_v1_ClusterQuotaStatus(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaStatusByNamespace": schema_apis_loft_storage_v1_ClusterQuotaStatusByNamespace(ref),
-		"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.Condition":                     schema_apis_loft_storage_v1_Condition(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Analytics":                                schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Analytics(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Announcement":                             schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Announcement(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.BlockRequest":                             schema_khulnasoft_sh_admin_apis_pkg_licenseapi_BlockRequest(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Button":                                   schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Button(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Feature":                                  schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Feature(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.GenericRequestInput":                      schema_khulnasoft_sh_admin_apis_pkg_licenseapi_GenericRequestInput(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.GenericRequestOutput":                     schema_khulnasoft_sh_admin_apis_pkg_licenseapi_GenericRequestOutput(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.InstanceTokenAuth":                        schema_khulnasoft_sh_admin_apis_pkg_licenseapi_InstanceTokenAuth(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.InstanceTokenClaims":                      schema_khulnasoft_sh_admin_apis_pkg_licenseapi_InstanceTokenClaims(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Invoice":                                  schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Invoice(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.License":                                  schema_khulnasoft_sh_admin_apis_pkg_licenseapi_License(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.LicenseAPIRoute":                          schema_khulnasoft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoute(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.LicenseAPIRoutes":                         schema_khulnasoft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoutes(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Limit":                                    schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Limit(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Module":                                   schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Module(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.OfflineLicenseKeyClaims":                  schema_khulnasoft_sh_admin_apis_pkg_licenseapi_OfflineLicenseKeyClaims(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Plan":                                     schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Plan(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PlanExpiration":                           schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PlanExpiration(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PlanPeriod":                               schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PlanPeriod(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PlanPrice":                                schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PlanPrice(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.PriceTier":                                schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PriceTier(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Request":                                  schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Request(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.ResourceCount":                            schema_khulnasoft_sh_admin_apis_pkg_licenseapi_ResourceCount(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.TierResource":                             schema_khulnasoft_sh_admin_apis_pkg_licenseapi_TierResource(ref),
+		"dev.khulnasoft.com/admin-apis/pkg/licenseapi.Trial":                                    schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Trial(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Bash":                          schema_apis_khulnasoft_cluster_v1_Bash(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart":                         schema_apis_khulnasoft_cluster_v1_Chart(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfo":                     schema_apis_khulnasoft_cluster_v1_ChartInfo(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoList":                 schema_apis_khulnasoft_cluster_v1_ChartInfoList(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoSpec":                 schema_apis_khulnasoft_cluster_v1_ChartInfoSpec(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoStatus":               schema_apis_khulnasoft_cluster_v1_ChartInfoStatus(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartSecretRef":                schema_apis_khulnasoft_cluster_v1_ChartSecretRef(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.EpochInfo":                     schema_apis_khulnasoft_cluster_v1_EpochInfo(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Feature":                       schema_apis_khulnasoft_cluster_v1_Feature(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureList":                   schema_apis_khulnasoft_cluster_v1_FeatureList(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureSpec":                   schema_apis_khulnasoft_cluster_v1_FeatureSpec(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureStatus":                 schema_apis_khulnasoft_cluster_v1_FeatureStatus(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmRelease":                   schema_apis_khulnasoft_cluster_v1_HelmRelease(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseApp":                schema_apis_khulnasoft_cluster_v1_HelmReleaseApp(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseConfig":             schema_apis_khulnasoft_cluster_v1_HelmReleaseConfig(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseList":               schema_apis_khulnasoft_cluster_v1_HelmReleaseList(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseSpec":               schema_apis_khulnasoft_cluster_v1_HelmReleaseSpec(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseStatus":             schema_apis_khulnasoft_cluster_v1_HelmReleaseStatus(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Info":                          schema_apis_khulnasoft_cluster_v1_Info(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.LastActivityInfo":              schema_apis_khulnasoft_cluster_v1_LastActivityInfo(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Maintainer":                    schema_apis_khulnasoft_cluster_v1_Maintainer(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Metadata":                      schema_apis_khulnasoft_cluster_v1_Metadata(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ProjectSecretRef":              schema_apis_khulnasoft_cluster_v1_ProjectSecretRef(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfig":               schema_apis_khulnasoft_cluster_v1_SleepModeConfig(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfigSpec":           schema_apis_khulnasoft_cluster_v1_SleepModeConfigSpec(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfigStatus":         schema_apis_khulnasoft_cluster_v1_SleepModeConfigStatus(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuota":                  schema_apis_khulnasoft_storage_v1_ClusterQuota(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaList":              schema_apis_khulnasoft_storage_v1_ClusterQuotaList(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaSpec":              schema_apis_khulnasoft_storage_v1_ClusterQuotaSpec(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaStatus":            schema_apis_khulnasoft_storage_v1_ClusterQuotaStatus(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaStatusByNamespace": schema_apis_khulnasoft_storage_v1_ClusterQuotaStatusByNamespace(ref),
+		"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.Condition":                     schema_apis_khulnasoft_storage_v1_Condition(ref),
 		"k8s.io/api/admissionregistration/v1.AuditAnnotation":                                   schema_k8sio_api_admissionregistration_v1_AuditAnnotation(ref),
 		"k8s.io/api/admissionregistration/v1.ExpressionWarning":                                 schema_k8sio_api_admissionregistration_v1_ExpressionWarning(ref),
 		"k8s.io/api/admissionregistration/v1.MatchCondition":                                    schema_k8sio_api_admissionregistration_v1_MatchCondition(ref),
@@ -849,11 +849,11 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Analytics(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Analytics(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Analytics is a struct that represents the analytics server and the requests that should be sent to it. This information is sent to Loft instances when they check in with the license server.",
+				Description: "Analytics is a struct that represents the analytics server and the requests that should be sent to it. This information is sent to Khulnasoft instances when they check in with the license server.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"endpoint": {
@@ -885,11 +885,11 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Analytics(ref common.ReferenceCall
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Announcement(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Announcement(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Announcement contains an announcement that should be shown within the Loft instance. This information is sent to Loft instances when they check in with the license server.",
+				Description: "Announcement contains an announcement that should be shown within the Khulnasoft instance. This information is sent to Khulnasoft instances when they check in with the license server.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"name": {
@@ -934,7 +934,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Announcement(ref common.ReferenceC
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_BlockRequest(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_BlockRequest(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -983,11 +983,11 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_BlockRequest(ref common.ReferenceC
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Button(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Button(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "Button is an object that represents a button in the Loft UI that links to some external service for handling operations for licensing for example.",
+				Description: "Button is an object that represents a button in the Khulnasoft UI that links to some external service for handling operations for licensing for example.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"name": {
@@ -1007,14 +1007,14 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Button(ref common.ReferenceCallbac
 					},
 					"displayText": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DisplayText is the text to display on the button. If display text is unset the button will never be shown in the loft UI.",
+							Description: "DisplayText is the text to display on the button. If display text is unset the button will never be shown in the khulnasoft UI.",
 							Type:        []string{"string"},
 							Format:      "",
 						},
 					},
 					"direct": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Direct indicates if the Loft front end should directly hit this endpoint. If false, it means that the Loft front end will be hitting the license server first to generate a one time token for the operation; this also means that there will be a redirect URL in the response to the request for this and that link should be followed by the front end.",
+							Description: "Direct indicates if the Khulnasoft front end should directly hit this endpoint. If false, it means that the Khulnasoft front end will be hitting the license server first to generate a one time token for the operation; this also means that there will be a redirect URL in the response to the request for this and that link should be followed by the front end.",
 							Type:        []string{"boolean"},
 							Format:      "",
 						},
@@ -1026,7 +1026,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Button(ref common.ReferenceCallbac
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Feature(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Feature(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1035,7 +1035,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Feature(ref common.ReferenceCallba
 				Properties: map[string]spec.Schema{
 					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Name is the name of the feature (FeatureName) This cannot be FeatureName because it needs to be downward compatible e.g. older Loft version doesn't know a newer feature but it will still be received and still needs to be rendered in the license view",
+							Description: "Name is the name of the feature (FeatureName) This cannot be FeatureName because it needs to be downward compatible e.g. older Khulnasoft version doesn't know a newer feature but it will still be received and still needs to be rendered in the license view",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -1089,7 +1089,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Feature(ref common.ReferenceCallba
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_GenericRequestInput(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_GenericRequestInput(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1116,7 +1116,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_GenericRequestInput(ref common.Ref
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_GenericRequestOutput(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_GenericRequestOutput(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1159,7 +1159,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_GenericRequestOutput(ref common.Re
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenAuth(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_InstanceTokenAuth(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1167,7 +1167,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenAuth(ref common.Refer
 				Properties: map[string]spec.Schema{
 					"token": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Token is the jwt token identifying the loft instance.",
+							Description: "Token is the jwt token identifying the khulnasoft instance.",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -1188,7 +1188,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenAuth(ref common.Refer
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenClaims(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_InstanceTokenClaims(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1217,7 +1217,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_InstanceTokenClaims(ref common.Ref
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Invoice(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Invoice(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1251,16 +1251,16 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Invoice(ref common.ReferenceCallba
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_License(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_License(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
-				Description: "License is a struct representing the license data sent to a Loft instance after checking in with the license server.",
+				Description: "License is a struct representing the license data sent to a Khulnasoft instance after checking in with the license server.",
 				Type:        []string{"object"},
 				Properties: map[string]spec.Schema{
 					"instance": {
 						SchemaProps: spec.SchemaProps{
-							Description: "InstanceID contains the instance id of the Loft instance",
+							Description: "InstanceID contains the instance id of the Khulnasoft instance",
 							Type:        []string{"string"},
 							Format:      "",
 						},
@@ -1280,7 +1280,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_License(ref common.ReferenceCallba
 					},
 					"domainToken": {
 						SchemaProps: spec.SchemaProps{
-							Description: "DomainToken holds the JWT with the URL that the Loft instance is publicly available on. (via Loft router)",
+							Description: "DomainToken holds the JWT with the URL that the Khulnasoft instance is publicly available on. (via Khulnasoft router)",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -1288,7 +1288,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_License(ref common.ReferenceCallba
 					},
 					"buttons": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Buttons is a slice of license server endpoints (buttons) that the Loft instance may need to hit. Each Button contains the display text and link for the front end to work with.",
+							Description: "Buttons is a slice of license server endpoints (buttons) that the Khulnasoft instance may need to hit. Each Button contains the display text and link for the front end to work with.",
 							Type:        []string{"array"},
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
@@ -1374,7 +1374,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_License(ref common.ReferenceCallba
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoute(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoute(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1406,7 +1406,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoute(ref common.Referen
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoutes(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoutes(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1469,7 +1469,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_LicenseAPIRoutes(ref common.Refere
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Limit(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Limit(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1504,7 +1504,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Limit(ref common.ReferenceCallback
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Module(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Module(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1564,7 +1564,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Module(ref common.ReferenceCallbac
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_OfflineLicenseKeyClaims(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_OfflineLicenseKeyClaims(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1583,7 +1583,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_OfflineLicenseKeyClaims(ref common
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Plan(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Plan(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1694,7 +1694,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Plan(ref common.ReferenceCallback)
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_PlanExpiration(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PlanExpiration(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1721,7 +1721,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_PlanExpiration(ref common.Referenc
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_PlanPeriod(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PlanPeriod(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1748,7 +1748,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_PlanPeriod(ref common.ReferenceCal
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_PlanPrice(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PlanPrice(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1831,7 +1831,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_PlanPrice(ref common.ReferenceCall
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_PriceTier(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_PriceTier(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1879,7 +1879,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_PriceTier(ref common.ReferenceCall
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Request(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Request(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1921,7 +1921,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Request(ref common.ReferenceCallba
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_ResourceCount(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_ResourceCount(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1955,7 +1955,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_ResourceCount(ref common.Reference
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_TierResource(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_TierResource(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -1982,7 +1982,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_TierResource(ref common.ReferenceC
 	}
 }
 
-func schema_loft_sh_admin_apis_pkg_licenseapi_Trial(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_khulnasoft_sh_admin_apis_pkg_licenseapi_Trial(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2037,7 +2037,7 @@ func schema_loft_sh_admin_apis_pkg_licenseapi_Trial(ref common.ReferenceCallback
 	}
 }
 
-func schema_apis_loft_cluster_v1_Bash(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_Bash(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2084,7 +2084,7 @@ func schema_apis_loft_cluster_v1_Bash(ref common.ReferenceCallback) common.OpenA
 	}
 }
 
-func schema_apis_loft_cluster_v1_Chart(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_Chart(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2122,7 +2122,7 @@ func schema_apis_loft_cluster_v1_Chart(ref common.ReferenceCallback) common.Open
 					"usernameRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The username that is required for this repository",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartSecretRef"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartSecretRef"),
 						},
 					},
 					"password": {
@@ -2135,7 +2135,7 @@ func schema_apis_loft_cluster_v1_Chart(ref common.ReferenceCallback) common.Open
 					"passwordRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "The password that is required for this repository",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartSecretRef"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartSecretRef"),
 						},
 					},
 					"insecureSkipTlsVerify": {
@@ -2149,11 +2149,11 @@ func schema_apis_loft_cluster_v1_Chart(ref common.ReferenceCallback) common.Open
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartSecretRef"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartSecretRef"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_ChartInfo(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_ChartInfo(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2182,24 +2182,24 @@ func schema_apis_loft_cluster_v1_ChartInfo(ref common.ReferenceCallback) common.
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoSpec"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoStatus"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoSpec", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfoStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoSpec", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfoStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_ChartInfoList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_ChartInfoList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2232,7 +2232,7 @@ func schema_apis_loft_cluster_v1_ChartInfoList(ref common.ReferenceCallback) com
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfo"),
+										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfo"),
 									},
 								},
 							},
@@ -2243,11 +2243,11 @@ func schema_apis_loft_cluster_v1_ChartInfoList(ref common.ReferenceCallback) com
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ChartInfo", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ChartInfo", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_ChartInfoSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_ChartInfoSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2257,18 +2257,18 @@ func schema_apis_loft_cluster_v1_ChartInfoSpec(ref common.ReferenceCallback) com
 						SchemaProps: spec.SchemaProps{
 							Description: "Chart holds information about a chart that should get deployed",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_ChartInfoStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_ChartInfoStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2277,7 +2277,7 @@ func schema_apis_loft_cluster_v1_ChartInfoStatus(ref common.ReferenceCallback) c
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Metadata provides information about a chart",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Metadata"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Metadata"),
 						},
 					},
 					"readme": {
@@ -2298,11 +2298,11 @@ func schema_apis_loft_cluster_v1_ChartInfoStatus(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Metadata"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Metadata"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_ChartSecretRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_ChartSecretRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2311,18 +2311,18 @@ func schema_apis_loft_cluster_v1_ChartSecretRef(ref common.ReferenceCallback) co
 					"projectSecretRef": {
 						SchemaProps: spec.SchemaProps{
 							Description: "ProjectSecretRef holds the reference to a project secret",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ProjectSecretRef"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ProjectSecretRef"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.ProjectSecretRef"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.ProjectSecretRef"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_EpochInfo(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_EpochInfo(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2349,7 +2349,7 @@ func schema_apis_loft_cluster_v1_EpochInfo(ref common.ReferenceCallback) common.
 	}
 }
 
-func schema_apis_loft_cluster_v1_Feature(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_Feature(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2379,24 +2379,24 @@ func schema_apis_loft_cluster_v1_Feature(ref common.ReferenceCallback) common.Op
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureSpec"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureStatus"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureSpec", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.FeatureStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureSpec", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.FeatureStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_FeatureList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_FeatureList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2429,7 +2429,7 @@ func schema_apis_loft_cluster_v1_FeatureList(ref common.ReferenceCallback) commo
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Feature"),
+										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Feature"),
 									},
 								},
 							},
@@ -2440,11 +2440,11 @@ func schema_apis_loft_cluster_v1_FeatureList(ref common.ReferenceCallback) commo
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Feature", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Feature", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_FeatureSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_FeatureSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2455,7 +2455,7 @@ func schema_apis_loft_cluster_v1_FeatureSpec(ref common.ReferenceCallback) commo
 	}
 }
 
-func schema_apis_loft_cluster_v1_FeatureStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_FeatureStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2464,7 +2464,7 @@ func schema_apis_loft_cluster_v1_FeatureStatus(ref common.ReferenceCallback) com
 				Properties: map[string]spec.Schema{
 					"name": {
 						SchemaProps: spec.SchemaProps{
-							Description: "Name is the name of the feature (FeatureName) This cannot be FeatureName because it needs to be downward compatible e.g. older Loft version doesn't know a newer feature but it will still be received and still needs to be rendered in the license view",
+							Description: "Name is the name of the feature (FeatureName) This cannot be FeatureName because it needs to be downward compatible e.g. older Khulnasoft version doesn't know a newer feature but it will still be received and still needs to be rendered in the license view",
 							Default:     "",
 							Type:        []string{"string"},
 							Format:      "",
@@ -2532,7 +2532,7 @@ func schema_apis_loft_cluster_v1_FeatureStatus(ref common.ReferenceCallback) com
 	}
 }
 
-func schema_apis_loft_cluster_v1_HelmRelease(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_HelmRelease(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2561,24 +2561,24 @@ func schema_apis_loft_cluster_v1_HelmRelease(ref common.ReferenceCallback) commo
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseSpec"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseStatus"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseSpec", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmReleaseStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseSpec", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmReleaseStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_HelmReleaseApp(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_HelmReleaseApp(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2604,7 +2604,7 @@ func schema_apis_loft_cluster_v1_HelmReleaseApp(ref common.ReferenceCallback) co
 	}
 }
 
-func schema_apis_loft_cluster_v1_HelmReleaseConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_HelmReleaseConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2614,7 +2614,7 @@ func schema_apis_loft_cluster_v1_HelmReleaseConfig(ref common.ReferenceCallback)
 						SchemaProps: spec.SchemaProps{
 							Description: "Chart holds information about a chart that should get deployed",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart"),
 						},
 					},
 					"manifests": {
@@ -2627,7 +2627,7 @@ func schema_apis_loft_cluster_v1_HelmReleaseConfig(ref common.ReferenceCallback)
 					"bash": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Bash holds the bash script to execute in a container in the target",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Bash"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Bash"),
 						},
 					},
 					"values": {
@@ -2664,11 +2664,11 @@ func schema_apis_loft_cluster_v1_HelmReleaseConfig(ref common.ReferenceCallback)
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Bash", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Bash", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_HelmReleaseList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_HelmReleaseList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2701,7 +2701,7 @@ func schema_apis_loft_cluster_v1_HelmReleaseList(ref common.ReferenceCallback) c
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmRelease"),
+										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmRelease"),
 									},
 								},
 							},
@@ -2712,11 +2712,11 @@ func schema_apis_loft_cluster_v1_HelmReleaseList(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.HelmRelease", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.HelmRelease", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_HelmReleaseSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_HelmReleaseSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2726,7 +2726,7 @@ func schema_apis_loft_cluster_v1_HelmReleaseSpec(ref common.ReferenceCallback) c
 						SchemaProps: spec.SchemaProps{
 							Description: "Chart holds information about a chart that should get deployed",
 							Default:     map[string]interface{}{},
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart"),
 						},
 					},
 					"manifests": {
@@ -2739,7 +2739,7 @@ func schema_apis_loft_cluster_v1_HelmReleaseSpec(ref common.ReferenceCallback) c
 					"bash": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Bash holds the bash script to execute in a container in the target",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Bash"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Bash"),
 						},
 					},
 					"values": {
@@ -2776,11 +2776,11 @@ func schema_apis_loft_cluster_v1_HelmReleaseSpec(ref common.ReferenceCallback) c
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Bash", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Chart"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Bash", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Chart"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_HelmReleaseStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_HelmReleaseStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2796,24 +2796,24 @@ func schema_apis_loft_cluster_v1_HelmReleaseStatus(ref common.ReferenceCallback)
 					"info": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Info provides information about a release",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Info"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Info"),
 						},
 					},
 					"metadata": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Metadata provides information about a chart",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Metadata"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Metadata"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Info", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Metadata"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Info", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Metadata"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_Info(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_Info(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2867,7 +2867,7 @@ func schema_apis_loft_cluster_v1_Info(ref common.ReferenceCallback) common.OpenA
 	}
 }
 
-func schema_apis_loft_cluster_v1_LastActivityInfo(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_LastActivityInfo(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2943,7 +2943,7 @@ func schema_apis_loft_cluster_v1_LastActivityInfo(ref common.ReferenceCallback) 
 	}
 }
 
-func schema_apis_loft_cluster_v1_Maintainer(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_Maintainer(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -2977,7 +2977,7 @@ func schema_apis_loft_cluster_v1_Maintainer(ref common.ReferenceCallback) common
 	}
 }
 
-func schema_apis_loft_cluster_v1_Metadata(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_Metadata(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3049,7 +3049,7 @@ func schema_apis_loft_cluster_v1_Metadata(ref common.ReferenceCallback) common.O
 							Items: &spec.SchemaOrArray{
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
-										Ref: ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Maintainer"),
+										Ref: ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Maintainer"),
 									},
 								},
 							},
@@ -3146,11 +3146,11 @@ func schema_apis_loft_cluster_v1_Metadata(ref common.ReferenceCallback) common.O
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.Maintainer"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.Maintainer"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_ProjectSecretRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_ProjectSecretRef(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3183,7 +3183,7 @@ func schema_apis_loft_cluster_v1_ProjectSecretRef(ref common.ReferenceCallback) 
 	}
 }
 
-func schema_apis_loft_cluster_v1_SleepModeConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_SleepModeConfig(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3213,24 +3213,24 @@ func schema_apis_loft_cluster_v1_SleepModeConfig(ref common.ReferenceCallback) c
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfigSpec"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfigSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfigStatus"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfigStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfigSpec", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.SleepModeConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfigSpec", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.SleepModeConfigStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_apis_loft_cluster_v1_SleepModeConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_SleepModeConfigSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3245,7 +3245,7 @@ func schema_apis_loft_cluster_v1_SleepModeConfigSpec(ref common.ReferenceCallbac
 					},
 					"forceSleepDuration": {
 						SchemaProps: spec.SchemaProps{
-							Description: "If force sleep duration is set, this will force the space to sleep for the given duration. It also implies that forceSleep is true. During this period loft will also block certain requests to that space. If this is set to 0, it means the space will sleep until it is manually woken up via the cli or ui.",
+							Description: "If force sleep duration is set, this will force the space to sleep for the given duration. It also implies that forceSleep is true. During this period khulnasoft will also block certain requests to that space. If this is set to 0, it means the space will sleep until it is manually woken up via the cli or ui.",
 							Type:        []string{"integer"},
 							Format:      "int64",
 						},
@@ -3361,7 +3361,7 @@ func schema_apis_loft_cluster_v1_SleepModeConfigSpec(ref common.ReferenceCallbac
 	}
 }
 
-func schema_apis_loft_cluster_v1_SleepModeConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_cluster_v1_SleepModeConfigStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3377,12 +3377,12 @@ func schema_apis_loft_cluster_v1_SleepModeConfigStatus(ref common.ReferenceCallb
 					"lastActivityInfo": {
 						SchemaProps: spec.SchemaProps{
 							Description: "LastActivityInfo holds information about the last activity within this space",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.LastActivityInfo"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.LastActivityInfo"),
 						},
 					},
 					"sleepingSince": {
 						SchemaProps: spec.SchemaProps{
-							Description: "SleepingSince specifies since when the space is sleeping (if this is not specified, loft assumes the space is not sleeping)",
+							Description: "SleepingSince specifies since when the space is sleeping (if this is not specified, khulnasoft assumes the space is not sleeping)",
 							Type:        []string{"integer"},
 							Format:      "int64",
 						},
@@ -3390,13 +3390,13 @@ func schema_apis_loft_cluster_v1_SleepModeConfigStatus(ref common.ReferenceCallb
 					"currentEpoch": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional info that indicates how long the space was sleeping in the current epoch",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.EpochInfo"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.EpochInfo"),
 						},
 					},
 					"lastEpoch": {
 						SchemaProps: spec.SchemaProps{
 							Description: "Optional info that indicates how long the space was sleeping in the current epoch",
-							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.EpochInfo"),
+							Ref:         ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.EpochInfo"),
 						},
 					},
 					"sleptLastThirtyDays": {
@@ -3438,11 +3438,11 @@ func schema_apis_loft_cluster_v1_SleepModeConfigStatus(ref common.ReferenceCallb
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.EpochInfo", "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1.LastActivityInfo"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.EpochInfo", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1.LastActivityInfo"},
 	}
 }
 
-func schema_apis_loft_storage_v1_ClusterQuota(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_storage_v1_ClusterQuota(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3472,24 +3472,24 @@ func schema_apis_loft_storage_v1_ClusterQuota(ref common.ReferenceCallback) comm
 					"spec": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaSpec"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaSpec"),
 						},
 					},
 					"status": {
 						SchemaProps: spec.SchemaProps{
 							Default: map[string]interface{}{},
-							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaStatus"),
+							Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaStatus"),
 						},
 					},
 				},
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaSpec", "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaSpec", "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaStatus", "k8s.io/apimachinery/pkg/apis/meta/v1.ObjectMeta"},
 	}
 }
 
-func schema_apis_loft_storage_v1_ClusterQuotaList(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_storage_v1_ClusterQuotaList(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3523,7 +3523,7 @@ func schema_apis_loft_storage_v1_ClusterQuotaList(ref common.ReferenceCallback) 
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuota"),
+										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuota"),
 									},
 								},
 							},
@@ -3534,11 +3534,11 @@ func schema_apis_loft_storage_v1_ClusterQuotaList(ref common.ReferenceCallback) 
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuota", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuota", "k8s.io/apimachinery/pkg/apis/meta/v1.ListMeta"},
 	}
 }
 
-func schema_apis_loft_storage_v1_ClusterQuotaSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_storage_v1_ClusterQuotaSpec(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3581,7 +3581,7 @@ func schema_apis_loft_storage_v1_ClusterQuotaSpec(ref common.ReferenceCallback) 
 	}
 }
 
-func schema_apis_loft_storage_v1_ClusterQuotaStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_storage_v1_ClusterQuotaStatus(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3603,7 +3603,7 @@ func schema_apis_loft_storage_v1_ClusterQuotaStatus(ref common.ReferenceCallback
 								Schema: &spec.Schema{
 									SchemaProps: spec.SchemaProps{
 										Default: map[string]interface{}{},
-										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaStatusByNamespace"),
+										Ref:     ref("dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaStatusByNamespace"),
 									},
 								},
 							},
@@ -3613,11 +3613,11 @@ func schema_apis_loft_storage_v1_ClusterQuotaStatus(ref common.ReferenceCallback
 			},
 		},
 		Dependencies: []string{
-			"dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1.ClusterQuotaStatusByNamespace", "k8s.io/api/core/v1.ResourceQuotaStatus"},
+			"dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1.ClusterQuotaStatusByNamespace", "k8s.io/api/core/v1.ResourceQuotaStatus"},
 	}
 }
 
-func schema_apis_loft_storage_v1_ClusterQuotaStatusByNamespace(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_storage_v1_ClusterQuotaStatusByNamespace(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{
@@ -3648,7 +3648,7 @@ func schema_apis_loft_storage_v1_ClusterQuotaStatusByNamespace(ref common.Refere
 	}
 }
 
-func schema_apis_loft_storage_v1_Condition(ref common.ReferenceCallback) common.OpenAPIDefinition {
+func schema_apis_khulnasoft_storage_v1_Condition(ref common.ReferenceCallback) common.OpenAPIDefinition {
 	return common.OpenAPIDefinition{
 		Schema: spec.Schema{
 			SchemaProps: spec.SchemaProps{

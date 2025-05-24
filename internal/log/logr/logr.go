@@ -143,7 +143,7 @@ func SetGlobalKlog(logger logr.Logger, kubernetesVerbosityLevel string) error {
 
 // GetLogLevel returns the zap log level and the kubernetes verbosity level
 func GetLogLevel() (zap.AtomicLevel, string, error) {
-	return loggerLevels(LoftLogLevel())
+	return loggerLevels(KhulnasoftLogLevel())
 }
 
 // loggerLevels returns the zap log level and the kubernetes verbosity level
@@ -164,9 +164,9 @@ func loggerLevels(logLevel string) (zap.AtomicLevel, string, error) {
 	return atomicLevel, kubernetesVerbosityLevel, err
 }
 
-// LoftLogLevel returns the log level; "debug", "info", "warn", "error", "dpanic", "panic", "fatal". (default: info)
-func LoftLogLevel() string {
-	logLevel := os.Getenv("LOFT_LOG_LEVEL") // debug, info, warn, error, dpanic, panic, fatal
+// KhulnasoftLogLevel returns the log level; "debug", "info", "warn", "error", "dpanic", "panic", "fatal". (default: info)
+func KhulnasoftLogLevel() string {
+	logLevel := os.Getenv("KHULNASOFT_LOG_LEVEL") // debug, info, warn, error, dpanic, panic, fatal
 	if logLevel == "" {
 		logLevel = "info"
 	}
@@ -176,17 +176,17 @@ func LoftLogLevel() string {
 
 // GetEncoding returns the log encoding; "console" or "json". (default: console)
 func GetEncoding() string {
-	loftLogEncoding := os.Getenv("LOFT_LOG_ENCODING") // json or console
-	if loftLogEncoding == "" {
-		loftLogEncoding = "console"
+	khulnasoftLogEncoding := os.Getenv("KHULNASOFT_LOG_ENCODING") // json or console
+	if khulnasoftLogEncoding == "" {
+		khulnasoftLogEncoding = "console"
 	}
 
-	return loftLogEncoding
+	return khulnasoftLogEncoding
 }
 
 // LogFullCallerPath returns true if the full caller path should be logged
 func LogFullCallerPath() bool {
-	logFullCallerPath := os.Getenv("LOFT_LOG_FULL_CALLER_PATH") // true or false
+	logFullCallerPath := os.Getenv("KHULNASOFT_LOG_FULL_CALLER_PATH") // true or false
 	if logFullCallerPath == "" {
 		logFullCallerPath = "false"
 	}

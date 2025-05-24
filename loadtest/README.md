@@ -18,12 +18,12 @@ Update NUM_WORKSPACES or NUM_COMMANDS_PER_WORKSPACE to adjust load signature
 
 `generateLoad.sh` contains the SSH command to generate load, change the command here to adjust how you want to generate traffic
 
-### Get core dump from loft
+### Get core dump from khulnasoft
 
 ```
-kubectl -n devspace-pro set env deployment/loft LOFTDEBUG=true
+kubectl -n devspace-pro set env deployment/khulnasoft KHULNASOFTDEBUG=true
 
-kubectl -n devspace-pro port-forward loft-55df4d875f-j9vnd 8080:8080 &
+kubectl -n devspace-pro port-forward khulnasoft-55df4d875f-j9vnd 8080:8080 &
 
 curl -s -v http://localhost:8080/debug/pprof/heap > $(date '+%Y-%m-%d-%H:%M:%S').out
 ```
@@ -33,4 +33,3 @@ curl -s -v http://localhost:8080/debug/pprof/heap > $(date '+%Y-%m-%d-%H:%M:%S')
 ```
 while true; do curl -s -v http://localhost:8080/debug/pprof/heap > $(date '+%Y-%m-%d-%H:%M:%S').out; sleep 30; done
 ```
-

@@ -9,5 +9,5 @@
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen=package
 // +k8s:defaulter-gen=TypeMeta
-// +groupName=storage.loft.sh
+// +groupName=storage.khulnasoft.com
 package v1 // import "dev.khulnasoft.com/api/apis/storage/v1"

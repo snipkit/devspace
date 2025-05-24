@@ -77,7 +77,7 @@ func (cmd *PasswordCmd) Run() error {
 
 	// get user
 	cmd.Log.Infof("Resetting password of user %s", cmd.User)
-	user, err := managementClient.Loft().StorageV1().Users().Get(context.Background(), cmd.User, metav1.GetOptions{})
+	user, err := managementClient.Khulnasoft().StorageV1().Users().Get(context.Background(), cmd.User, metav1.GetOptions{})
 	if err != nil && !kerrors.IsNotFound(err) {
 		return errors.Wrap(err, "get user")
 	} else if kerrors.IsNotFound(err) {
@@ -86,7 +86,7 @@ func (cmd *PasswordCmd) Run() error {
 			return fmt.Errorf("user %s was not found, run with '--create' to create this user automatically", cmd.User)
 		}
 
-		user, err = managementClient.Loft().StorageV1().Users().Create(context.Background(), &storagev1.User{
+		user, err = managementClient.Khulnasoft().StorageV1().Users().Create(context.Background(), &storagev1.User{
 			ObjectMeta: metav1.ObjectMeta{
 				Name: cmd.User,
 			},
@@ -97,8 +97,8 @@ func (cmd *PasswordCmd) Run() error {
 					"system:masters",
 				},
 				PasswordRef: &storagev1.SecretRef{
-					SecretName:      "loft-password-" + random.String(5),
-					SecretNamespace: "loft",
+					SecretName:      "khulnasoft-password-" + random.String(5),
+					SecretNamespace: "khulnasoft",
 					Key:             "password",
 				},
 			},
@@ -115,11 +115,11 @@ func (cmd *PasswordCmd) Run() error {
 		}
 
 		user.Spec.PasswordRef = &storagev1.SecretRef{
-			SecretName:      "loft-password-" + random.String(5),
-			SecretNamespace: "loft",
+			SecretName:      "khulnasoft-password-" + random.String(5),
+			SecretNamespace: "khulnasoft",
 			Key:             "password",
 		}
-		user, err = managementClient.Loft().StorageV1().Users().Update(context.Background(), user, metav1.UpdateOptions{})
+		user, err = managementClient.Khulnasoft().StorageV1().Users().Update(context.Background(), user, metav1.UpdateOptions{})
 		if err != nil {
 			return errors.Wrap(err, "update user")
 		}

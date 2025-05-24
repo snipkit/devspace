@@ -46,8 +46,8 @@ type Interface interface {
 	Licenses() LicenseInformer
 	// LicenseTokens returns a LicenseTokenInformer.
 	LicenseTokens() LicenseTokenInformer
-	// LoftUpgrades returns a LoftUpgradeInformer.
-	LoftUpgrades() LoftUpgradeInformer
+	// KhulnasoftUpgrades returns a KhulnasoftUpgradeInformer.
+	KhulnasoftUpgrades() KhulnasoftUpgradeInformer
 	// OIDCClients returns a OIDCClientInformer.
 	OIDCClients() OIDCClientInformer
 	// OwnedAccessKeys returns a OwnedAccessKeyInformer.
@@ -196,9 +196,9 @@ func (v *version) LicenseTokens() LicenseTokenInformer {
 	return &licenseTokenInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// LoftUpgrades returns a LoftUpgradeInformer.
-func (v *version) LoftUpgrades() LoftUpgradeInformer {
-	return &loftUpgradeInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
+// KhulnasoftUpgrades returns a KhulnasoftUpgradeInformer.
+func (v *version) KhulnasoftUpgrades() KhulnasoftUpgradeInformer {
+	return &khulnasoftUpgradeInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
 // OIDCClients returns a OIDCClientInformer.

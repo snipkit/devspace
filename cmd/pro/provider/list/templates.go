@@ -78,7 +78,7 @@ func Templates(ctx context.Context, client client.Client, projectName string) (*
 		return nil, err
 	}
 
-	templateList, err := managementClient.Loft().ManagementV1().Projects().ListTemplates(ctx, projectName, metav1.GetOptions{})
+	templateList, err := managementClient.Khulnasoft().ManagementV1().Projects().ListTemplates(ctx, projectName, metav1.GetOptions{})
 	if err != nil {
 		return templateList, fmt.Errorf("list templates: %w", err)
 	} else if len(templateList.DevSpaceWorkspaceTemplates) == 0 {
@@ -89,7 +89,7 @@ func Templates(ctx context.Context, client client.Client, projectName string) (*
 }
 
 func FindTemplate(ctx context.Context, managementClient kube.Interface, projectName, templateName string) (*managementv1.DevSpaceWorkspaceTemplate, error) {
-	templateList, err := managementClient.Loft().ManagementV1().Projects().ListTemplates(ctx, projectName, metav1.GetOptions{})
+	templateList, err := managementClient.Khulnasoft().ManagementV1().Projects().ListTemplates(ctx, projectName, metav1.GetOptions{})
 	if err != nil {
 		return nil, fmt.Errorf("list templates: %w", err)
 	} else if len(templateList.DevSpaceWorkspaceTemplates) == 0 {

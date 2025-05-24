@@ -2,7 +2,7 @@
 name = "devspace-desktop"
 version = "0.1.0"
 description = "A Tauri App"
-authors = ["loft.sh"]
+authors = ["khulnasoft.com"]
 license = ""
 repository = ""
 edition = "2021"

@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	LOFT_ADMIN_HOST = "admin.loft.sh"
+	KHULNASOFT_ADMIN_HOST = "admin.khulnasoft.com"
 )
 
 var (
@@ -137,8 +137,8 @@ func defaultRoute() (d DefaultRouteDetails, err error) {
 		return nil
 	}
 
-	// Try to get interface by running route against Loft admin
-	iface, err := getInterfaceByRoute(LOFT_ADMIN_HOST)
+	// Try to get interface by running route against Khulnasoft admin
+	iface, err := getInterfaceByRoute(KHULNASOFT_ADMIN_HOST)
 	if err == nil {
 		d.InterfaceIndex = iface.Index
 		d.InterfaceName = iface.Name

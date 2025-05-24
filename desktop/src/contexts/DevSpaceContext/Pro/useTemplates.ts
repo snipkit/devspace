@@ -1,9 +1,9 @@
 import { useProContext } from "@/contexts"
-import { useQuery, UseQueryResult } from "@tanstack/react-query"
 import { QueryKeys } from "@/queryKeys"
-import { ManagementV1DevSpaceWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
-import { ManagementV1DevSpaceEnvironmentTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceEnvironmentTemplate"
-import { ManagementV1DevSpaceWorkspacePreset } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspacePreset"
+import { ManagementV1DevSpaceEnvironmentTemplate } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceEnvironmentTemplate"
+import { ManagementV1DevSpaceWorkspacePreset } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspacePreset"
+import { ManagementV1DevSpaceWorkspaceTemplate } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
+import { useQuery, UseQueryResult } from "@tanstack/react-query"
 
 type TTemplates = Readonly<{
   default: ManagementV1DevSpaceWorkspaceTemplate | undefined

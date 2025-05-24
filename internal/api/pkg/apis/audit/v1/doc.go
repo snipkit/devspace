@@ -5,5 +5,5 @@
 // +k8s:openapi-gen=true
 // +k8s:deepcopy-gen=package
 // +k8s:defaulter-gen=TypeMeta
-// +groupName=audit.loft.sh
+// +groupName=audit.khulnasoft.com
 package v1 // import "dev.khulnasoft.com/api/apis/audit/v1"

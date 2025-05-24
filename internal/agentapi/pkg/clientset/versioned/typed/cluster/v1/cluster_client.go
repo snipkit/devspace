@@ -5,7 +5,7 @@ package v1
 import (
 	"net/http"
 
-	v1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
+	v1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
 	"dev.khulnasoft.com/agentapi/pkg/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
@@ -17,7 +17,7 @@ type ClusterV1Interface interface {
 	HelmReleasesGetter
 }
 
-// ClusterV1Client is used to interact with features provided by the cluster.loft.sh group.
+// ClusterV1Client is used to interact with features provided by the cluster.khulnasoft.com group.
 type ClusterV1Client struct {
 	restClient rest.Interface
 }

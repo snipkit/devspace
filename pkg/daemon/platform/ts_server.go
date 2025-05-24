@@ -20,7 +20,7 @@ import (
 func newTSServer(ctx context.Context, host, accessKey, userName, rootDir string, insecure bool, log log.Logger) (*tsnet.Server, *tailscale.LocalClient, error) {
 	// Build the platform URL
 	baseUrl := url.URL{
-		Scheme: ts.GetEnvOrDefault("LOFT_TSNET_SCHEME", "https"),
+		Scheme: ts.GetEnvOrDefault("KHULNASOFT_TSNET_SCHEME", "https"),
 		Host:   ts.RemoveProtocol(host),
 	}
 	if err := ts.CheckDerpConnection(ctx, &baseUrl); err != nil {

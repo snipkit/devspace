@@ -31,7 +31,7 @@ type ManagementV1Interface interface {
 	IngressAuthTokensGetter
 	LicensesGetter
 	LicenseTokensGetter
-	LoftUpgradesGetter
+	KhulnasoftUpgradesGetter
 	OIDCClientsGetter
 	OwnedAccessKeysGetter
 	ProjectsGetter
@@ -54,7 +54,7 @@ type ManagementV1Interface interface {
 	VirtualClusterTemplatesGetter
 }
 
-// ManagementV1Client is used to interact with features provided by the management.loft.sh group.
+// ManagementV1Client is used to interact with features provided by the management.khulnasoft.com group.
 type ManagementV1Client struct {
 	restClient rest.Interface
 }
@@ -135,8 +135,8 @@ func (c *ManagementV1Client) LicenseTokens() LicenseTokenInterface {
 	return newLicenseTokens(c)
 }
 
-func (c *ManagementV1Client) LoftUpgrades() LoftUpgradeInterface {
-	return newLoftUpgrades(c)
+func (c *ManagementV1Client) KhulnasoftUpgrades() KhulnasoftUpgradeInterface {
+	return newKhulnasoftUpgrades(c)
 }
 
 func (c *ManagementV1Client) OIDCClients() OIDCClientInterface {

@@ -51,7 +51,7 @@ type TeamSpec struct {
 	// +optional
 	Username string `json:"username,omitempty"`
 
-	// The loft users that belong to a team
+	// The khulnasoft users that belong to a team
 	// +optional
 	Users []string `json:"users,omitempty"`
 

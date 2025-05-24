@@ -19,7 +19,7 @@ import (
 	"dev.khulnasoft.com/pkg/gitcredentials"
 	"dev.khulnasoft.com/pkg/gitsshsigning"
 	"dev.khulnasoft.com/pkg/gpg"
-	"dev.khulnasoft.com/pkg/loftconfig"
+	"dev.khulnasoft.com/pkg/khulnasoftconfig"
 	"dev.khulnasoft.com/pkg/netstat"
 	"dev.khulnasoft.com/pkg/platform"
 	provider2 "dev.khulnasoft.com/pkg/provider"
@@ -280,23 +280,23 @@ func (t *tunnelServer) GitSSHSignature(ctx context.Context, message *tunnel.Mess
 	return &tunnel.Message{Message: string(out)}, nil
 }
 
-func (t *tunnelServer) LoftConfig(ctx context.Context, message *tunnel.Message) (*tunnel.Message, error) {
-	loftConfigRequest := &loftconfig.LoftConfigRequest{}
-	err := json.Unmarshal([]byte(message.Message), loftConfigRequest)
+func (t *tunnelServer) KhulnasoftConfig(ctx context.Context, message *tunnel.Message) (*tunnel.Message, error) {
+	khulnasoftConfigRequest := &khulnasoftconfig.KhulnasoftConfigRequest{}
+	err := json.Unmarshal([]byte(message.Message), khulnasoftConfigRequest)
 	if err != nil {
-		return nil, perrors.Wrap(err, "loft platform config request")
+		return nil, perrors.Wrap(err, "khulnasoft platform config request")
 	}
 
-	var response *loftconfig.LoftConfigResponse
+	var response *khulnasoftconfig.KhulnasoftConfigResponse
 	if t.workspace != nil {
-		response, err = loftconfig.ReadFromWorkspace(t.workspace)
+		response, err = khulnasoftconfig.ReadFromWorkspace(t.workspace)
 		if err != nil {
-			return nil, fmt.Errorf("read loft config: %w", err)
+			return nil, fmt.Errorf("read khulnasoft config: %w", err)
 		}
 	} else {
-		response, err = loftconfig.Read(loftConfigRequest)
+		response, err = khulnasoftconfig.Read(khulnasoftConfigRequest)
 		if err != nil {
-			return nil, fmt.Errorf("read loft config: %w", err)
+			return nil, fmt.Errorf("read khulnasoft config: %w", err)
 		}
 	}
 

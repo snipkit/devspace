@@ -82,9 +82,9 @@ type LicenseListerExpansion interface{}
 // LicenseTokenLister.
 type LicenseTokenListerExpansion interface{}
 
-// LoftUpgradeListerExpansion allows custom methods to be added to
-// LoftUpgradeLister.
-type LoftUpgradeListerExpansion interface{}
+// KhulnasoftUpgradeListerExpansion allows custom methods to be added to
+// KhulnasoftUpgradeLister.
+type KhulnasoftUpgradeListerExpansion interface{}
 
 // OIDCClientListerExpansion allows custom methods to be added to
 // OIDCClientLister.

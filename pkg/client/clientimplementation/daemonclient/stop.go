@@ -33,7 +33,7 @@ func (c *client) Stop(ctx context.Context, opt clientpkg.StopOptions) error {
 	}
 
 	rawOptions, _ := json.Marshal(opt)
-	retStop, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(workspace.Namespace).Stop(ctx, workspace.Name, &managementv1.DevSpaceWorkspaceInstanceStop{
+	retStop, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(workspace.Namespace).Stop(ctx, workspace.Name, &managementv1.DevSpaceWorkspaceInstanceStop{
 		Spec: managementv1.DevSpaceWorkspaceInstanceStopSpec{
 			Options: string(rawOptions),
 		},

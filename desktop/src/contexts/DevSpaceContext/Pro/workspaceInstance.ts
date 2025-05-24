@@ -1,8 +1,8 @@
-import { TIDE, TIdentifiable, TWorkspaceSource } from "@/types"
-import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
 import { Labels, deepCopy } from "@/lib"
-import { Resources } from "@loft-enterprise/client"
-import { ManagementV1DevSpaceWorkspaceInstanceStatus } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstanceStatus"
+import { TIDE, TIdentifiable, TWorkspaceSource } from "@/types"
+import { Resources } from "@khulnasoft-enterprise/client"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
+import { ManagementV1DevSpaceWorkspaceInstanceStatus } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstanceStatus"
 
 export class ProWorkspaceInstance
   extends ManagementV1DevSpaceWorkspaceInstance

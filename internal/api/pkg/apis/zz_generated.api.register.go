@@ -32,7 +32,7 @@ func GetAllApiBuilders() []*builders.APIGroupBuilder {
 
 func GetManagementAPIBuilder() *builders.APIGroupBuilder {
 	return builders.NewApiGroupBuilder(
-		"management.loft.sh",
+		"management.khulnasoft.com",
 		"dev.khulnasoft.com/api/pkg/apis/management").
 		WithUnVersionedApi(management.ApiVersion).
 		WithVersionedApis(
@@ -57,7 +57,7 @@ func GetManagementAPIBuilder() *builders.APIGroupBuilder {
 			"IngressAuthToken",
 			"License",
 			"LicenseToken",
-			"LoftUpgrade",
+			"KhulnasoftUpgrade",
 			"OIDCClient",
 			"OwnedAccessKey",
 			"Project",
@@ -78,7 +78,7 @@ func GetManagementAPIBuilder() *builders.APIGroupBuilder {
 }
 func GetVirtualclusterAPIBuilder() *builders.APIGroupBuilder {
 	return builders.NewApiGroupBuilder(
-		"virtualcluster.loft.sh",
+		"virtualcluster.khulnasoft.com",
 		"dev.khulnasoft.com/api/pkg/apis/virtualcluster").
 		WithUnVersionedApi(virtualcluster.ApiVersion).
 		WithVersionedApis(

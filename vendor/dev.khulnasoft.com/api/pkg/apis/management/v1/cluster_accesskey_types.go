@@ -16,15 +16,15 @@ type ClusterAccessKey struct {
 	// +optional
 	AccessKey string `json:"accessKey,omitempty"`
 
-	// LoftHost is the loft host used by the agent
+	// KhulnasoftHost is the khulnasoft host used by the agent
 	// +optional
-	LoftHost string `json:"loftHost,omitempty"`
+	KhulnasoftHost string `json:"khulnasoftHost,omitempty"`
 
-	// Insecure signals if the loft host is insecure
+	// Insecure signals if the khulnasoft host is insecure
 	// +optional
 	Insecure bool `json:"insecure,omitempty"`
 
-	// CaCert is an optional ca cert to use for the loft host connection
+	// CaCert is an optional ca cert to use for the khulnasoft host connection
 	// +optional
 	CaCert string `json:"caCert,omitempty"`
 }

@@ -20,7 +20,7 @@ import (
 
 const (
 	fallbackInterfaceMetric = uint32(0)       // Used if we cannot get the actual interface metric
-	LOFT_ADMIN_HOST         = "admin.loft.sh" // Same host as used in Darwin/Linux implementation
+	KHULNASOFT_ADMIN_HOST         = "admin.khulnasoft.com" // Same host as used in Darwin/Linux implementation
 )
 
 func init() {
@@ -156,9 +156,9 @@ func getInterfaces(family winipcfg.AddressFamily, flags winipcfg.GAAFlags, match
 //
 // The family must be one of AF_INET or AF_INET6.
 func GetWindowsDefault(family winipcfg.AddressFamily) (*winipcfg.IPAdapterAddresses, error) {
-	// let's try to resolve the interface that's used to contact loft first
+	// let's try to resolve the interface that's used to contact khulnasoft first
 	// First try to get interface by pinging remote endpoint
-	if iface, err := getInterfaceForHost(LOFT_ADMIN_HOST); err == nil {
+	if iface, err := getInterfaceForHost(KHULNASOFT_ADMIN_HOST); err == nil {
 		return iface, nil
 	}
 	// then fall back to the default implementation if it doesn't work

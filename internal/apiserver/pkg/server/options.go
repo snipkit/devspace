@@ -129,7 +129,7 @@ func (o *ServerOptions) RunServer(APIServerVersion *version.Info, stopCh <-chan 
 		return err
 	}
 
-	// aggregatedAPIServerConfig.EffectiveVersion = utilapiserverversion.DefaultComponentGlobalsRegistry.EffectiveVersionFor("loft-apiserver")
+	// aggregatedAPIServerConfig.EffectiveVersion = utilapiserverversion.DefaultComponentGlobalsRegistry.EffectiveVersionFor("khulnasoft-apiserver")
 	aggregatedAPIServerConfig.EffectiveVersion = compatibility.NewEffectiveVersionFromString(APIServerVersion.String(), "", "")
 
 	// set the basics

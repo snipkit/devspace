@@ -1,7 +1,7 @@
 import { useTemplates } from "@/contexts"
 import { TParameterWithValue, getParametersWithValues } from "@/lib"
-import { ManagementV1DevSpaceWorkspaceInstance } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
-import { ManagementV1DevSpaceWorkspaceTemplate } from "@loft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
+import { ManagementV1DevSpaceWorkspaceInstance } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceInstance"
+import { ManagementV1DevSpaceWorkspaceTemplate } from "@khulnasoft-enterprise/client/gen/models/managementV1DevSpaceWorkspaceTemplate"
 import { useMemo } from "react"
 
 export function useTemplate(instance: ManagementV1DevSpaceWorkspaceInstance | undefined) {

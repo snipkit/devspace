@@ -31,6 +31,6 @@ jobs:
           go install github.com/google/go-licenses@v1.6.0
 
       - name: Run go-licenses check
-        run: go-licenses check ./... --ignore github.com/loft-sh
+        run: go-licenses check ./... --ignore github.com/khulnasoft-sh
         env:
-          GOPRIVATE: "github.com/loft-sh/*"
+          GOPRIVATE: "github.com/khulnasoft-sh/*"

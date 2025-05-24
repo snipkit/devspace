@@ -189,7 +189,7 @@ func decodeWorkspaceInfoAndWrite(
 	//
 	// We don't want to initialize the content folder with the value of the local workspace folder
 	// if we're running in proxy mode.
-	// We only have write access to /var/lib/loft/* by default causing nearly all local folders to run into permissions issues
+	// We only have write access to /var/lib/khulnasoft/* by default causing nearly all local folders to run into permissions issues
 	if workspaceInfo.Workspace.Source.LocalFolder != "" && !workspaceInfo.CLIOptions.Platform.Enabled {
 		_, err = os.Stat(workspaceInfo.WorkspaceOrigin)
 		if err == nil {

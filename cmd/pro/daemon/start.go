@@ -64,8 +64,8 @@ func (cmd *StartCmd) Run(ctx context.Context, devSpaceConfig *config.Config, pro
 		return err
 	}
 
-	loftConfigPath := filepath.Join(dir, "..", "loft-config.json")
-	baseClient, err := client.InitClientFromPath(ctx, loftConfigPath)
+	khulnasoftConfigPath := filepath.Join(dir, "..", "khulnasoft-config.json")
+	baseClient, err := client.InitClientFromPath(ctx, khulnasoftConfigPath)
 	if err != nil {
 		if daemon.IsAccessKeyNotFound(err) && isDesktopControlled {
 			printStatus(daemon.Status{State: daemon.DaemonStateStopped, LoginRequired: true})

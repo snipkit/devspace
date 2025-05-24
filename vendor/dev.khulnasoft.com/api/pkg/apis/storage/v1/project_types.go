@@ -1,7 +1,7 @@
 package v1
 
 import (
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -9,10 +9,10 @@ import (
 const (
 	ArgoIntegrationSynced agentstoragev1.ConditionType = "ArgoIntegrationSynced"
 
-	ArgoLastAppliedHashAnnotation                = "loft.sh/argo-integration-last-applied-hash"
-	ArgoPreviousClusterAnnotation                = "loft.sh/argo-integration-previous-cluster"
-	ArgoPreviousNamespaceAnnotation              = "loft.sh/argo-integration-previous-namespace"
-	ArgoPreviousVirtualClusterInstanceAnnotation = "loft.sh/argo-integration-previous-virtualclusterinstance"
+	ArgoLastAppliedHashAnnotation                = "khulnasoft.com/argo-integration-last-applied-hash"
+	ArgoPreviousClusterAnnotation                = "khulnasoft.com/argo-integration-previous-cluster"
+	ArgoPreviousNamespaceAnnotation              = "khulnasoft.com/argo-integration-previous-namespace"
+	ArgoPreviousVirtualClusterInstanceAnnotation = "khulnasoft.com/argo-integration-previous-virtualclusterinstance"
 )
 
 const (
@@ -20,16 +20,16 @@ const (
 
 	ConditionReasonVaultIntegrationError = "VaultIntegrationError"
 
-	VaultLastAppliedHashAnnotation                = "loft.sh/vault-integration-last-applied-hash"
-	VaultPreviousClusterAnnotation                = "loft.sh/vault-integration-previous-cluster"
-	VaultPreviousNamespaceAnnotation              = "loft.sh/vault-integration-previous-namespace"
-	VaultPreviousVirtualClusterInstanceAnnotation = "loft.sh/vault-integration-previous-virtualclusterinstance"
+	VaultLastAppliedHashAnnotation                = "khulnasoft.com/vault-integration-last-applied-hash"
+	VaultPreviousClusterAnnotation                = "khulnasoft.com/vault-integration-previous-cluster"
+	VaultPreviousNamespaceAnnotation              = "khulnasoft.com/vault-integration-previous-namespace"
+	VaultPreviousVirtualClusterInstanceAnnotation = "khulnasoft.com/vault-integration-previous-virtualclusterinstance"
 )
 
 const (
 	RancherIntegrationSynced agentstoragev1.ConditionType = "RancherIntegrationSynced"
 
-	RancherLastAppliedHashAnnotation = "loft.sh/rancher-integration-last-applied-hash"
+	RancherLastAppliedHashAnnotation = "khulnasoft.com/rancher-integration-last-applied-hash"
 )
 
 // +genclient
@@ -184,7 +184,7 @@ type AllowedTemplate struct {
 	// +optional
 	Kind string `json:"kind,omitempty"`
 
-	// Group of the template that is allowed. Currently only supports storage.loft.sh
+	// Group of the template that is allowed. Currently only supports storage.khulnasoft.com
 	// +optional
 	Group string `json:"group,omitempty"`
 
@@ -202,7 +202,7 @@ type Member struct {
 	// +optional
 	Kind string `json:"kind,omitempty"`
 
-	// Group of the member. Currently only supports storage.loft.sh
+	// Group of the member. Currently only supports storage.khulnasoft.com
 	// +optional
 	Group string `json:"group,omitempty"`
 
@@ -320,12 +320,12 @@ type ArgoIntegrationSpec struct {
 	Enabled bool `json:"enabled,omitempty"`
 
 	// Cluster defines the name of the cluster that ArgoCD is deployed into -- if not provided this
-	// will default to 'loft-cluster'.
+	// will default to 'khulnasoft-cluster'.
 	// +optional
 	Cluster string `json:"cluster,omitempty"`
 
 	// VirtualClusterInstance defines the name of *virtual cluster* (instance) that ArgoCD is
-	// deployed into. If provided, Cluster will be ignored and Loft will assume that ArgoCD is
+	// deployed into. If provided, Cluster will be ignored and Khulnasoft will assume that ArgoCD is
 	// running in the specified virtual cluster.
 	// +optional
 	VirtualClusterInstance string `json:"virtualClusterInstance,omitempty"`
@@ -335,30 +335,30 @@ type ArgoIntegrationSpec struct {
 	Namespace string `json:"namespace,omitempty"`
 
 	// SSO defines single-sign-on related values for the ArgoCD Integration. Enabling SSO will allow
-	// users to authenticate to ArgoCD via Loft.
+	// users to authenticate to ArgoCD via Khulnasoft.
 	// +optional
 	SSO *ArgoSSOSpec `json:"sso,omitempty"`
 
 	// Project defines project related values for the ArgoCD Integration. Enabling Project
-	// integration will cause Loft to generate and manage an ArgoCD appProject that corresponds to
-	// the Loft Project.
+	// integration will cause Khulnasoft to generate and manage an ArgoCD appProject that corresponds to
+	// the Khulnasoft Project.
 	// +optional
 	Project *ArgoProjectSpec `json:"project,omitempty"`
 }
 
 type ArgoSSOSpec struct {
 	// Enabled indicates if the ArgoCD SSO Integration is enabled for this project. Enabling this
-	// will cause Loft to configure SSO authentication via Loft in ArgoCD. If Projects are *not*
+	// will cause Khulnasoft to configure SSO authentication via Khulnasoft in ArgoCD. If Projects are *not*
 	// enabled, all users associated with this Project will be assigned either the 'read-only'
 	// (default) role, *or* the roles set under the AssignedRoles field.
 	// +optional
 	Enabled bool `json:"enabled,omitempty"`
-	// Host defines the ArgoCD host address that will be used for OIDC authentication between loft
+	// Host defines the ArgoCD host address that will be used for OIDC authentication between khulnasoft
 	// and ArgoCD. If not specified OIDC integration will be skipped, but vclusters/spaces will
 	// still be synced to ArgoCD.
 	// +optional
 	Host string `json:"host,omitempty"`
-	// AssignedRoles is a list of roles to assign for users who authenticate via Loft -- by default
+	// AssignedRoles is a list of roles to assign for users who authenticate via Khulnasoft -- by default
 	// this will be the `read-only` role. If any roles are provided this will override the default
 	// setting.
 	// +optional
@@ -367,12 +367,12 @@ type ArgoSSOSpec struct {
 
 type ArgoProjectSpec struct {
 	// Enabled indicates if the ArgoCD Project Integration is enabled for this project. Enabling
-	// this will cause Loft to create an appProject in ArgoCD that is associated with the Loft
-	// Project. When Project integration is enabled Loft will override the default assigned role
+	// this will cause Khulnasoft to create an appProject in ArgoCD that is associated with the Khulnasoft
+	// Project. When Project integration is enabled Khulnasoft will override the default assigned role
 	// set in the SSO integration spec.
 	// +optional
 	Enabled bool `json:"enabled,omitempty"`
-	// Metadata defines additional metadata to attach to the loft created project in ArgoCD.
+	// Metadata defines additional metadata to attach to the khulnasoft created project in ArgoCD.
 	// +optional
 	Metadata ArgoProjectSpecMetadata `json:"metadata,omitempty"`
 	// SourceRepos is a list of source repositories to attach/allow on the project, if not specified
@@ -380,7 +380,7 @@ type ArgoProjectSpec struct {
 	// +optional
 	SourceRepos []string `json:"sourceRepos,omitempty"`
 	// Roles is a list of roles that should be attached to the ArgoCD project. If roles are provided
-	// no loft default roles will be set. If no roles are provided *and* SSO is enabled, loft will
+	// no khulnasoft default roles will be set. If no roles are provided *and* SSO is enabled, khulnasoft will
 	// configure sane default values.
 	// +optional
 	Roles []ArgoProjectRole `json:"roles,omitempty"`
@@ -480,14 +480,14 @@ type RancherIntegrationSpec struct {
 	// +optional
 	ImportVirtualClusters ImportVirtualClustersSpec `json:"importVirtualClusters,omitempty"`
 
-	// SyncMembers defines settings to sync Rancher project members to the loft project
+	// SyncMembers defines settings to sync Rancher project members to the khulnasoft project
 	// +optional
 	SyncMembers SyncMembersSpec `json:"syncMembers,omitempty"`
 }
 
 type RancherProjectRef struct {
 	// Cluster defines the Rancher cluster ID
-	// Needs to be the same id within Loft
+	// Needs to be the same id within Khulnasoft
 	Cluster string `json:"cluster,omitempty"`
 
 	// Project defines the Rancher project ID
@@ -502,10 +502,10 @@ type ImportVirtualClustersSpec struct {
 }
 
 type SyncMembersSpec struct {
-	// Enabled indicates whether to sync rancher project members to the loft project.
+	// Enabled indicates whether to sync rancher project members to the khulnasoft project.
 	Enabled bool `json:"enabled,omitempty"`
 
-	// RoleMapping indicates an optional role mapping from a rancher role to a loft role. Map to an empty role to exclude users and groups with that role from
+	// RoleMapping indicates an optional role mapping from a rancher role to a khulnasoft role. Map to an empty role to exclude users and groups with that role from
 	// being synced.
 	// +optional
 	RoleMapping map[string]string `json:"roleMapping,omitempty"`

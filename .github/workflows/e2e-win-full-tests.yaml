@@ -55,8 +55,8 @@ jobs:
       - name: Container cleanup
         if: ${{ always() }}
         run: |
-          if (Test-Path C:\Users\loft-user\.devspace\) {
-            Remove-Item -Recurse C:\Users\loft-user\.devspace\
+          if (Test-Path C:\Users\khulnasoft-user\.devspace\) {
+            Remove-Item -Recurse C:\Users\khulnasoft-user\.devspace\
           }
           sh -c "docker ps -q -a | xargs docker rm -f || :"
           sh -c "docker images --format '{{.Repository}}:{{.Tag}},{{.ID}}' | grep -E 'devspace|none|temp|^test' | cut -d',' -f2 | xargs docker rmi -f || :"

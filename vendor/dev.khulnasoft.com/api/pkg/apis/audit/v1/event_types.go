@@ -29,7 +29,7 @@ type RequestTarget string
 
 // Valid request targets
 const (
-	// RequestTargetManagement specifies a loft management api request
+	// RequestTargetManagement specifies a khulnasoft management api request
 	RequestTargetManagement RequestTarget = "Management"
 	// RequestTargetCluster specifies a connected kubernetes cluster request
 	RequestTargetCluster RequestTarget = "Cluster"

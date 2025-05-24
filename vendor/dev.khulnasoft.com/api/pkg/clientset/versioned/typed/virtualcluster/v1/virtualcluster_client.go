@@ -15,7 +15,7 @@ type VirtualclusterV1Interface interface {
 	HelmReleasesGetter
 }
 
-// VirtualclusterV1Client is used to interact with features provided by the virtualcluster.loft.sh group.
+// VirtualclusterV1Client is used to interact with features provided by the virtualcluster.khulnasoft.com group.
 type VirtualclusterV1Client struct {
 	restClient rest.Interface
 }

@@ -62,7 +62,7 @@ func FindInstance(ctx context.Context, baseClient client.Client, uid string) (*m
 		return nil, fmt.Errorf("create management client: %w", err)
 	}
 
-	workspaceList, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances("").List(ctx, metav1.ListOptions{
+	workspaceList, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances("").List(ctx, metav1.ListOptions{
 		LabelSelector: storagev1.DevSpaceWorkspaceUIDLabel + "=" + uid,
 	})
 	if err != nil {
@@ -79,7 +79,7 @@ func FindInstanceInProject(ctx context.Context, baseClient client.Client, uid, p
 		return nil, fmt.Errorf("create management client: %w", err)
 	}
 
-	workspaceList, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(project.ProjectNamespace(projectName)).List(ctx, metav1.ListOptions{
+	workspaceList, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(project.ProjectNamespace(projectName)).List(ctx, metav1.ListOptions{
 		LabelSelector: storagev1.DevSpaceWorkspaceUIDLabel + "=" + uid,
 	})
 	if err != nil {
@@ -97,7 +97,7 @@ func FindInstanceByName(ctx context.Context, baseClient client.Client, name, pro
 		return nil, fmt.Errorf("create management client: %w", err)
 	}
 
-	workspace, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(project.ProjectNamespace(projectName)).Get(ctx, name, metav1.GetOptions{})
+	workspace, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(project.ProjectNamespace(projectName)).Get(ctx, name, metav1.GetOptions{})
 	if err != nil {
 		return nil, err
 	}
@@ -140,9 +140,9 @@ func DialInstance(baseClient client.Client, workspace *managementv1.DevSpaceWork
 	}
 	log.Debugf("Connect to workspace using host: %s", host)
 
-	loftURL := "wss://" + host + "/kubernetes/management/apis/management.loft.sh/v1/namespaces/" + workspace.Namespace + "/devspaceworkspaceinstances/" + workspace.Name + "/" + subResource
+	khulnasoftURL := "wss://" + host + "/kubernetes/management/apis/management.khulnasoft.com/v1/namespaces/" + workspace.Namespace + "/devspaceworkspaceinstances/" + workspace.Name + "/" + subResource
 	if len(values) > 0 {
-		loftURL += "?" + values.Encode()
+		khulnasoftURL += "?" + values.Encode()
 	}
 
 	dialer := websocket.Dialer{
@@ -151,17 +151,17 @@ func DialInstance(baseClient client.Client, workspace *managementv1.DevSpaceWork
 		HandshakeTimeout: 45 * time.Second,
 	}
 
-	conn, response, err := dialer.Dial(loftURL, map[string][]string{
+	conn, response, err := dialer.Dial(khulnasoftURL, map[string][]string{
 		"Authorization": {"Bearer " + restConfig.BearerToken},
 	})
 	if err != nil {
 		if response != nil {
 			out, _ := io.ReadAll(response.Body)
 			headers, _ := json.Marshal(response.Header)
-			return nil, fmt.Errorf("%s: error dialing websocket %s (code %d): headers - %s, error - %w", string(out), loftURL, response.StatusCode, string(headers), err)
+			return nil, fmt.Errorf("%s: error dialing websocket %s (code %d): headers - %s, error - %w", string(out), khulnasoftURL, response.StatusCode, string(headers), err)
 		}
 
-		return nil, fmt.Errorf("error dialing websocket %s: %w", loftURL, err)
+		return nil, fmt.Errorf("error dialing websocket %s: %w", khulnasoftURL, err)
 	}
 
 	return conn, nil
@@ -190,7 +190,7 @@ func UpdateInstance(ctx context.Context, client client.Client, oldInstance *mana
 		return newInstance, nil
 	}
 
-	res, err := managementClient.Loft().ManagementV1().
+	res, err := managementClient.Khulnasoft().ManagementV1().
 		DevSpaceWorkspaceInstances(oldInstance.GetNamespace()).
 		Patch(ctx, oldInstance.GetName(), patch.Type(), data, metav1.PatchOptions{})
 	if err != nil {
@@ -209,7 +209,7 @@ func WaitForInstance(ctx context.Context, client client.Client, instance *manage
 	var updatedInstance *managementv1.DevSpaceWorkspaceInstance
 	// we need to wait until instance is scheduled
 	err = wait.PollUntilContextTimeout(ctx, time.Second, 30*time.Second, true, func(ctx context.Context) (done bool, err error) {
-		updatedInstance, err = managementClient.Loft().ManagementV1().
+		updatedInstance, err = managementClient.Khulnasoft().ManagementV1().
 			DevSpaceWorkspaceInstances(instance.GetNamespace()).
 			Get(ctx, instance.GetName(), metav1.GetOptions{})
 		if err != nil {

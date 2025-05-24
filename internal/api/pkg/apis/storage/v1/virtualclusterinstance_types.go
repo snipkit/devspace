@@ -1,8 +1,8 @@
 package v1
 
 import (
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -184,7 +184,7 @@ type VirtualClusterCommonSpec struct {
 	HelmRelease VirtualClusterHelmRelease `json:"helmRelease,omitempty"`
 
 	// AccessPoint defines settings to expose the virtual cluster directly via an ingress rather than
-	// through the (default) Loft proxy
+	// through the (default) Khulnasoft proxy
 	// +optional
 	AccessPoint VirtualClusterAccessPoint `json:"accessPoint,omitempty"`
 
@@ -208,7 +208,7 @@ type VirtualClusterAccessPoint struct {
 
 type VirtualClusterAccessPointIngressSpec struct {
 	// Enabled defines if the virtual cluster access point (via ingress) is enabled or not; requires
-	// the connected cluster to have the `loft.sh/ingress-suffix` annotation set to define the domain
+	// the connected cluster to have the `khulnasoft.com/ingress-suffix` annotation set to define the domain
 	// name suffix used for the ingress.
 	Enabled bool `json:"enabled,omitempty"`
 }
@@ -228,7 +228,7 @@ type TemplateHelmChart struct {
 	// +optional
 	Values string `json:"values,omitempty"`
 
-	// Wait determines if Loft should wait during deploy for the app to become ready
+	// Wait determines if Khulnasoft should wait during deploy for the app to become ready
 	// +optional
 	Wait bool `json:"wait,omitempty"`
 

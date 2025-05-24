@@ -61,9 +61,9 @@ func (cmd *WatchWorkspacesCmd) Run(ctx context.Context, devSpaceConfig *config.C
 	defer cancel()
 
 	if cmd.FilterByOwner {
-		opts[provider.LOFT_FILTER_BY_OWNER] = config.OptionValue{Value: "true"}
+		opts[provider.KHULNASOFT_FILTER_BY_OWNER] = config.OptionValue{Value: "true"}
 	}
-	opts[provider.LOFT_PROJECT] = config.OptionValue{Value: cmd.Project}
+	opts[provider.KHULNASOFT_PROJECT] = config.OptionValue{Value: cmd.Project}
 
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT)

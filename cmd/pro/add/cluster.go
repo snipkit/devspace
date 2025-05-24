@@ -61,8 +61,8 @@ func NewClusterCmd(globalFlags *proflags.GlobalFlags) *cobra.Command {
 		},
 	}
 
-	c.Flags().StringVar(&cmd.Namespace, "namespace", "loft", "The namespace to generate the service account in. The namespace will be created if it does not exist")
-	c.Flags().StringVar(&cmd.ServiceAccount, "service-account", "loft-admin", "The service account name to create")
+	c.Flags().StringVar(&cmd.Namespace, "namespace", "khulnasoft", "The namespace to generate the service account in. The namespace will be created if it does not exist")
+	c.Flags().StringVar(&cmd.ServiceAccount, "service-account", "khulnasoft-admin", "The service account name to create")
 	c.Flags().StringVar(&cmd.DisplayName, "display-name", "", "The display name to show in the UI for this cluster")
 	c.Flags().BoolVar(&cmd.Wait, "wait", false, "If true, will wait until the cluster is initialized")
 	c.Flags().BoolVar(&cmd.Insecure, "insecure", false, "If true, deploys the agent in insecure mode")
@@ -100,14 +100,14 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 		return err
 	}
 
-	loftVersion, err := baseClient.Version()
+	khulnasoftVersion, err := baseClient.Version()
 	if err != nil {
 		return fmt.Errorf("get pro version: %w", err)
 	}
 
 	user, team := getUserOrTeam(ctx, baseClient)
 
-	_, err = managementClient.Loft().ManagementV1().Clusters().Create(ctx, &managementv1.Cluster{
+	_, err = managementClient.Khulnasoft().ManagementV1().Clusters().Create(ctx, &managementv1.Cluster{
 		ObjectMeta: metav1.ObjectMeta{
 			Name: clusterName,
 		},
@@ -127,7 +127,7 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 		return fmt.Errorf("create cluster: %w", err)
 	}
 
-	accessKey, err := managementClient.Loft().ManagementV1().Clusters().GetAccessKey(ctx, clusterName, metav1.GetOptions{})
+	accessKey, err := managementClient.Khulnasoft().ManagementV1().Clusters().GetAccessKey(ctx, clusterName, metav1.GetOptions{})
 	if err != nil {
 		return fmt.Errorf("get cluster access key: %w", err)
 	}
@@ -135,12 +135,12 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 	namespace := cmd.Namespace
 
 	helmArgs := []string{
-		"upgrade", "loft",
+		"upgrade", "khulnasoft",
 	}
 
 	if os.Getenv("DEVELOPMENT") == "true" {
 		helmArgs = []string{
-			"upgrade", "--install", "loft", cmp.Or(os.Getenv("DEVELOPMENT_CHART_DIR"), "./chart"),
+			"upgrade", "--install", "khulnasoft", cmp.Or(os.Getenv("DEVELOPMENT_CHART_DIR"), "./chart"),
 			"--create-namespace",
 			"--namespace", namespace,
 			"--set", "agentOnly=true",
@@ -150,11 +150,11 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 		if cmd.HelmChartPath != "" {
 			helmArgs = append(helmArgs, cmd.HelmChartPath)
 		} else {
-			helmArgs = append(helmArgs, "loft", "--repo", "https://charts.loft.sh")
+			helmArgs = append(helmArgs, "khulnasoft", "--repo", "https://charts.khulnasoft.com")
 		}
 
-		if loftVersion.Version != "" {
-			helmArgs = append(helmArgs, "--version", loftVersion.Version)
+		if khulnasoftVersion.Version != "" {
+			helmArgs = append(helmArgs, "--version", khulnasoftVersion.Version)
 		}
 
 		if cmd.HelmChartVersion != "" {
@@ -172,8 +172,8 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 		helmArgs = append(helmArgs, "--values", values)
 	}
 
-	if accessKey.LoftHost != "" {
-		helmArgs = append(helmArgs, "--set", "url="+accessKey.LoftHost)
+	if accessKey.KhulnasoftHost != "" {
+		helmArgs = append(helmArgs, "--set", "url="+accessKey.KhulnasoftHost)
 	}
 
 	if accessKey.AccessKey != "" {
@@ -245,7 +245,7 @@ func (cmd *ClusterCmd) Run(ctx context.Context, args []string) error {
 	if cmd.Wait {
 		cmd.Log.Info("Waiting for the cluster to be initialized...")
 		waitErr := wait.PollUntilContextTimeout(ctx, time.Second, 5*time.Minute, false, func(ctx context.Context) (done bool, err error) {
-			clusterInstance, err := managementClient.Loft().ManagementV1().Clusters().Get(ctx, clusterName, metav1.GetOptions{})
+			clusterInstance, err := managementClient.Khulnasoft().ManagementV1().Clusters().Get(ctx, clusterName, metav1.GetOptions{})
 			if err != nil && !kerrors.IsNotFound(err) {
 				return false, err
 			}

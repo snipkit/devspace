@@ -154,7 +154,7 @@ func (d *cliCollector) RecordCLI(err error) {
 	isPro := false
 	wd, wdErr := os.Getwd()
 	if wdErr == nil {
-		if strings.HasPrefix(wd, "/var/lib/loft/devspace") {
+		if strings.HasPrefix(wd, "/var/lib/khulnasoft/devspace") {
 			isPro = true
 		}
 	}

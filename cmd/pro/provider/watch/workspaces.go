@@ -11,7 +11,7 @@ import (
 
 	managementv1 "dev.khulnasoft.com/api/pkg/apis/management/v1"
 	storagev1 "dev.khulnasoft.com/api/pkg/apis/storage/v1"
-	loftclient "dev.khulnasoft.com/api/pkg/clientset/versioned"
+	khulnasoftclient "dev.khulnasoft.com/api/pkg/clientset/versioned"
 	informers "dev.khulnasoft.com/api/pkg/informers/externalversions"
 	informermanagementv1 "dev.khulnasoft.com/api/pkg/informers/externalversions/management/v1"
 	"dev.khulnasoft.com/cmd/pro/flags"
@@ -73,7 +73,7 @@ func (cmd *WorkspacesCmd) Run(ctx context.Context, stdin io.Reader, stdout io.Wr
 		cmd.Context = config.DefaultContext
 	}
 
-	projectName := os.Getenv(provider.LOFT_PROJECT)
+	projectName := os.Getenv(provider.KHULNASOFT_PROJECT)
 	if projectName == "" {
 		return fmt.Errorf("project name not found")
 	}
@@ -88,7 +88,7 @@ func (cmd *WorkspacesCmd) Run(ctx context.Context, stdin io.Reader, stdout io.Wr
 		return err
 	}
 
-	clientset, err := loftclient.NewForConfig(managementConfig)
+	clientset, err := khulnasoftclient.NewForConfig(managementConfig)
 	if err != nil {
 		return err
 	}
@@ -99,7 +99,7 @@ func (cmd *WorkspacesCmd) Run(ctx context.Context, stdin io.Reader, stdout io.Wr
 	workspaceInformer := factory.Management().V1().DevSpaceWorkspaceInstances()
 
 	self := baseClient.Self()
-	filterByOwner := os.Getenv(provider.LOFT_FILTER_BY_OWNER) == "true"
+	filterByOwner := os.Getenv(provider.KHULNASOFT_FILTER_BY_OWNER) == "true"
 	instanceStore := newStore(workspaceInformer, self, cmd.Context, filterByOwner, cmd.Log)
 
 	_, err = workspaceInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{

@@ -28,7 +28,7 @@ import (
 )
 
 const (
-	LOFT_ADMIN_HOST = "admin.loft.sh"
+	KHULNASOFT_ADMIN_HOST = "admin.khulnasoft.com"
 )
 
 func init() {
@@ -179,7 +179,7 @@ func getInterfaceByRoute(host string) (*net.Interface, error) {
 
 func defaultRoute() (d DefaultRouteDetails, err error) {
 	// By default, try to fetch the interface using ip route command.
-	iface, err := getInterfaceByRoute(LOFT_ADMIN_HOST)
+	iface, err := getInterfaceByRoute(KHULNASOFT_ADMIN_HOST)
 	if err == nil {
 		d.InterfaceName = iface.Name
 		d.InterfaceIndex = iface.Index

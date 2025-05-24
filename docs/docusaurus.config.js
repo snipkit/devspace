@@ -6,7 +6,7 @@ module.exports = {
   url: "https://dev.khulnasoft.com",
   baseUrl: __webpack_public_path__,
   favicon: "/media/devspace-favicon.svg",
-  organizationName: "loft-sh", // Usually your GitHub org/user name.
+  organizationName: "khulnasoft-sh", // Usually your GitHub org/user name.
   projectName: "devspace", // Usually your repo name.
   themeConfig: {
     colorMode: {
@@ -35,13 +35,13 @@ module.exports = {
           position: "left",
         },
         {
-          href: "https://loft.sh/blog",
+          href: "https://khulnasoft.com/blog",
           label: "Blog",
           position: "left",
           target: "_self",
         },
         {
-          href: "https://slack.loft.sh/",
+          href: "https://slack.khulnasoft.com/",
           className: "slack-link",
           "aria-label": "Slack",
           position: "right",
@@ -65,7 +65,7 @@ module.exports = {
     footer: {
       style: "light",
       links: [],
-      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://loft.sh/">Loft Labs, Inc.</a>`,
+      copyright: `Copyright © ${new Date().getFullYear()} <a href="https://khulnasoft.com/">Khulnasoft Labs, Inc.</a>`,
     },
   },
   presets: [

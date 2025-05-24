@@ -23,7 +23,7 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-const ProjectLabel = "loft.sh/project"
+const ProjectLabel = "khulnasoft.com/project"
 
 func List(ctx context.Context, devSpaceConfig *config.Config, skipPro bool, owner platform.OwnerFilter, log log.Logger) ([]*providerpkg.Workspace, error) {
 	// list local workspaces
@@ -236,10 +236,10 @@ func listProWorkspacesForProvider(ctx context.Context, devSpaceConfig *config.Co
 		} else {
 			var ts int64
 			if instance.Annotations != nil {
-				if val, ok := instance.Annotations["sleepmode.loft.sh/last-activity"]; ok {
+				if val, ok := instance.Annotations["sleepmode.khulnasoft.com/last-activity"]; ok {
 					var err error
 					if ts, err = strconv.ParseInt(val, 10, 64); err != nil {
-						log.Warn("received invalid sleepmode.loft.sh/last-activity from ", instance.GetName())
+						log.Warn("received invalid sleepmode.khulnasoft.com/last-activity from ", instance.GetName())
 					}
 				}
 			}
@@ -302,7 +302,7 @@ func shouldDeleteLocalWorkspace(ctx context.Context, localWorkspace *providerpkg
 
 func listInstancesProxyProvider(ctx context.Context, devSpaceConfig *config.Config, provider string, providerConfig *providerpkg.ProviderConfig, log log.Logger) ([]managementv1.DevSpaceWorkspaceInstance, error) {
 	opts := devSpaceConfig.ProviderOptions(provider)
-	opts[providerpkg.LOFT_FILTER_BY_OWNER] = config.OptionValue{Value: "true"}
+	opts[providerpkg.KHULNASOFT_FILTER_BY_OWNER] = config.OptionValue{Value: "true"}
 	var stdout bytes.Buffer
 	var stderr bytes.Buffer
 

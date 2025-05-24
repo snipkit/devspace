@@ -5,7 +5,7 @@ package v1
 import (
 	"net/http"
 
-	v1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	v1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	"dev.khulnasoft.com/agentapi/pkg/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
@@ -15,7 +15,7 @@ type StorageV1Interface interface {
 	ClusterQuotasGetter
 }
 
-// StorageV1Client is used to interact with features provided by the storage.loft.sh group.
+// StorageV1Client is used to interact with features provided by the storage.khulnasoft.com group.
 type StorageV1Client struct {
 	restClient rest.Interface
 }

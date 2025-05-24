@@ -1,7 +1,7 @@
 package v1
 
 import (
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -110,7 +110,7 @@ type AppConfig struct {
 	// +optional
 	Config clusterv1.HelmReleaseConfig `json:"config,omitempty"`
 
-	// Wait determines if Loft should wait during deploy for the app to become ready
+	// Wait determines if Khulnasoft should wait during deploy for the app to become ready
 	// +optional
 	Wait bool `json:"wait,omitempty"`
 
@@ -189,11 +189,11 @@ type AppParameter struct {
 }
 
 type UserOrTeam struct {
-	// User specifies a Loft user.
+	// User specifies a Khulnasoft user.
 	// +optional
 	User string `json:"user,omitempty"`
 
-	// Team specifies a Loft team.
+	// Team specifies a Khulnasoft team.
 	// +optional
 	Team string `json:"team,omitempty"`
 }

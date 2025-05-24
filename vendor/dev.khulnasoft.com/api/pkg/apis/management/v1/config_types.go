@@ -11,7 +11,7 @@ import (
 // +genclient:nonNamespaced
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// Config holds the loft configuration
+// Config holds the khulnasoft configuration
 // +k8s:openapi-gen=true
 // +resource:path=configs,rest=ConfigREST
 type Config struct {
@@ -47,11 +47,11 @@ type ConfigStatus struct {
 	// +optional
 	Audit *Audit `json:"audit,omitempty"`
 
-	// LoftHost holds the domain where the loft instance is hosted. This should not include https or http. E.g. loft.my-domain.com
+	// KhulnasoftHost holds the domain where the khulnasoft instance is hosted. This should not include https or http. E.g. khulnasoft.my-domain.com
 	// +optional
-	LoftHost string `json:"loftHost,omitempty"`
+	KhulnasoftHost string `json:"khulnasoftHost,omitempty"`
 
-	// ProjectNamespacePrefix holds the prefix for loft project namespaces. Omitted defaults to "p-"
+	// ProjectNamespacePrefix holds the prefix for khulnasoft project namespaces. Omitted defaults to "p-"
 	// +optional
 	ProjectNamespacePrefix *string `json:"projectNamespacePrefix,omitempty"`
 
@@ -59,7 +59,7 @@ type ConfigStatus struct {
 	// +optional
 	DevSpaceSubDomain string `json:"devSpaceSubDomain,omitempty"`
 
-	// UISettings holds the settings for modifying the Loft user interface
+	// UISettings holds the settings for modifying the Khulnasoft user interface
 	// +optional
 	UISettings *uiv1.UISettingsConfig `json:"uiSettings,omitempty"`
 
@@ -67,7 +67,7 @@ type ConfigStatus struct {
 	// +optional
 	VaultIntegration *storagev1.VaultIntegrationSpec `json:"vault,omitempty"`
 
-	// DisableLoftConfigEndpoint will disable setting config via the UI and config.management.loft.sh endpoint
+	// DisableKhulnasoftConfigEndpoint will disable setting config via the UI and config.management.khulnasoft.com endpoint
 	DisableConfigEndpoint bool `json:"disableConfigEndpoint,omitempty"`
 
 	// Cloud holds the settings to be used exclusively in vCluster Cloud based
@@ -78,14 +78,14 @@ type ConfigStatus struct {
 	CostControl *CostControl `json:"costControl,omitempty"`
 }
 
-// Audit holds the audit configuration options for loft. Changing any options will require a loft restart
+// Audit holds the audit configuration options for khulnasoft. Changing any options will require a khulnasoft restart
 // to take effect.
 type Audit struct {
 	// If audit is enabled and incoming api requests will be logged based on the supplied policy.
 	// +optional
 	Enabled bool `json:"enabled,omitempty"`
 
-	// If true, the agent will not send back any audit logs to Loft itself.
+	// If true, the agent will not send back any audit logs to Khulnasoft itself.
 	// +optional
 	DisableAgentSyncBack bool `json:"disableAgentSyncBack,omitempty"`
 
@@ -93,7 +93,7 @@ type Audit struct {
 	// +optional
 	Level int `json:"level,omitempty"`
 
-	// The audit policy to use and log requests. By default loft will not log anything
+	// The audit policy to use and log requests. By default khulnasoft will not log anything
 	// +optional
 	Policy AuditPolicy `json:"policy,omitempty"`
 
@@ -135,7 +135,7 @@ type Audit struct {
 	Compress bool `json:"compress,omitempty"`
 }
 
-// AuditPolicy describes the audit policy to use for loft
+// AuditPolicy describes the audit policy to use for khulnasoft
 type AuditPolicy struct {
 	// Rules specify the audit Level a request should be recorded at.
 	// A request may match multiple rules, in which case the FIRST matching rule is used.
@@ -238,11 +238,11 @@ type GroupResources struct {
 
 // Apps holds configuration for apps that should be shown
 type Apps struct {
-	// If this option is true, loft will not try to parse the default apps
+	// If this option is true, khulnasoft will not try to parse the default apps
 	// +optional
 	NoDefault bool `json:"noDefault,omitempty"`
 
-	// These are additional repositories that are parsed by loft
+	// These are additional repositories that are parsed by khulnasoft
 	// +optional
 	Repositories []storagev1.HelmChartRepository `json:"repositories,omitempty"`
 
@@ -265,7 +265,7 @@ type PredefinedApp struct {
 	// InitialValues holds the initial values for this app.
 	// The values will be prefilled automatically. There are certain
 	// placeholders that can be used within the values that are replaced
-	// by the loft UI automatically.
+	// by the khulnasoft UI automatically.
 	// +optional
 	InitialValues string `json:"initialValues,omitempty"`
 
@@ -291,13 +291,13 @@ type PredefinedApp struct {
 
 // OIDC holds oidc provider relevant information
 type OIDC struct {
-	// If true indicates that loft will act as an OIDC server
+	// If true indicates that khulnasoft will act as an OIDC server
 	Enabled bool `json:"enabled,omitempty"`
 
-	// If true indicates that loft will allow wildcard '*' in client redirectURIs
+	// If true indicates that khulnasoft will allow wildcard '*' in client redirectURIs
 	WildcardRedirect bool `json:"wildcardRedirect,omitempty"`
 
-	// The clients that are allowed to request loft tokens
+	// The clients that are allowed to request khulnasoft tokens
 	Clients []OIDCClientSpec `json:"clients,omitempty"`
 }
 
@@ -313,7 +313,7 @@ type Authentication struct {
 	// +optional
 	Password *AuthenticationPassword `json:"password,omitempty"`
 
-	// Connectors are optional additional connectors for Loft.
+	// Connectors are optional additional connectors for Khulnasoft.
 	// +optional
 	Connectors []ConnectorWithName `json:"connectors,omitempty"`
 
@@ -359,7 +359,7 @@ type AuthenticationRancher struct {
 	// +optional
 	BearerToken string `json:"bearerToken,omitempty"`
 
-	// Insecure tells Loft if the Rancher endpoint is insecure.
+	// Insecure tells Khulnasoft if the Rancher endpoint is insecure.
 	// +optional
 	Insecure bool `json:"insecure,omitempty"`
 }
@@ -405,7 +405,7 @@ type Connector struct {
 type AuthenticationSAML struct {
 	// If the response assertion status value contains a Destination element, it
 	// must match this value exactly.
-	// Usually looks like https://your-loft-domain/auth/saml/callback
+	// Usually looks like https://your-khulnasoft-domain/auth/saml/callback
 	RedirectURI string `json:"redirectURI,omitempty"`
 	// SSO URL used for POST value.
 	SSOURL string `json:"ssoURL,omitempty"`
@@ -429,7 +429,7 @@ type AuthenticationSAML struct {
 	// +optional
 	InsecureSkipSignatureValidation bool `json:"insecureSkipSignatureValidation,omitempty"`
 
-	// When provided Loft will include this as the Issuer value during AuthnRequest.
+	// When provided Khulnasoft will include this as the Issuer value during AuthnRequest.
 	// It will also override the redirectURI as the required audience when evaluating
 	// AudienceRestriction elements in the response.
 	// +optional
@@ -479,21 +479,21 @@ type AuthenticationMicrosoft struct {
 	// Microsoft client secret
 	ClientSecret string `json:"clientSecret"`
 
-	// loft redirect uri. Usually https://loft.my.domain/auth/microsoft/callback
+	// khulnasoft redirect uri. Usually https://khulnasoft.my.domain/auth/microsoft/callback
 	RedirectURI string `json:"redirectURI"`
 
-	// tenant configuration parameter controls what kinds of accounts may be authenticated in loft.
-	// By default, all types of Microsoft accounts (consumers and organizations) can authenticate in loft via Microsoft.
+	// tenant configuration parameter controls what kinds of accounts may be authenticated in khulnasoft.
+	// By default, all types of Microsoft accounts (consumers and organizations) can authenticate in khulnasoft via Microsoft.
 	// To change this, set the tenant parameter to one of the following:
 	//
-	// common - both personal and business/school accounts can authenticate in loft via Microsoft (default)
-	// consumers - only personal accounts can authenticate in loft
-	// organizations - only business/school accounts can authenticate in loft
-	// tenant uuid or tenant name - only accounts belonging to specific tenant identified by either tenant uuid or tenant name can authenticate in loft
+	// common - both personal and business/school accounts can authenticate in khulnasoft via Microsoft (default)
+	// consumers - only personal accounts can authenticate in khulnasoft
+	// organizations - only business/school accounts can authenticate in khulnasoft
+	// tenant uuid or tenant name - only accounts belonging to specific tenant identified by either tenant uuid or tenant name can authenticate in khulnasoft
 	// +optional
 	Tenant string `json:"tenant,omitempty"`
 
-	// It is possible to require a user to be a member of a particular group in order to be successfully authenticated in loft.
+	// It is possible to require a user to be a member of a particular group in order to be successfully authenticated in khulnasoft.
 	// +optional
 	Groups []string `json:"groups,omitempty"`
 
@@ -513,7 +513,7 @@ type AuthenticationGoogle struct {
 	// Google client secret
 	ClientSecret string `json:"clientSecret"`
 
-	// loft redirect uri. E.g. https://loft.my.domain/auth/google/callback
+	// khulnasoft redirect uri. E.g. https://khulnasoft.my.domain/auth/google/callback
 	RedirectURI string `json:"redirectURI"`
 
 	// defaults to "profile" and "email"
@@ -571,16 +571,16 @@ type AuthenticationGithub struct {
 	// ClientID holds the github client secret
 	ClientSecret string `json:"clientSecret"`
 
-	// RedirectURI holds the redirect URI. Should be https://loft.domain.tld/auth/github/callback
+	// RedirectURI holds the redirect URI. Should be https://khulnasoft.domain.tld/auth/github/callback
 	RedirectURI string `json:"redirectURI"`
 
-	// Loft queries the following organizations for group information.
+	// Khulnasoft queries the following organizations for group information.
 	// Group claims are formatted as "(org):(team)".
 	// For example if a user is part of the "engineering" team of the "coreos"
 	// org, the group claim would include "coreos:engineering".
 	//
 	// If orgs are specified in the config then user MUST be a member of at least one of the specified orgs to
-	// authenticate with loft.
+	// authenticate with khulnasoft.
 	// +optional
 	Orgs []AuthenticationGithubOrg `json:"orgs,omitempty"`
 
@@ -634,10 +634,10 @@ type AuthenticationOIDC struct {
 	// ClientSecret to issue tokens from the OIDC provider
 	ClientSecret string `json:"clientSecret,omitempty"`
 
-	// loft redirect uri. E.g. https://loft.my.domain/auth/oidc/callback
+	// khulnasoft redirect uri. E.g. https://khulnasoft.my.domain/auth/oidc/callback
 	RedirectURI string `json:"redirectURI,omitempty"`
 
-	// Loft URI to be redirected to after successful logout by OIDC Provider
+	// Khulnasoft URI to be redirected to after successful logout by OIDC Provider
 	// +optional
 	PostLogoutRedirectURI string `json:"postLogoutRedirectURI,omitempty"`
 
@@ -653,9 +653,9 @@ type AuthenticationOIDC struct {
 	// +optional
 	PreferredUsernameClaim string `json:"preferredUsername,omitempty"`
 
-	// LoftUsernameClaim is the JWT field to use as the user's username.
+	// KhulnasoftUsernameClaim is the JWT field to use as the user's username.
 	// +optional
-	LoftUsernameClaim string `json:"loftUsernameClaim,omitempty"`
+	KhulnasoftUsernameClaim string `json:"khulnasoftUsernameClaim,omitempty"`
 
 	// UsernameClaim is the JWT field to use as the user's id.
 	// +optional

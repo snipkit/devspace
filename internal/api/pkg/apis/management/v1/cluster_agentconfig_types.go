@@ -6,7 +6,7 @@ import (
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// ClusterAgentConfig holds the loft agent configuration
+// ClusterAgentConfig holds the khulnasoft agent configuration
 // +subresource-request
 type ClusterAgentConfig struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -28,22 +28,22 @@ type ClusterAgentConfigCommon struct {
 	// +optional
 	DefaultImageRegistry string `json:"defaultImageRegistry,omitempty"`
 
-	// TokenCaCert is the certificate authority the Loft tokens will
+	// TokenCaCert is the certificate authority the Khulnasoft tokens will
 	// be signed with
 	// +optional
 	TokenCaCert []byte `json:"tokenCaCert,omitempty"`
 
-	// LoftHost defines the host for the agent's loft instance
+	// KhulnasoftHost defines the host for the agent's khulnasoft instance
 	// +optional
-	LoftHost string `json:"loftHost,omitempty"`
+	KhulnasoftHost string `json:"khulnasoftHost,omitempty"`
 
-	// ProjectNamespacePrefix holds the prefix for loft project namespaces
+	// ProjectNamespacePrefix holds the prefix for khulnasoft project namespaces
 	// +optional
 	ProjectNamespacePrefix string `json:"projectNamespacePrefix,omitempty"`
 
-	// LoftInstanceID defines the instance id from the loft instance
+	// KhulnasoftInstanceID defines the instance id from the khulnasoft instance
 	// +optional
-	LoftInstanceID string `json:"loftInstanceID,omitempty"`
+	KhulnasoftInstanceID string `json:"khulnasoftInstanceID,omitempty"`
 
 	// AnalyticsSpec holds info needed for the agent to send analytics data to the analytics backend.
 	AnalyticsSpec AgentAnalyticsSpec `json:"analyticsSpec"`
@@ -54,7 +54,7 @@ type AgentAuditConfig struct {
 	// +optional
 	Enabled bool `json:"enabled,omitempty"`
 
-	// If true, the agent will not send back any audit logs to Loft itself.
+	// If true, the agent will not send back any audit logs to Khulnasoft itself.
 	// +optional
 	DisableAgentSyncBack bool `json:"disableAgentSyncBack,omitempty"`
 
@@ -62,7 +62,7 @@ type AgentAuditConfig struct {
 	// +optional
 	Level int `json:"level,omitempty"`
 
-	// The audit policy to use and log requests. By default loft will not log anything
+	// The audit policy to use and log requests. By default khulnasoft will not log anything
 	// +optional
 	Policy AuditPolicy `json:"policy,omitempty"`
 

@@ -4,7 +4,7 @@
 
   <name>Devspace</name>
   <summary>Codespaces but open-source, client-only and unopinionated: Works with any IDE and lets you use any cloud, kubernetes or just localhost docker.</summary>
-  <developer_name>Loft Labs</developer_name>
+  <developer_name>Khulnasoft Labs</developer_name>
 
   <metadata_license>FSFAP</metadata_license>
   <project_license>MPL-2.0</project_license>

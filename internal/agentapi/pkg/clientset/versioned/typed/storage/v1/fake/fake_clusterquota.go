@@ -5,7 +5,7 @@ package fake
 import (
 	"context"
 
-	v1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	v1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	types "k8s.io/apimachinery/pkg/types"

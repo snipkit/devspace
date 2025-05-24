@@ -42,13 +42,13 @@ func TestToID(t *testing.T) {
 		},
 		{
 			name:  "Local directory",
-			input: "/home/loft/devspace",
+			input: "/home/khulnasoft/devspace",
 			want:  "devspace",
 		},
 		{
 			name:  "Branch with valid characters",
 			input: "dev.khulnasoft.com@feature1",
-			want:  "github-com-loft-sh-devspace",
+			want:  "github-com-khulnasoft-sh-devspace",
 		},
 		{
 			name:  "Branch with valid characters and /",

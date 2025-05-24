@@ -177,7 +177,7 @@ func collectProWorkspaceInfo(
 	}
 
 	troubleshoot, err := managementClient.
-		Loft().
+		Khulnasoft().
 		ManagementV1().
 		DevSpaceWorkspaceInstances(workspace.Namespace).
 		Troubleshoot(ctx, workspace.Name, metav1.GetOptions{})

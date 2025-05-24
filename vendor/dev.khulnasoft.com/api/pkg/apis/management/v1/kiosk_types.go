@@ -1,8 +1,8 @@
 package v1
 
 import (
-	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	clusterv1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	uiv1 "dev.khulnasoft.com/api/pkg/apis/ui/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
@@ -23,15 +23,15 @@ type Kiosk struct {
 }
 
 type KioskSpec struct {
-	// cluster.loft.sh
+	// cluster.khulnasoft.com
 	HelmRelease     clusterv1.HelmRelease     `json:"helmRelease,omitempty"`
 	SleepModeConfig clusterv1.SleepModeConfig `json:"sleepModeConfig,omitempty"`
 	ChartInfo       clusterv1.ChartInfo       `json:"chartInfo,omitempty"`
 
-	// storage.loft.sh
+	// storage.khulnasoft.com
 	StorageClusterQuota agentstoragev1.ClusterQuota `json:"storageClusterQuota,omitempty"`
 
-	// ui.loft.sh
+	// ui.khulnasoft.com
 	UISettings uiv1.UISettings `json:"UISettings,omitempty"`
 
 	License License `json:"license,omitempty"`

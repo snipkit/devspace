@@ -6,14 +6,14 @@ import (
 
 // LoginCmd returns the login command for the product
 func LoginCmd() string {
-	loginCmd := "loft login"
+	loginCmd := "khulnasoft login"
 
 	switch Name() {
 	case licenseapi.DevSpacePro:
 		return "devspace login"
 	case licenseapi.VClusterPro:
 		return "vcluster login"
-	case licenseapi.Loft:
+	case licenseapi.Khulnasoft:
 	}
 
 	return loginCmd
@@ -21,14 +21,14 @@ func LoginCmd() string {
 
 // StartCmd returns the start command for the product
 func StartCmd() string {
-	loginCmd := "loft start"
+	loginCmd := "khulnasoft start"
 
 	switch Name() {
 	case licenseapi.DevSpacePro:
 		loginCmd = "devspace pro start"
 	case licenseapi.VClusterPro:
 		loginCmd = "vcluster platform start"
-	case licenseapi.Loft:
+	case licenseapi.Khulnasoft:
 	}
 
 	return loginCmd
@@ -36,14 +36,14 @@ func StartCmd() string {
 
 // Url returns the url command for the product
 func Url() string {
-	loginCmd := "loft-url"
+	loginCmd := "khulnasoft-url"
 
 	switch Name() {
 	case licenseapi.DevSpacePro:
 		loginCmd = "devspace-pro-url"
 	case licenseapi.VClusterPro:
 		loginCmd = "vcluster-pro-url"
-	case licenseapi.Loft:
+	case licenseapi.Khulnasoft:
 	}
 
 	return loginCmd
@@ -51,14 +51,14 @@ func Url() string {
 
 // ResetPassword returns the reset password command for the product
 func ResetPassword() string {
-	resetPassword := "loft reset password"
+	resetPassword := "khulnasoft reset password"
 
 	switch Name() {
 	case licenseapi.DevSpacePro:
 		return "devspace pro reset password"
 	case licenseapi.VClusterPro:
 		return "vcluster platform reset password"
-	case licenseapi.Loft:
+	case licenseapi.Khulnasoft:
 	}
 
 	return resetPassword

@@ -6,7 +6,7 @@ NS=${1:-"default"}
 RACE=${2:-"no"}
 
 if [[ ! $PWD == *"/go/src/devspace"* ]]; then
-  echo "Please run this script from the /workspace/loft/devspace directory"
+  echo "Please run this script from the /workspace/khulnasoft/devspace directory"
   exit 1
 fi
 

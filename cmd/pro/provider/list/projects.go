@@ -65,7 +65,7 @@ func Projects(ctx context.Context, client client.Client) (*managementv1.ProjectL
 		return nil, err
 	}
 
-	projectList, err := managementClient.Loft().ManagementV1().Projects().List(ctx, metav1.ListOptions{})
+	projectList, err := managementClient.Khulnasoft().ManagementV1().Projects().List(ctx, metav1.ListOptions{})
 	if err != nil {
 		return projectList, fmt.Errorf("list projects: %w", err)
 	} else if len(projectList.Items) == 0 {

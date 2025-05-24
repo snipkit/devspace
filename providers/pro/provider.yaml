@@ -4,11 +4,11 @@ icon: https://dev.khulnasoft.com/assets/devspace.svg
 home: https://dev.khulnasoft.com
 description: DevSpace Pro
 options:
-  LOFT_CONFIG:
+  KHULNASOFT_CONFIG:
     global: true
     hidden: true
     required: true
-    default: "${PROVIDER_FOLDER}/loft-config.json"
+    default: "${PROVIDER_FOLDER}/khulnasoft-config.json"
 exec:
   daemon:
     start: ${DEVSPACE} pro daemon start

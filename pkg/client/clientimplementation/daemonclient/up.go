@@ -38,7 +38,7 @@ func (c *client) Up(ctx context.Context, opt clientpkg.UpOptions) (*config.Resul
 	}
 
 	// check if the workspace is migrated and we need to force recreate or reset
-	if instance.Annotations["loft.sh/migrated"] == "true" && !opt.Recreate && !opt.Reset {
+	if instance.Annotations["khulnasoft.com/migrated"] == "true" && !opt.Recreate && !opt.Reset {
 		if os.Getenv("DEVSPACE_UI") == "true" {
 			return nil, fmt.Errorf("workspace %s is migrated and needs to be rebuild or reset. Please click on rebuild or reset on the workspace to do this", c.workspace.ID)
 		} else {
@@ -79,7 +79,7 @@ func (c *client) Up(ctx context.Context, opt clientpkg.UpOptions) (*config.Resul
 	// if we have an active up task, cancel it before creating a new one
 	if activeUpTask != nil {
 		c.log.Warnf("Found active up task %s, attempting to cancel it", activeUpTask.ID)
-		_, err = managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(instance.Namespace).Cancel(ctx, instance.Name, &managementv1.DevSpaceWorkspaceInstanceCancel{
+		_, err = managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(instance.Namespace).Cancel(ctx, instance.Name, &managementv1.DevSpaceWorkspaceInstanceCancel{
 			TaskID: activeUpTask.ID,
 		}, metav1.CreateOptions{})
 		if err != nil {
@@ -88,7 +88,7 @@ func (c *client) Up(ctx context.Context, opt clientpkg.UpOptions) (*config.Resul
 	}
 
 	// create up task
-	task, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(instance.Namespace).Up(ctx, instance.Name, &managementv1.DevSpaceWorkspaceInstanceUp{
+	task, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(instance.Namespace).Up(ctx, instance.Name, &managementv1.DevSpaceWorkspaceInstanceUp{
 		Spec: managementv1.DevSpaceWorkspaceInstanceUpSpec{
 			Debug:   opt.Debug,
 			Options: string(rawOptions),
@@ -113,7 +113,7 @@ func waitTaskDone(ctx context.Context, managementClient kube.Interface, instance
 
 	// get result
 	tasks := &managementv1.DevSpaceWorkspaceInstanceTasks{}
-	err = managementClient.Loft().ManagementV1().RESTClient().Get().
+	err = managementClient.Khulnasoft().ManagementV1().RESTClient().Get().
 		Namespace(instance.Namespace).
 		Resource("devspaceworkspaceinstances").
 		Name(instance.Name).
@@ -191,7 +191,7 @@ func observeTask(ctx context.Context, managementClient kube.Interface, instance 
 			defer cancel()
 			defer cancelPrintCtx()
 
-			_, err := managementClient.Loft().ManagementV1().DevSpaceWorkspaceInstances(instance.Namespace).Cancel(timeoutCtx, instance.Name, &managementv1.DevSpaceWorkspaceInstanceCancel{
+			_, err := managementClient.Khulnasoft().ManagementV1().DevSpaceWorkspaceInstances(instance.Namespace).Cancel(timeoutCtx, instance.Name, &managementv1.DevSpaceWorkspaceInstanceCancel{
 				TaskID: taskID,
 			}, metav1.CreateOptions{})
 			if err != nil {
@@ -228,7 +228,7 @@ type Message struct {
 func printLogs(ctx context.Context, managementClient kube.Interface, workspace *managementv1.DevSpaceWorkspaceInstance, taskID string, logger log.Logger) (int, error) {
 	// get logs reader
 	logger.Debugf("printing logs of task: %s", taskID)
-	logsReader, err := managementClient.Loft().ManagementV1().RESTClient().Get().
+	logsReader, err := managementClient.Khulnasoft().ManagementV1().RESTClient().Get().
 		Namespace(workspace.Namespace).
 		Resource("devspaceworkspaceinstances").
 		Name(workspace.Name).
@@ -314,7 +314,7 @@ const (
 
 func findActiveUpTask(ctx context.Context, managementClient kube.Interface, instance *managementv1.DevSpaceWorkspaceInstance) (*managementv1.DevSpaceWorkspaceInstanceTask, error) {
 	tasks := &managementv1.DevSpaceWorkspaceInstanceTasks{}
-	err := managementClient.Loft().ManagementV1().RESTClient().Get().
+	err := managementClient.Khulnasoft().ManagementV1().RESTClient().Get().
 		Namespace(instance.Namespace).
 		Resource("devspaceworkspaceinstances").
 		Name(instance.Name).

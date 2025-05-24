@@ -33,7 +33,7 @@ func main() {
 
 	parser.NeedPackage(v1Pkg)
 
-	groupKind := schema.GroupKind{Kind: "VirtualCluster", Group: "storage.loft.sh"}
+	groupKind := schema.GroupKind{Kind: "VirtualCluster", Group: "storage.khulnasoft.com"}
 	parser.NeedCRDFor(groupKind, nil)
 
 	crd, ok := parser.CustomResourceDefinitions[groupKind]

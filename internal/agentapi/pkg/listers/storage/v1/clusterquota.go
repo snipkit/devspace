@@ -3,7 +3,7 @@
 package v1
 
 import (
-	v1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	v1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	"k8s.io/apimachinery/pkg/labels"
 	"k8s.io/client-go/listers"
 	"k8s.io/client-go/tools/cache"

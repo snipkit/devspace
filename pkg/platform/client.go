@@ -21,9 +21,9 @@ func InitClientFromHost(ctx context.Context, devSpaceConfig *config.Config, devS
 }
 
 func InitClientFromProvider(ctx context.Context, devSpaceConfig *config.Config, providerName string, log log.Logger) (client.Client, error) {
-	configPath, err := LoftConfigPath(devSpaceConfig.DefaultContext, providerName)
+	configPath, err := KhulnasoftConfigPath(devSpaceConfig.DefaultContext, providerName)
 	if err != nil {
-		return nil, fmt.Errorf("loft config path: %w", err)
+		return nil, fmt.Errorf("khulnasoft config path: %w", err)
 	}
 
 	return client.InitClientFromPath(ctx, configPath)
@@ -38,13 +38,13 @@ func ProviderFromHost(ctx context.Context, devSpaceConfig *config.Config, devSpa
 	return proInstanceConfig.Provider, nil
 }
 
-func LoftConfigPath(context string, providerName string) (string, error) {
+func KhulnasoftConfigPath(context string, providerName string) (string, error) {
 	providerDir, err := provider.GetProviderDir(context, providerName)
 	if err != nil {
 		return "", err
 	}
 
-	configPath := filepath.Join(providerDir, "loft-config.json")
+	configPath := filepath.Join(providerDir, "khulnasoft-config.json")
 
 	return configPath, nil
 }

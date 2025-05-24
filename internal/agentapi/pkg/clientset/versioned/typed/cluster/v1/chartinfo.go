@@ -5,7 +5,7 @@ package v1
 import (
 	"context"
 
-	v1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/cluster/v1"
+	v1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/cluster/v1"
 	scheme "dev.khulnasoft.com/agentapi/pkg/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"

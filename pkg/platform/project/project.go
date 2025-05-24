@@ -5,7 +5,7 @@ import (
 	"sync"
 )
 
-var DefaultProjectNamespacePrefix = "loft-p-"
+var DefaultProjectNamespacePrefix = "khulnasoft-p-"
 
 // having a nil value means the prefix is unset and things should panic and not fail silently
 var prefix *string

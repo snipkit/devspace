@@ -581,7 +581,7 @@ var file_tunnel_proto_depIdxs = []int32{
 	6,  // 5: tunnel.Tunnel.GitCredentials:input_type -> tunnel.Message
 	6,  // 6: tunnel.Tunnel.GitSSHSignature:input_type -> tunnel.Message
 	9,  // 7: tunnel.Tunnel.GitUser:input_type -> tunnel.Empty
-	6,  // 8: tunnel.Tunnel.LoftConfig:input_type -> tunnel.Message
+	6,  // 8: tunnel.Tunnel.KhulnasoftConfig:input_type -> tunnel.Message
 	6,  // 9: tunnel.Tunnel.GPGPublicKeys:input_type -> tunnel.Message
 	6,  // 10: tunnel.Tunnel.KubeConfig:input_type -> tunnel.Message
 	4,  // 11: tunnel.Tunnel.ForwardPort:input_type -> tunnel.ForwardPortRequest
@@ -596,7 +596,7 @@ var file_tunnel_proto_depIdxs = []int32{
 	6,  // 20: tunnel.Tunnel.GitCredentials:output_type -> tunnel.Message
 	6,  // 21: tunnel.Tunnel.GitSSHSignature:output_type -> tunnel.Message
 	6,  // 22: tunnel.Tunnel.GitUser:output_type -> tunnel.Message
-	6,  // 23: tunnel.Tunnel.LoftConfig:output_type -> tunnel.Message
+	6,  // 23: tunnel.Tunnel.KhulnasoftConfig:output_type -> tunnel.Message
 	6,  // 24: tunnel.Tunnel.GPGPublicKeys:output_type -> tunnel.Message
 	6,  // 25: tunnel.Tunnel.KubeConfig:output_type -> tunnel.Message
 	5,  // 26: tunnel.Tunnel.ForwardPort:output_type -> tunnel.ForwardPortResponse

@@ -1,7 +1,7 @@
 package v1
 
 import (
-	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/loft/storage/v1"
+	agentstoragev1 "dev.khulnasoft.com/agentapi/pkg/apis/khulnasoft/storage/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
@@ -118,7 +118,7 @@ type TemplateRef struct {
 
 	// Version holds the template version to use. Version is expected to
 	// be in semantic versioning format. Alternatively, you can also exchange
-	// major, minor or patch with an 'x' to tell Loft to automatically select
+	// major, minor or patch with an 'x' to tell Khulnasoft to automatically select
 	// the latest major, minor or patch version.
 	// +optional
 	Version string `json:"version,omitempty"`
